@@ -7,8 +7,6 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
-
-	"github.com/elgs/gojq"
 )
 
 func evalToken(symbolTable interface{}, token string) (interface{}, error) {
@@ -28,7 +26,7 @@ func evalToken(symbolTable interface{}, token string) (interface{}, error) {
 	if err == nil {
 		return floatToken, nil
 	}
-	jq := gojq.NewQuery(symbolTable)
+	jq := NewJSONQuery(symbolTable)
 	return jq.Query(token)
 }
 
