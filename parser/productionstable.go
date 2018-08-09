@@ -3,8 +3,28 @@
 package parser
 
 import (
+	"fmt"
+	"strconv"
+        "strings"
+
         "github.com/teslamotors/jsonql/ast"
+        "github.com/teslamotors/jsonql/token"
 )
+
+func String(a Attrib) string {
+     return string(a.(*token.Token).Lit) 
+}
+
+func SingleUnquote(tok string) (string, error) {
+     val := tok[1:len(tok)-1] 
+     // do something slow and hacky so we can re-use strconv.Unquote
+     val = strings.Replace(val, "\\'", "'", -1)
+     val = strings.Replace(val, "\"", "\\\"", -1)
+     val = fmt.Sprintf("\"%s\"", val)
+     unq, err := strconv.Unquote(val)
+     fmt.Printf("unq: %#v => %#v (err: %v)\n", val, unq, err)
+     return unq, err
+}
 
 type (
 	//TODO: change type and variable names to be consistent with other tables
@@ -23,7 +43,7 @@ type (
 
 var productionsTable = ProdTab{
 	ProdTabEntry{
-		String: `S' : NullLiteral	<<  >>`,
+		String: `S' : Expr	<<  >>`,
 		Id:         "S'",
 		NTType:     0,
 		Index:      0,
@@ -33,13 +53,123 @@ var productionsTable = ProdTab{
 		},
 	},
 	ProdTabEntry{
-		String: `NullLiteral : "null"	<< ast.Literal(nil) >>`,
-		Id:         "NullLiteral",
+		String: `Expr : Literal	<<  >>`,
+		Id:         "Expr",
 		NTType:     1,
 		Index:      1,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return ast.Literal(nil)
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `NullLiteral : "null"	<< nil, nil >>`,
+		Id:         "NullLiteral",
+		NTType:     2,
+		Index:      2,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return nil, nil
+		},
+	},
+	ProdTabEntry{
+		String: `BooleanLiteral : "true"	<< true, nil >>`,
+		Id:         "BooleanLiteral",
+		NTType:     3,
+		Index:      3,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return true, nil
+		},
+	},
+	ProdTabEntry{
+		String: `BooleanLiteral : "false"	<< false, nil >>`,
+		Id:         "BooleanLiteral",
+		NTType:     3,
+		Index:      4,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return false, nil
+		},
+	},
+	ProdTabEntry{
+		String: `NumericLiteral : intLit	<< strconv.ParseInt(String(X[0]), 0, 64) >>`,
+		Id:         "NumericLiteral",
+		NTType:     4,
+		Index:      5,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return strconv.ParseInt(String(X[0]), 0, 64)
+		},
+	},
+	ProdTabEntry{
+		String: `NumericLiteral : floatLit	<< strconv.ParseFloat(String(X[0]), 64) >>`,
+		Id:         "NumericLiteral",
+		NTType:     4,
+		Index:      6,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return strconv.ParseFloat(String(X[0]), 64)
+		},
+	},
+	ProdTabEntry{
+		String: `StringLiteral : doubleStringLit	<< strconv.Unquote(String(X[0])) >>`,
+		Id:         "StringLiteral",
+		NTType:     5,
+		Index:      7,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return strconv.Unquote(String(X[0]))
+		},
+	},
+	ProdTabEntry{
+		String: `StringLiteral : singleStringLit	<< SingleUnquote(String(X[0])) >>`,
+		Id:         "StringLiteral",
+		NTType:     5,
+		Index:      8,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return SingleUnquote(String(X[0]))
+		},
+	},
+	ProdTabEntry{
+		String: `Literal : NullLiteral	<< ast.Literal(X[0]) >>`,
+		Id:         "Literal",
+		NTType:     6,
+		Index:      9,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.Literal(X[0])
+		},
+	},
+	ProdTabEntry{
+		String: `Literal : BooleanLiteral	<< ast.Literal(X[0]) >>`,
+		Id:         "Literal",
+		NTType:     6,
+		Index:      10,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.Literal(X[0])
+		},
+	},
+	ProdTabEntry{
+		String: `Literal : NumericLiteral	<< ast.Literal(X[0]) >>`,
+		Id:         "Literal",
+		NTType:     6,
+		Index:      11,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.Literal(X[0])
+		},
+	},
+	ProdTabEntry{
+		String: `Literal : StringLiteral	<< ast.Literal(X[0]) >>`,
+		Id:         "Literal",
+		NTType:     6,
+		Index:      12,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.Literal(X[0])
 		},
 	},
 }
