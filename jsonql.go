@@ -3,7 +3,10 @@ package jsonql
 import (
 	"encoding/json"
 	"fmt"
-	"strconv"
+
+	"github.com/teslamotors/jsonql/ast"
+	"github.com/teslamotors/jsonql/lexer"
+	"github.com/teslamotors/jsonql/parser"
 )
 
 // JSONQL - JSON Query Lang struct encapsulating the JSON data.
@@ -27,48 +30,58 @@ func NewQuery(jsonObject interface{}) *JSONQL {
 }
 
 // Query - queries against the JSON using the conditions specified in the where stirng.
-func (thisJSONQL *JSONQL) Query(where string) (interface{}, error) {
-	parser := &Parser{
-		Operators: sqlOperators,
-	}
-	tokens := parser.Tokenize(where)
-	rpn, err := parser.ParseRPN(tokens)
+func Parse(expr string) (ast.Expr, error) {
+	lex := lexer.NewLexer([]byte(expr))
+	p := parser.NewParser()
+	st, err := p.Parse(lex)
 	if err != nil {
 		return nil, err
 	}
+	astExpr, ok := st.(ast.Expr)
+	if !ok {
+		return nil, fmt.Errorf("parsing JSONQL returned a %T", st)
+	}
+	return astExpr, nil
+}
+
+// Query is a JSON QL query
+func (thisJSONQL *JSONQL) Query(where string) (interface{}, error) {
+	ast, err := Parse(where)
+	if err != nil {
+		return nil, err
+	}
+	return thisJSONQL.QueryExpr(ast)
+}
+
+// Query - queries against the JSON using the conditions specified in the where stirng.
+func (thisJSONQL *JSONQL) QueryExpr(expr ast.Expr) (interface{}, error) {
 	switch v := thisJSONQL.Data.(type) {
 	case []interface{}:
 		ret := []interface{}{}
 		for _, obj := range v {
-			parser.SymbolTable = obj
-			r, err := thisJSONQL.processObj(parser, *rpn)
+			val, err := expr.Evaluate(obj)
 			if err != nil {
 				return nil, err
 			}
-			if r {
+			switch val {
+			case nil, false:
+			default:
 				ret = append(ret, obj)
 			}
 		}
 		return ret, nil
 	case map[string]interface{}:
-		parser.SymbolTable = v
-		r, err := thisJSONQL.processObj(parser, *rpn)
+		val, err := expr.Evaluate(v)
 		if err != nil {
 			return nil, err
 		}
-		if r {
+		switch val {
+		case nil, false, int(0), "":
+			return nil, nil
+		default:
 			return v, nil
 		}
-		return nil, nil
 	default:
 		return nil, fmt.Errorf("Failed to parse input data.")
 	}
-}
-
-func (thisJSONQL *JSONQL) processObj(parser *Parser, rpn Lifo) (bool, error) {
-	result, err := parser.Evaluate(&rpn, true)
-	if err != nil {
-		return false, nil
-	}
-	return strconv.ParseBool(result)
 }

@@ -1,0 +1,53 @@
+/* JSONQL.bnf
+
+   This is a grammar to match the existing jsonql language.  It's
+   close to a JavaScript subset, but it also has some novel operators.
+
+*/
+
+/* Lexical Part */
+
+/* Symbols */
+_letter: 'A'-'Z' | 'a'-'z' ;
+_decimalDigit: '0'-'9';
+_symbolchar: _letter | _decimalDigit | '_' ;
+symbol: (_letter | '_') {_symbolchar} ;
+
+/* non-breaking whitespace - Zs */
+!whitespace: ' '|'\t'|'\f'|'\v'|'\u00a0'|'\u2000'-'\u200a'|'\u202f'|'\u205f'|'\u3000'|'\ufeff';
+
+/* Numbers */
+_decimals: _decimalDigit { _decimalDigit } ;
+_exponent : ( 'e' | 'E' ) [ '+' | '-' ] _decimals ;
+floatLit  : _decimals '.' [ _decimals ] [ _exponent ]
+          | _decimals _exponent
+          | '.' _decimals [ _exponent ]
+          ;
+intLit      : _decimalLit | _octalLit | _hexLit ;
+_decimalLit : '1' - '9' { _decimalDigit } ;
+_octalDigit : '0' - '7' ;
+_octalLit   : '0' { _octalDigit } ;
+_hexLit     : '0' ( 'x' | 'X' ) _hexDigit { _hexDigit } ;
+
+/* String Contents */
+_hexDigit: ( _decimalDigit | 'a'-'f' | 'A'-'F' );
+_hexEscape: '\\' 'x' _hexDigit _hexDigit  ;
+_uniEscape: '\\' 'u' _hexDigit _hexDigit _hexDigit _hexDigit ;
+_singleEscapeChar: 'a'| 'b'| 'h'| 'e'| 't'| 'n'| 'r' ;
+_escapeChar : '\\' _singleEscapeChar ;
+doubleStringLit: '"' { . | '\\' '"' | _escapeChar | _hexEscape | _uniEscape } '"' ;
+singleStringLit: '\'' { . | '\\' '\'' | _escapeChar | _hexEscape | _uniEscape } '\'' ;
+
+/* Syntax Part */
+
+<<
+
+import (
+        "github.com/teslamotors/jsonql/ast"
+)
+
+>>
+
+/* Literals */
+
+NullLiteral: "null"   << ast.Literal(nil) >> ;

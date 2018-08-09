@@ -3,9 +3,11 @@ package jsonql
 import (
 	"fmt"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-func TestParse(t *testing.T) {
+func TestQuery(t *testing.T) {
 
 	jsonString := `
 [
@@ -67,5 +69,29 @@ func TestParse(t *testing.T) {
 	}
 	for range fail {
 
+	}
+}
+
+type parseTestCase struct {
+	JQL      string
+	Data     interface{}
+	Expected interface{}
+}
+
+func TestParseLiterals(t *testing.T) {
+	testCases := []parseTestCase{
+		{`null`, nil, nil},
+	}
+
+	for i, testCase := range testCases {
+		testCaseName := fmt.Sprintf("Test case %d: `%s`", i, testCase.JQL)
+		ast, err := Parse(testCase.JQL)
+		assert.NoError(t, err, testCaseName+" [parse]")
+
+		val, err := ast.Evaluate(testCase.Data)
+		assert.NoError(t, err, testCaseName+fmt.Sprintf(" [evaluate(%v)]", testCase.Data))
+
+		assert.Equal(t, testCase.Expected, val, testCaseName)
+		fmt.Printf("pass - %s on %v evaluated to %v\n", testCase.JQL, testCase.Data, val)
 	}
 }
