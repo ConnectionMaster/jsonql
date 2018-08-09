@@ -81,17 +81,39 @@ type parseTestCase struct {
 func TestParseLiterals(t *testing.T) {
 	testCases := []parseTestCase{
 		{`null`, nil, nil},
+		{`true`, nil, true},
+		{`false`, nil, false},
+		{`1.25`, nil, 1.25},
+		{`1.25e2`, nil, 125.0},
+		{`125e-2`, nil, 1.25},
+		{`.5`, nil, .5},
+		{`1`, nil, int64(1)},
+		{`010`, nil, int64(8)},
+		{`0xa`, nil, int64(10)},
+		{`"foo"`, nil, "foo"},
+		{`"string with \"escape\" characters"`, nil, "string with \"escape\" characters"},
+		{`'string with \'escape\' characters'`, nil, "string with 'escape' characters"},
+		{`'peace\u00a0\x26\u00a0war'`, nil, "peace & war"},
+		{`'\b\f\n\r\t\v'`, nil, "\b\f\n\r\t\v"},
+		{`"\\"`, nil, "\\"},
+		{`'\\'`, nil, "\\"},
 	}
 
 	for i, testCase := range testCases {
 		testCaseName := fmt.Sprintf("Test case %d: `%s`", i, testCase.JQL)
 		ast, err := Parse(testCase.JQL)
-		assert.NoError(t, err, testCaseName+" [parse]")
+		if !(assert.NoError(t, err, testCaseName+" [parse]") &&
+			assert.NotNil(t, ast, testCaseName+" [parse]")) {
+			continue
+		}
 
 		val, err := ast.Evaluate(testCase.Data)
 		assert.NoError(t, err, testCaseName+fmt.Sprintf(" [evaluate(%v)]", testCase.Data))
 
-		assert.Equal(t, testCase.Expected, val, testCaseName)
-		fmt.Printf("pass - %s on %v evaluated to %v\n", testCase.JQL, testCase.Data, val)
+		var passfail = "pass"
+		if !assert.Equal(t, testCase.Expected, val, testCaseName) {
+			passfail = "fail"
+		}
+		fmt.Printf("%s - %s on %v evaluated to %v (expected: %v)\n", passfail, testCase.JQL, testCase.Data, val, testCase.Expected)
 	}
 }

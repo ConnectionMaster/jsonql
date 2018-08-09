@@ -33,7 +33,7 @@ _hexLit     : '0' ( 'x' | 'X' ) _hexDigit { _hexDigit } ;
 _hexDigit: ( _decimalDigit | 'a'-'f' | 'A'-'F' );
 _hexEscape: '\\' 'x' _hexDigit _hexDigit  ;
 _uniEscape: '\\' 'u' _hexDigit _hexDigit _hexDigit _hexDigit ;
-_singleEscapeChar: 'a'| 'b'| 'h'| 'e'| 't'| 'n'| 'r' ;
+_singleEscapeChar: 'b'| 'f' | 'n' | 'r' | 't' | 'v' | '\\';
 _escapeChar : '\\' _singleEscapeChar ;
 doubleStringLit: '"' { . | '\\' '"' | _escapeChar | _hexEscape | _uniEscape } '"' ;
 singleStringLit: '\'' { . | '\\' '\'' | _escapeChar | _hexEscape | _uniEscape } '\'' ;
@@ -43,11 +43,55 @@ singleStringLit: '\'' { . | '\\' '\'' | _escapeChar | _hexEscape | _uniEscape } 
 <<
 
 import (
+	"fmt"
+	"strconv"
+        "strings"
+
         "github.com/teslamotors/jsonql/ast"
+        "github.com/teslamotors/jsonql/token"
 )
+
+func String(a Attrib) string {
+     return string(a.(*token.Token).Lit) 
+}
+
+func SingleUnquote(tok string) (string, error) {
+     val := tok[1:len(tok)-1] 
+     // do something slow and hacky so we can re-use strconv.Unquote
+     val = strings.Replace(val, "\\'", "'", -1)
+     val = strings.Replace(val, "\"", "\\\"", -1)
+     val = fmt.Sprintf("\"%s\"", val)
+     unq, err := strconv.Unquote(val)
+     fmt.Printf("unq: %#v => %#v (err: %v)\n", val, unq, err)
+     return unq, err
+}
 
 >>
 
 /* Literals */
 
-NullLiteral: "null"   << ast.Literal(nil) >> ;
+Expr: Literal;
+
+NullLiteral: "null"   << nil, nil >> ;
+
+BooleanLiteral
+        : "true"      << true, nil >>
+        | "false"     << false, nil >>
+        ;
+
+NumericLiteral
+        : intLit      << strconv.ParseInt(String($0), 0, 64) >>
+        | floatLit    << strconv.ParseFloat(String($0), 64) >>
+        ;
+
+StringLiteral
+        : doubleStringLit   << strconv.Unquote(String($0)) >>
+        | singleStringLit   << SingleUnquote(String($0)) >>
+        ;
+
+Literal
+        : NullLiteral       << ast.Literal($0) >>
+        | BooleanLiteral    << ast.Literal($0) >>
+        | NumericLiteral    << ast.Literal($0) >>
+        | StringLiteral     << ast.Literal($0) >>
+        ;
