@@ -2,6 +2,8 @@ package ast
 
 import (
 	"fmt"
+
+	"math"
 )
 
 type Expr interface {
@@ -163,6 +165,55 @@ func (nn NotNode) Evaluate(val interface{}) (interface{}, error) {
 	case float64:
 		// equal to zero is strong for a float but hey
 		return (v == 0), nil
+	default:
+		// type error... nil for now
+		return nil, nil
+	}
+}
+
+type ExpNode struct {
+	Base Expr
+	Pow  Expr
+}
+
+func Exp(base, pow interface{}) (Expr, error) {
+	return ExpNode{base.(Expr), pow.(Expr)}, nil
+}
+
+func (en ExpNode) Evaluate(val interface{}) (interface{}, error) {
+	base, err := en.Base.Evaluate(val)
+	if err != nil {
+		return nil, err
+	}
+	pow, err := en.Pow.Evaluate(val)
+	if err != nil {
+		return nil, err
+	}
+	switch p := pow.(type) {
+	case nil:
+		return nil, nil
+	case int64:
+		switch b := base.(type) {
+		case int64:
+			pow := math.Pow(float64(b), float64(p))
+			if float64(int64(pow)) != pow {
+				return pow, nil
+			}
+			return int64(pow), nil
+		case float64:
+			return math.Pow(b, float64(p)), nil
+		default:
+			return nil, nil
+		}
+	case float64:
+		switch b := base.(type) {
+		case int64:
+			return math.Pow(float64(b), p), nil
+		case float64:
+			return math.Pow(b, p), nil
+		default:
+			return nil, nil
+		}
 	default:
 		// type error... nil for now
 		return nil, nil

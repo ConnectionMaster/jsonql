@@ -150,6 +150,22 @@ func TestUnaryExpressions(t *testing.T) {
 	}
 }
 
+func TestBEDMASExpr(t *testing.T) {
+	testCases := []parseTestCase{
+		{`2^0`, ``, int64(1)},
+		{`2^10`, ``, int64(1024)},
+		{`2.0^0`, ``, 1.0},
+		{`4^0.5`, ``, 2.0},
+		{`256.0^0.25`, ``, 4.0},
+		{`2^-2`, ``, 0.25},
+	}
+
+	for i, testCase := range testCases {
+		testCaseName := fmt.Sprintf("Parse BEDMAS case %d: `%s`", i, testCase.JQL)
+		assertTestCase(t, testCase, testCaseName)
+	}
+}
+
 func assertTestCase(t *testing.T, testCase parseTestCase, testCaseName string) {
 	ast, err := Parse(testCase.JQL)
 	if !(assert.NoError(t, err, testCaseName+" [parse]") &&
