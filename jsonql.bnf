@@ -70,6 +70,8 @@ func SingleUnquote(tok string) (string, error) {
 
 /* Literals */
 
+Expression: OrExpr;
+
 OrExpr
         : AndExpr
         | OrExpr "||" AndExpr   << ast.Or($0, $2) >>
@@ -81,14 +83,14 @@ AndExpr
         ;
 
 CompareExpr
-        : Term
-        | CompareExpr "=" Term    << ast.Eq($0, $2) >>
-        | CompareExpr "==" Term    << ast.Eq($0, $2) >>
-        | CompareExpr "!=" Term    << ast.NE($0, $2) >>
-        | CompareExpr "<=" Term    << ast.LE($0, $2) >>
-        | CompareExpr ">=" Term    << ast.GE($0, $2) >>
-        | CompareExpr ">" Term    << ast.GT($0, $2) >>
-        | CompareExpr "<" Term    << ast.LT($0, $2) >>
+        : ValueExpr
+        | CompareExpr "=" ValueExpr    << ast.Eq($0, $2) >>
+        | CompareExpr "==" ValueExpr    << ast.Eq($0, $2) >>
+        | CompareExpr "!=" ValueExpr    << ast.NE($0, $2) >>
+        | CompareExpr "<=" ValueExpr    << ast.LE($0, $2) >>
+        | CompareExpr ">=" ValueExpr    << ast.GE($0, $2) >>
+        | CompareExpr ">" ValueExpr    << ast.GT($0, $2) >>
+        | CompareExpr "<" ValueExpr    << ast.LT($0, $2) >>
         | CompareExpr "is" ExistentialWord       << ast.Is($0, $2) >>
         | CompareExpr "isnot" ExistentialWord    << ast.IsNot($0, $2) >>
         | CompareExpr "is" "not" ExistentialWord << ast.IsNot($0, $3) >>
@@ -99,7 +101,7 @@ ExistentialWord
         | "defined"
         ;
 
-Term
+ValueExpr
         : RegexpExpr
         | AddExpr
         ;
@@ -134,12 +136,17 @@ ExpExpr
         ;
 
 UnaryExpr
-        : Expr
-        | "-" Expr   << ast.Negative($1) >>
+        : ParenExpr
+        | "-" ParenExpr   << ast.Negative($1) >>
         | "!" UnaryExpr   << ast.Not($1) >>
         ;
 
-Expr
+ParenExpr
+        : Term
+        | "(" Expression ")"   << $1, nil >>
+        ;
+
+Term
         : Literal
         | Identifier
         ;
@@ -173,5 +180,5 @@ ObjectKey:  symbol  << String($0), nil >> ;
 Identifier
         : ObjectKey                  << ast.ObjectKey($0) >>
         | Identifier "." ObjectKey   << ast.SelectKey($0.(ast.Expr), $2) >>
-        | Identifier "[" Expr "]"    << ast.Index($0.(ast.Expr), $2.(ast.Expr)) >>
+        | Identifier "[" ValueExpr "]"    << ast.Index($0.(ast.Expr), $2.(ast.Expr)) >>
         ;

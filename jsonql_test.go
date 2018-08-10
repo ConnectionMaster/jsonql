@@ -168,6 +168,9 @@ func TestBEDMASExpr(t *testing.T) {
 		{`10-2*4`, ``, int64(2)},
 		{`10-2-4`, ``, int64(4)},
 		{`10*2+1/4`, ``, 20.25},
+		{`(10-2)*4`, ``, int64(32)},
+		{`10-(2-4)`, ``, int64(12)},
+		{`10*(2+1)/4`, ``, 7.5},
 	}
 
 	for i, testCase := range testCases {
@@ -244,6 +247,7 @@ func TestLogicalExpr(t *testing.T) {
 		{`field~="fo*b" && blah = "baz" || blah="bar"`, `{"field":"fib", "blah": "baz"}`, false},
 		{`field~="fo*b" && blah = "baz" || blah="bar"`, `{"field":"fib", "blah": "bar"}`, true},
 		{`field~="fo*b" && blah = "baz" || blah="bar"`, `{"field":"fob", "blah": "baq"}`, false},
+		{`field~="fo*b" && (blah = "baz" || blah="bar")`, `{"field":"fob", "blah": "bar"}`, true},
 	}
 
 	for i, testCase := range testCases {

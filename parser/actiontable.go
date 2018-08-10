@@ -28,24 +28,26 @@ var actionTab = actionTable{
 			nil,       /* is */
 			nil,       /* isnot */
 			nil,       /* not */
-			shift(5),  /* null */
+			shift(6),  /* null */
 			nil,       /* defined */
 			nil,       /* ~= */
 			nil,       /* !~= */
 			nil,       /* + */
-			shift(12), /* - */
+			shift(13), /* - */
 			nil,       /* * */
 			nil,       /* / */
 			nil,       /* % */
 			nil,       /* ^ */
-			shift(16), /* ! */
-			shift(20), /* true */
-			shift(21), /* false */
-			shift(23), /* intLit */
-			shift(24), /* floatLit */
-			shift(25), /* doubleStringLit */
-			shift(26), /* singleStringLit */
-			shift(28), /* symbol */
+			shift(17), /* ! */
+			shift(19), /* ( */
+			nil,       /* ) */
+			shift(23), /* true */
+			shift(24), /* false */
+			shift(26), /* intLit */
+			shift(27), /* floatLit */
+			shift(28), /* doubleStringLit */
+			shift(29), /* singleStringLit */
+			shift(31), /* symbol */
 			nil,       /* . */
 			nil,       /* [ */
 			nil,       /* ] */
@@ -56,7 +58,7 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,          /* INVALID */
 			accept(true), /* $ */
-			shift(29),    /* || */
+			nil,          /* || */
 			nil,          /* && */
 			nil,          /* = */
 			nil,          /* == */
@@ -79,6 +81,8 @@ var actionTab = actionTable{
 			nil,          /* % */
 			nil,          /* ^ */
 			nil,          /* ! */
+			nil,          /* ( */
+			nil,          /* ) */
 			nil,          /* true */
 			nil,          /* false */
 			nil,          /* intLit */
@@ -95,9 +99,9 @@ var actionTab = actionTable{
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,       /* INVALID */
-			reduce(1), /* $, reduce: OrExpr */
-			reduce(1), /* ||, reduce: OrExpr */
-			shift(30), /* && */
+			reduce(1), /* $, reduce: Expression */
+			shift(32), /* || */
+			nil,       /* && */
 			nil,       /* = */
 			nil,       /* == */
 			nil,       /* != */
@@ -119,6 +123,8 @@ var actionTab = actionTable{
 			nil,       /* % */
 			nil,       /* ^ */
 			nil,       /* ! */
+			nil,       /* ( */
+			nil,       /* ) */
 			nil,       /* true */
 			nil,       /* false */
 			nil,       /* intLit */
@@ -135,18 +141,18 @@ var actionTab = actionTable{
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,       /* INVALID */
-			reduce(3), /* $, reduce: AndExpr */
-			reduce(3), /* ||, reduce: AndExpr */
-			reduce(3), /* &&, reduce: AndExpr */
-			shift(31), /* = */
-			shift(32), /* == */
-			shift(33), /* != */
-			shift(34), /* <= */
-			shift(35), /* >= */
-			shift(36), /* > */
-			shift(37), /* < */
-			shift(38), /* is */
-			shift(39), /* isnot */
+			reduce(2), /* $, reduce: OrExpr */
+			reduce(2), /* ||, reduce: OrExpr */
+			shift(33), /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
 			nil,       /* not */
 			nil,       /* null */
 			nil,       /* defined */
@@ -159,6 +165,8 @@ var actionTab = actionTable{
 			nil,       /* % */
 			nil,       /* ^ */
 			nil,       /* ! */
+			nil,       /* ( */
+			nil,       /* ) */
 			nil,       /* true */
 			nil,       /* false */
 			nil,       /* intLit */
@@ -175,18 +183,18 @@ var actionTab = actionTable{
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,       /* INVALID */
-			reduce(5), /* $, reduce: CompareExpr */
-			reduce(5), /* ||, reduce: CompareExpr */
-			reduce(5), /* &&, reduce: CompareExpr */
-			reduce(5), /* =, reduce: CompareExpr */
-			reduce(5), /* ==, reduce: CompareExpr */
-			reduce(5), /* !=, reduce: CompareExpr */
-			reduce(5), /* <=, reduce: CompareExpr */
-			reduce(5), /* >=, reduce: CompareExpr */
-			reduce(5), /* >, reduce: CompareExpr */
-			reduce(5), /* <, reduce: CompareExpr */
-			reduce(5), /* is, reduce: CompareExpr */
-			reduce(5), /* isnot, reduce: CompareExpr */
+			reduce(4), /* $, reduce: AndExpr */
+			reduce(4), /* ||, reduce: AndExpr */
+			reduce(4), /* &&, reduce: AndExpr */
+			shift(34), /* = */
+			shift(35), /* == */
+			shift(36), /* != */
+			shift(37), /* <= */
+			shift(38), /* >= */
+			shift(39), /* > */
+			shift(40), /* < */
+			shift(41), /* is */
+			shift(42), /* isnot */
 			nil,       /* not */
 			nil,       /* null */
 			nil,       /* defined */
@@ -199,6 +207,8 @@ var actionTab = actionTable{
 			nil,       /* % */
 			nil,       /* ^ */
 			nil,       /* ! */
+			nil,       /* ( */
+			nil,       /* ) */
 			nil,       /* true */
 			nil,       /* false */
 			nil,       /* intLit */
@@ -212,2206 +222,6 @@ var actionTab = actionTable{
 		},
 	},
 	actionRow{ // S5
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(38), /* $, reduce: NullLiteral */
-			reduce(38), /* ||, reduce: NullLiteral */
-			reduce(38), /* &&, reduce: NullLiteral */
-			reduce(38), /* =, reduce: NullLiteral */
-			reduce(38), /* ==, reduce: NullLiteral */
-			reduce(38), /* !=, reduce: NullLiteral */
-			reduce(38), /* <=, reduce: NullLiteral */
-			reduce(38), /* >=, reduce: NullLiteral */
-			reduce(38), /* >, reduce: NullLiteral */
-			reduce(38), /* <, reduce: NullLiteral */
-			reduce(38), /* is, reduce: NullLiteral */
-			reduce(38), /* isnot, reduce: NullLiteral */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(38), /* +, reduce: NullLiteral */
-			reduce(38), /* -, reduce: NullLiteral */
-			reduce(38), /* *, reduce: NullLiteral */
-			reduce(38), /* /, reduce: NullLiteral */
-			reduce(38), /* %, reduce: NullLiteral */
-			reduce(38), /* ^, reduce: NullLiteral */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S6
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(18), /* $, reduce: Term */
-			reduce(18), /* ||, reduce: Term */
-			reduce(18), /* &&, reduce: Term */
-			reduce(18), /* =, reduce: Term */
-			reduce(18), /* ==, reduce: Term */
-			reduce(18), /* !=, reduce: Term */
-			reduce(18), /* <=, reduce: Term */
-			reduce(18), /* >=, reduce: Term */
-			reduce(18), /* >, reduce: Term */
-			reduce(18), /* <, reduce: Term */
-			reduce(18), /* is, reduce: Term */
-			reduce(18), /* isnot, reduce: Term */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S7
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(19), /* $, reduce: Term */
-			reduce(19), /* ||, reduce: Term */
-			reduce(19), /* &&, reduce: Term */
-			reduce(19), /* =, reduce: Term */
-			reduce(19), /* ==, reduce: Term */
-			reduce(19), /* !=, reduce: Term */
-			reduce(19), /* <=, reduce: Term */
-			reduce(19), /* >=, reduce: Term */
-			reduce(19), /* >, reduce: Term */
-			reduce(19), /* <, reduce: Term */
-			reduce(19), /* is, reduce: Term */
-			reduce(19), /* isnot, reduce: Term */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			shift(40),  /* + */
-			shift(41),  /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S8
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			nil,       /* null */
-			nil,       /* defined */
-			shift(42), /* ~= */
-			shift(43), /* !~= */
-			nil,       /* + */
-			nil,       /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			nil,       /* ! */
-			nil,       /* true */
-			nil,       /* false */
-			nil,       /* intLit */
-			nil,       /* floatLit */
-			nil,       /* doubleStringLit */
-			nil,       /* singleStringLit */
-			nil,       /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S9
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(37), /* $, reduce: Expr */
-			reduce(37), /* ||, reduce: Expr */
-			reduce(37), /* &&, reduce: Expr */
-			reduce(37), /* =, reduce: Expr */
-			reduce(37), /* ==, reduce: Expr */
-			reduce(37), /* !=, reduce: Expr */
-			reduce(37), /* <=, reduce: Expr */
-			reduce(37), /* >=, reduce: Expr */
-			reduce(37), /* >, reduce: Expr */
-			reduce(37), /* <, reduce: Expr */
-			reduce(37), /* is, reduce: Expr */
-			reduce(37), /* isnot, reduce: Expr */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			reduce(20), /* ~=, reduce: RegexpArgument */
-			reduce(20), /* !~=, reduce: RegexpArgument */
-			reduce(37), /* +, reduce: Expr */
-			reduce(37), /* -, reduce: Expr */
-			reduce(37), /* *, reduce: Expr */
-			reduce(37), /* /, reduce: Expr */
-			reduce(37), /* %, reduce: Expr */
-			reduce(37), /* ^, reduce: Expr */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			shift(44),  /* . */
-			shift(45),  /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S10
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(48), /* $, reduce: Literal */
-			reduce(48), /* ||, reduce: Literal */
-			reduce(48), /* &&, reduce: Literal */
-			reduce(48), /* =, reduce: Literal */
-			reduce(48), /* ==, reduce: Literal */
-			reduce(48), /* !=, reduce: Literal */
-			reduce(48), /* <=, reduce: Literal */
-			reduce(48), /* >=, reduce: Literal */
-			reduce(48), /* >, reduce: Literal */
-			reduce(48), /* <, reduce: Literal */
-			reduce(48), /* is, reduce: Literal */
-			reduce(48), /* isnot, reduce: Literal */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			reduce(21), /* ~=, reduce: RegexpArgument */
-			reduce(21), /* !~=, reduce: RegexpArgument */
-			reduce(48), /* +, reduce: Literal */
-			reduce(48), /* -, reduce: Literal */
-			reduce(48), /* *, reduce: Literal */
-			reduce(48), /* /, reduce: Literal */
-			reduce(48), /* %, reduce: Literal */
-			reduce(48), /* ^, reduce: Literal */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S11
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(24), /* $, reduce: AddExpr */
-			reduce(24), /* ||, reduce: AddExpr */
-			reduce(24), /* &&, reduce: AddExpr */
-			reduce(24), /* =, reduce: AddExpr */
-			reduce(24), /* ==, reduce: AddExpr */
-			reduce(24), /* !=, reduce: AddExpr */
-			reduce(24), /* <=, reduce: AddExpr */
-			reduce(24), /* >=, reduce: AddExpr */
-			reduce(24), /* >, reduce: AddExpr */
-			reduce(24), /* <, reduce: AddExpr */
-			reduce(24), /* is, reduce: AddExpr */
-			reduce(24), /* isnot, reduce: AddExpr */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(24), /* +, reduce: AddExpr */
-			reduce(24), /* -, reduce: AddExpr */
-			shift(46),  /* * */
-			shift(47),  /* / */
-			shift(48),  /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S12
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			shift(5),  /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			nil,       /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			nil,       /* ! */
-			shift(20), /* true */
-			shift(21), /* false */
-			shift(23), /* intLit */
-			shift(24), /* floatLit */
-			shift(52), /* doubleStringLit */
-			shift(53), /* singleStringLit */
-			shift(55), /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S13
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(27), /* $, reduce: MulExpr */
-			reduce(27), /* ||, reduce: MulExpr */
-			reduce(27), /* &&, reduce: MulExpr */
-			reduce(27), /* =, reduce: MulExpr */
-			reduce(27), /* ==, reduce: MulExpr */
-			reduce(27), /* !=, reduce: MulExpr */
-			reduce(27), /* <=, reduce: MulExpr */
-			reduce(27), /* >=, reduce: MulExpr */
-			reduce(27), /* >, reduce: MulExpr */
-			reduce(27), /* <, reduce: MulExpr */
-			reduce(27), /* is, reduce: MulExpr */
-			reduce(27), /* isnot, reduce: MulExpr */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(27), /* +, reduce: MulExpr */
-			reduce(27), /* -, reduce: MulExpr */
-			reduce(27), /* *, reduce: MulExpr */
-			reduce(27), /* /, reduce: MulExpr */
-			reduce(27), /* %, reduce: MulExpr */
-			shift(56),  /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S14
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(31), /* $, reduce: ExpExpr */
-			reduce(31), /* ||, reduce: ExpExpr */
-			reduce(31), /* &&, reduce: ExpExpr */
-			reduce(31), /* =, reduce: ExpExpr */
-			reduce(31), /* ==, reduce: ExpExpr */
-			reduce(31), /* !=, reduce: ExpExpr */
-			reduce(31), /* <=, reduce: ExpExpr */
-			reduce(31), /* >=, reduce: ExpExpr */
-			reduce(31), /* >, reduce: ExpExpr */
-			reduce(31), /* <, reduce: ExpExpr */
-			reduce(31), /* is, reduce: ExpExpr */
-			reduce(31), /* isnot, reduce: ExpExpr */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(31), /* +, reduce: ExpExpr */
-			reduce(31), /* -, reduce: ExpExpr */
-			reduce(31), /* *, reduce: ExpExpr */
-			reduce(31), /* /, reduce: ExpExpr */
-			reduce(31), /* %, reduce: ExpExpr */
-			reduce(31), /* ^, reduce: ExpExpr */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S15
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(33), /* $, reduce: UnaryExpr */
-			reduce(33), /* ||, reduce: UnaryExpr */
-			reduce(33), /* &&, reduce: UnaryExpr */
-			reduce(33), /* =, reduce: UnaryExpr */
-			reduce(33), /* ==, reduce: UnaryExpr */
-			reduce(33), /* !=, reduce: UnaryExpr */
-			reduce(33), /* <=, reduce: UnaryExpr */
-			reduce(33), /* >=, reduce: UnaryExpr */
-			reduce(33), /* >, reduce: UnaryExpr */
-			reduce(33), /* <, reduce: UnaryExpr */
-			reduce(33), /* is, reduce: UnaryExpr */
-			reduce(33), /* isnot, reduce: UnaryExpr */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(33), /* +, reduce: UnaryExpr */
-			reduce(33), /* -, reduce: UnaryExpr */
-			reduce(33), /* *, reduce: UnaryExpr */
-			reduce(33), /* /, reduce: UnaryExpr */
-			reduce(33), /* %, reduce: UnaryExpr */
-			reduce(33), /* ^, reduce: UnaryExpr */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S16
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			shift(5),  /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			shift(12), /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			shift(16), /* ! */
-			shift(20), /* true */
-			shift(21), /* false */
-			shift(23), /* intLit */
-			shift(24), /* floatLit */
-			shift(52), /* doubleStringLit */
-			shift(53), /* singleStringLit */
-			shift(55), /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S17
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(36), /* $, reduce: Expr */
-			reduce(36), /* ||, reduce: Expr */
-			reduce(36), /* &&, reduce: Expr */
-			reduce(36), /* =, reduce: Expr */
-			reduce(36), /* ==, reduce: Expr */
-			reduce(36), /* !=, reduce: Expr */
-			reduce(36), /* <=, reduce: Expr */
-			reduce(36), /* >=, reduce: Expr */
-			reduce(36), /* >, reduce: Expr */
-			reduce(36), /* <, reduce: Expr */
-			reduce(36), /* is, reduce: Expr */
-			reduce(36), /* isnot, reduce: Expr */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(36), /* +, reduce: Expr */
-			reduce(36), /* -, reduce: Expr */
-			reduce(36), /* *, reduce: Expr */
-			reduce(36), /* /, reduce: Expr */
-			reduce(36), /* %, reduce: Expr */
-			reduce(36), /* ^, reduce: Expr */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S18
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(45), /* $, reduce: Literal */
-			reduce(45), /* ||, reduce: Literal */
-			reduce(45), /* &&, reduce: Literal */
-			reduce(45), /* =, reduce: Literal */
-			reduce(45), /* ==, reduce: Literal */
-			reduce(45), /* !=, reduce: Literal */
-			reduce(45), /* <=, reduce: Literal */
-			reduce(45), /* >=, reduce: Literal */
-			reduce(45), /* >, reduce: Literal */
-			reduce(45), /* <, reduce: Literal */
-			reduce(45), /* is, reduce: Literal */
-			reduce(45), /* isnot, reduce: Literal */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(45), /* +, reduce: Literal */
-			reduce(45), /* -, reduce: Literal */
-			reduce(45), /* *, reduce: Literal */
-			reduce(45), /* /, reduce: Literal */
-			reduce(45), /* %, reduce: Literal */
-			reduce(45), /* ^, reduce: Literal */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S19
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(46), /* $, reduce: Literal */
-			reduce(46), /* ||, reduce: Literal */
-			reduce(46), /* &&, reduce: Literal */
-			reduce(46), /* =, reduce: Literal */
-			reduce(46), /* ==, reduce: Literal */
-			reduce(46), /* !=, reduce: Literal */
-			reduce(46), /* <=, reduce: Literal */
-			reduce(46), /* >=, reduce: Literal */
-			reduce(46), /* >, reduce: Literal */
-			reduce(46), /* <, reduce: Literal */
-			reduce(46), /* is, reduce: Literal */
-			reduce(46), /* isnot, reduce: Literal */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(46), /* +, reduce: Literal */
-			reduce(46), /* -, reduce: Literal */
-			reduce(46), /* *, reduce: Literal */
-			reduce(46), /* /, reduce: Literal */
-			reduce(46), /* %, reduce: Literal */
-			reduce(46), /* ^, reduce: Literal */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S20
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(39), /* $, reduce: BooleanLiteral */
-			reduce(39), /* ||, reduce: BooleanLiteral */
-			reduce(39), /* &&, reduce: BooleanLiteral */
-			reduce(39), /* =, reduce: BooleanLiteral */
-			reduce(39), /* ==, reduce: BooleanLiteral */
-			reduce(39), /* !=, reduce: BooleanLiteral */
-			reduce(39), /* <=, reduce: BooleanLiteral */
-			reduce(39), /* >=, reduce: BooleanLiteral */
-			reduce(39), /* >, reduce: BooleanLiteral */
-			reduce(39), /* <, reduce: BooleanLiteral */
-			reduce(39), /* is, reduce: BooleanLiteral */
-			reduce(39), /* isnot, reduce: BooleanLiteral */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(39), /* +, reduce: BooleanLiteral */
-			reduce(39), /* -, reduce: BooleanLiteral */
-			reduce(39), /* *, reduce: BooleanLiteral */
-			reduce(39), /* /, reduce: BooleanLiteral */
-			reduce(39), /* %, reduce: BooleanLiteral */
-			reduce(39), /* ^, reduce: BooleanLiteral */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S21
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(40), /* $, reduce: BooleanLiteral */
-			reduce(40), /* ||, reduce: BooleanLiteral */
-			reduce(40), /* &&, reduce: BooleanLiteral */
-			reduce(40), /* =, reduce: BooleanLiteral */
-			reduce(40), /* ==, reduce: BooleanLiteral */
-			reduce(40), /* !=, reduce: BooleanLiteral */
-			reduce(40), /* <=, reduce: BooleanLiteral */
-			reduce(40), /* >=, reduce: BooleanLiteral */
-			reduce(40), /* >, reduce: BooleanLiteral */
-			reduce(40), /* <, reduce: BooleanLiteral */
-			reduce(40), /* is, reduce: BooleanLiteral */
-			reduce(40), /* isnot, reduce: BooleanLiteral */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(40), /* +, reduce: BooleanLiteral */
-			reduce(40), /* -, reduce: BooleanLiteral */
-			reduce(40), /* *, reduce: BooleanLiteral */
-			reduce(40), /* /, reduce: BooleanLiteral */
-			reduce(40), /* %, reduce: BooleanLiteral */
-			reduce(40), /* ^, reduce: BooleanLiteral */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S22
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(47), /* $, reduce: Literal */
-			reduce(47), /* ||, reduce: Literal */
-			reduce(47), /* &&, reduce: Literal */
-			reduce(47), /* =, reduce: Literal */
-			reduce(47), /* ==, reduce: Literal */
-			reduce(47), /* !=, reduce: Literal */
-			reduce(47), /* <=, reduce: Literal */
-			reduce(47), /* >=, reduce: Literal */
-			reduce(47), /* >, reduce: Literal */
-			reduce(47), /* <, reduce: Literal */
-			reduce(47), /* is, reduce: Literal */
-			reduce(47), /* isnot, reduce: Literal */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(47), /* +, reduce: Literal */
-			reduce(47), /* -, reduce: Literal */
-			reduce(47), /* *, reduce: Literal */
-			reduce(47), /* /, reduce: Literal */
-			reduce(47), /* %, reduce: Literal */
-			reduce(47), /* ^, reduce: Literal */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S23
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(41), /* $, reduce: NumericLiteral */
-			reduce(41), /* ||, reduce: NumericLiteral */
-			reduce(41), /* &&, reduce: NumericLiteral */
-			reduce(41), /* =, reduce: NumericLiteral */
-			reduce(41), /* ==, reduce: NumericLiteral */
-			reduce(41), /* !=, reduce: NumericLiteral */
-			reduce(41), /* <=, reduce: NumericLiteral */
-			reduce(41), /* >=, reduce: NumericLiteral */
-			reduce(41), /* >, reduce: NumericLiteral */
-			reduce(41), /* <, reduce: NumericLiteral */
-			reduce(41), /* is, reduce: NumericLiteral */
-			reduce(41), /* isnot, reduce: NumericLiteral */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(41), /* +, reduce: NumericLiteral */
-			reduce(41), /* -, reduce: NumericLiteral */
-			reduce(41), /* *, reduce: NumericLiteral */
-			reduce(41), /* /, reduce: NumericLiteral */
-			reduce(41), /* %, reduce: NumericLiteral */
-			reduce(41), /* ^, reduce: NumericLiteral */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S24
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(42), /* $, reduce: NumericLiteral */
-			reduce(42), /* ||, reduce: NumericLiteral */
-			reduce(42), /* &&, reduce: NumericLiteral */
-			reduce(42), /* =, reduce: NumericLiteral */
-			reduce(42), /* ==, reduce: NumericLiteral */
-			reduce(42), /* !=, reduce: NumericLiteral */
-			reduce(42), /* <=, reduce: NumericLiteral */
-			reduce(42), /* >=, reduce: NumericLiteral */
-			reduce(42), /* >, reduce: NumericLiteral */
-			reduce(42), /* <, reduce: NumericLiteral */
-			reduce(42), /* is, reduce: NumericLiteral */
-			reduce(42), /* isnot, reduce: NumericLiteral */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(42), /* +, reduce: NumericLiteral */
-			reduce(42), /* -, reduce: NumericLiteral */
-			reduce(42), /* *, reduce: NumericLiteral */
-			reduce(42), /* /, reduce: NumericLiteral */
-			reduce(42), /* %, reduce: NumericLiteral */
-			reduce(42), /* ^, reduce: NumericLiteral */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S25
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(43), /* $, reduce: StringLiteral */
-			reduce(43), /* ||, reduce: StringLiteral */
-			reduce(43), /* &&, reduce: StringLiteral */
-			reduce(43), /* =, reduce: StringLiteral */
-			reduce(43), /* ==, reduce: StringLiteral */
-			reduce(43), /* !=, reduce: StringLiteral */
-			reduce(43), /* <=, reduce: StringLiteral */
-			reduce(43), /* >=, reduce: StringLiteral */
-			reduce(43), /* >, reduce: StringLiteral */
-			reduce(43), /* <, reduce: StringLiteral */
-			reduce(43), /* is, reduce: StringLiteral */
-			reduce(43), /* isnot, reduce: StringLiteral */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			reduce(43), /* ~=, reduce: StringLiteral */
-			reduce(43), /* !~=, reduce: StringLiteral */
-			reduce(43), /* +, reduce: StringLiteral */
-			reduce(43), /* -, reduce: StringLiteral */
-			reduce(43), /* *, reduce: StringLiteral */
-			reduce(43), /* /, reduce: StringLiteral */
-			reduce(43), /* %, reduce: StringLiteral */
-			reduce(43), /* ^, reduce: StringLiteral */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S26
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(44), /* $, reduce: StringLiteral */
-			reduce(44), /* ||, reduce: StringLiteral */
-			reduce(44), /* &&, reduce: StringLiteral */
-			reduce(44), /* =, reduce: StringLiteral */
-			reduce(44), /* ==, reduce: StringLiteral */
-			reduce(44), /* !=, reduce: StringLiteral */
-			reduce(44), /* <=, reduce: StringLiteral */
-			reduce(44), /* >=, reduce: StringLiteral */
-			reduce(44), /* >, reduce: StringLiteral */
-			reduce(44), /* <, reduce: StringLiteral */
-			reduce(44), /* is, reduce: StringLiteral */
-			reduce(44), /* isnot, reduce: StringLiteral */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			reduce(44), /* ~=, reduce: StringLiteral */
-			reduce(44), /* !~=, reduce: StringLiteral */
-			reduce(44), /* +, reduce: StringLiteral */
-			reduce(44), /* -, reduce: StringLiteral */
-			reduce(44), /* *, reduce: StringLiteral */
-			reduce(44), /* /, reduce: StringLiteral */
-			reduce(44), /* %, reduce: StringLiteral */
-			reduce(44), /* ^, reduce: StringLiteral */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S27
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(50), /* $, reduce: Identifier */
-			reduce(50), /* ||, reduce: Identifier */
-			reduce(50), /* &&, reduce: Identifier */
-			reduce(50), /* =, reduce: Identifier */
-			reduce(50), /* ==, reduce: Identifier */
-			reduce(50), /* !=, reduce: Identifier */
-			reduce(50), /* <=, reduce: Identifier */
-			reduce(50), /* >=, reduce: Identifier */
-			reduce(50), /* >, reduce: Identifier */
-			reduce(50), /* <, reduce: Identifier */
-			reduce(50), /* is, reduce: Identifier */
-			reduce(50), /* isnot, reduce: Identifier */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			reduce(50), /* ~=, reduce: Identifier */
-			reduce(50), /* !~=, reduce: Identifier */
-			reduce(50), /* +, reduce: Identifier */
-			reduce(50), /* -, reduce: Identifier */
-			reduce(50), /* *, reduce: Identifier */
-			reduce(50), /* /, reduce: Identifier */
-			reduce(50), /* %, reduce: Identifier */
-			reduce(50), /* ^, reduce: Identifier */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			reduce(50), /* ., reduce: Identifier */
-			reduce(50), /* [, reduce: Identifier */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S28
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(49), /* $, reduce: ObjectKey */
-			reduce(49), /* ||, reduce: ObjectKey */
-			reduce(49), /* &&, reduce: ObjectKey */
-			reduce(49), /* =, reduce: ObjectKey */
-			reduce(49), /* ==, reduce: ObjectKey */
-			reduce(49), /* !=, reduce: ObjectKey */
-			reduce(49), /* <=, reduce: ObjectKey */
-			reduce(49), /* >=, reduce: ObjectKey */
-			reduce(49), /* >, reduce: ObjectKey */
-			reduce(49), /* <, reduce: ObjectKey */
-			reduce(49), /* is, reduce: ObjectKey */
-			reduce(49), /* isnot, reduce: ObjectKey */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			reduce(49), /* ~=, reduce: ObjectKey */
-			reduce(49), /* !~=, reduce: ObjectKey */
-			reduce(49), /* +, reduce: ObjectKey */
-			reduce(49), /* -, reduce: ObjectKey */
-			reduce(49), /* *, reduce: ObjectKey */
-			reduce(49), /* /, reduce: ObjectKey */
-			reduce(49), /* %, reduce: ObjectKey */
-			reduce(49), /* ^, reduce: ObjectKey */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			reduce(49), /* ., reduce: ObjectKey */
-			reduce(49), /* [, reduce: ObjectKey */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S29
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			shift(5),  /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			shift(12), /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			shift(16), /* ! */
-			shift(20), /* true */
-			shift(21), /* false */
-			shift(23), /* intLit */
-			shift(24), /* floatLit */
-			shift(25), /* doubleStringLit */
-			shift(26), /* singleStringLit */
-			shift(28), /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S30
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			shift(5),  /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			shift(12), /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			shift(16), /* ! */
-			shift(20), /* true */
-			shift(21), /* false */
-			shift(23), /* intLit */
-			shift(24), /* floatLit */
-			shift(25), /* doubleStringLit */
-			shift(26), /* singleStringLit */
-			shift(28), /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S31
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			shift(5),  /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			shift(12), /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			shift(16), /* ! */
-			shift(20), /* true */
-			shift(21), /* false */
-			shift(23), /* intLit */
-			shift(24), /* floatLit */
-			shift(25), /* doubleStringLit */
-			shift(26), /* singleStringLit */
-			shift(28), /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S32
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			shift(5),  /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			shift(12), /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			shift(16), /* ! */
-			shift(20), /* true */
-			shift(21), /* false */
-			shift(23), /* intLit */
-			shift(24), /* floatLit */
-			shift(25), /* doubleStringLit */
-			shift(26), /* singleStringLit */
-			shift(28), /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S33
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			shift(5),  /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			shift(12), /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			shift(16), /* ! */
-			shift(20), /* true */
-			shift(21), /* false */
-			shift(23), /* intLit */
-			shift(24), /* floatLit */
-			shift(25), /* doubleStringLit */
-			shift(26), /* singleStringLit */
-			shift(28), /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S34
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			shift(5),  /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			shift(12), /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			shift(16), /* ! */
-			shift(20), /* true */
-			shift(21), /* false */
-			shift(23), /* intLit */
-			shift(24), /* floatLit */
-			shift(25), /* doubleStringLit */
-			shift(26), /* singleStringLit */
-			shift(28), /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S35
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			shift(5),  /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			shift(12), /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			shift(16), /* ! */
-			shift(20), /* true */
-			shift(21), /* false */
-			shift(23), /* intLit */
-			shift(24), /* floatLit */
-			shift(25), /* doubleStringLit */
-			shift(26), /* singleStringLit */
-			shift(28), /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S36
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			shift(5),  /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			shift(12), /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			shift(16), /* ! */
-			shift(20), /* true */
-			shift(21), /* false */
-			shift(23), /* intLit */
-			shift(24), /* floatLit */
-			shift(25), /* doubleStringLit */
-			shift(26), /* singleStringLit */
-			shift(28), /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S37
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			shift(5),  /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			shift(12), /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			shift(16), /* ! */
-			shift(20), /* true */
-			shift(21), /* false */
-			shift(23), /* intLit */
-			shift(24), /* floatLit */
-			shift(25), /* doubleStringLit */
-			shift(26), /* singleStringLit */
-			shift(28), /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S38
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			shift(68), /* not */
-			shift(69), /* null */
-			shift(70), /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			nil,       /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			nil,       /* ! */
-			nil,       /* true */
-			nil,       /* false */
-			nil,       /* intLit */
-			nil,       /* floatLit */
-			nil,       /* doubleStringLit */
-			nil,       /* singleStringLit */
-			nil,       /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S39
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			shift(69), /* null */
-			shift(70), /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			nil,       /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			nil,       /* ! */
-			nil,       /* true */
-			nil,       /* false */
-			nil,       /* intLit */
-			nil,       /* floatLit */
-			nil,       /* doubleStringLit */
-			nil,       /* singleStringLit */
-			nil,       /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S40
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			shift(5),  /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			shift(12), /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			shift(16), /* ! */
-			shift(20), /* true */
-			shift(21), /* false */
-			shift(23), /* intLit */
-			shift(24), /* floatLit */
-			shift(52), /* doubleStringLit */
-			shift(53), /* singleStringLit */
-			shift(55), /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S41
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			shift(5),  /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			shift(12), /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			shift(16), /* ! */
-			shift(20), /* true */
-			shift(21), /* false */
-			shift(23), /* intLit */
-			shift(24), /* floatLit */
-			shift(52), /* doubleStringLit */
-			shift(53), /* singleStringLit */
-			shift(55), /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S42
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			nil,       /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			nil,       /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			nil,       /* ! */
-			nil,       /* true */
-			nil,       /* false */
-			nil,       /* intLit */
-			nil,       /* floatLit */
-			shift(75), /* doubleStringLit */
-			shift(76), /* singleStringLit */
-			nil,       /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S43
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			nil,       /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			nil,       /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			nil,       /* ! */
-			nil,       /* true */
-			nil,       /* false */
-			nil,       /* intLit */
-			nil,       /* floatLit */
-			shift(75), /* doubleStringLit */
-			shift(76), /* singleStringLit */
-			nil,       /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S44
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			nil,       /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			nil,       /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			nil,       /* ! */
-			nil,       /* true */
-			nil,       /* false */
-			nil,       /* intLit */
-			nil,       /* floatLit */
-			nil,       /* doubleStringLit */
-			nil,       /* singleStringLit */
-			shift(28), /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S45
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			shift(79), /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			nil,       /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			nil,       /* ! */
-			shift(86), /* true */
-			shift(87), /* false */
-			shift(89), /* intLit */
-			shift(90), /* floatLit */
-			shift(91), /* doubleStringLit */
-			shift(92), /* singleStringLit */
-			shift(94), /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S46
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			shift(5),  /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			shift(12), /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			shift(16), /* ! */
-			shift(20), /* true */
-			shift(21), /* false */
-			shift(23), /* intLit */
-			shift(24), /* floatLit */
-			shift(52), /* doubleStringLit */
-			shift(53), /* singleStringLit */
-			shift(55), /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S47
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			shift(5),  /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			shift(12), /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			shift(16), /* ! */
-			shift(20), /* true */
-			shift(21), /* false */
-			shift(23), /* intLit */
-			shift(24), /* floatLit */
-			shift(52), /* doubleStringLit */
-			shift(53), /* singleStringLit */
-			shift(55), /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S48
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			shift(5),  /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			shift(12), /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			shift(16), /* ! */
-			shift(20), /* true */
-			shift(21), /* false */
-			shift(23), /* intLit */
-			shift(24), /* floatLit */
-			shift(52), /* doubleStringLit */
-			shift(53), /* singleStringLit */
-			shift(55), /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S49
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(37), /* $, reduce: Expr */
-			reduce(37), /* ||, reduce: Expr */
-			reduce(37), /* &&, reduce: Expr */
-			reduce(37), /* =, reduce: Expr */
-			reduce(37), /* ==, reduce: Expr */
-			reduce(37), /* !=, reduce: Expr */
-			reduce(37), /* <=, reduce: Expr */
-			reduce(37), /* >=, reduce: Expr */
-			reduce(37), /* >, reduce: Expr */
-			reduce(37), /* <, reduce: Expr */
-			reduce(37), /* is, reduce: Expr */
-			reduce(37), /* isnot, reduce: Expr */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(37), /* +, reduce: Expr */
-			reduce(37), /* -, reduce: Expr */
-			reduce(37), /* *, reduce: Expr */
-			reduce(37), /* /, reduce: Expr */
-			reduce(37), /* %, reduce: Expr */
-			reduce(37), /* ^, reduce: Expr */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			shift(98),  /* . */
-			shift(99),  /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S50
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(48), /* $, reduce: Literal */
-			reduce(48), /* ||, reduce: Literal */
-			reduce(48), /* &&, reduce: Literal */
-			reduce(48), /* =, reduce: Literal */
-			reduce(48), /* ==, reduce: Literal */
-			reduce(48), /* !=, reduce: Literal */
-			reduce(48), /* <=, reduce: Literal */
-			reduce(48), /* >=, reduce: Literal */
-			reduce(48), /* >, reduce: Literal */
-			reduce(48), /* <, reduce: Literal */
-			reduce(48), /* is, reduce: Literal */
-			reduce(48), /* isnot, reduce: Literal */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(48), /* +, reduce: Literal */
-			reduce(48), /* -, reduce: Literal */
-			reduce(48), /* *, reduce: Literal */
-			reduce(48), /* /, reduce: Literal */
-			reduce(48), /* %, reduce: Literal */
-			reduce(48), /* ^, reduce: Literal */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S51
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(34), /* $, reduce: UnaryExpr */
-			reduce(34), /* ||, reduce: UnaryExpr */
-			reduce(34), /* &&, reduce: UnaryExpr */
-			reduce(34), /* =, reduce: UnaryExpr */
-			reduce(34), /* ==, reduce: UnaryExpr */
-			reduce(34), /* !=, reduce: UnaryExpr */
-			reduce(34), /* <=, reduce: UnaryExpr */
-			reduce(34), /* >=, reduce: UnaryExpr */
-			reduce(34), /* >, reduce: UnaryExpr */
-			reduce(34), /* <, reduce: UnaryExpr */
-			reduce(34), /* is, reduce: UnaryExpr */
-			reduce(34), /* isnot, reduce: UnaryExpr */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(34), /* +, reduce: UnaryExpr */
-			reduce(34), /* -, reduce: UnaryExpr */
-			reduce(34), /* *, reduce: UnaryExpr */
-			reduce(34), /* /, reduce: UnaryExpr */
-			reduce(34), /* %, reduce: UnaryExpr */
-			reduce(34), /* ^, reduce: UnaryExpr */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S52
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(43), /* $, reduce: StringLiteral */
-			reduce(43), /* ||, reduce: StringLiteral */
-			reduce(43), /* &&, reduce: StringLiteral */
-			reduce(43), /* =, reduce: StringLiteral */
-			reduce(43), /* ==, reduce: StringLiteral */
-			reduce(43), /* !=, reduce: StringLiteral */
-			reduce(43), /* <=, reduce: StringLiteral */
-			reduce(43), /* >=, reduce: StringLiteral */
-			reduce(43), /* >, reduce: StringLiteral */
-			reduce(43), /* <, reduce: StringLiteral */
-			reduce(43), /* is, reduce: StringLiteral */
-			reduce(43), /* isnot, reduce: StringLiteral */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(43), /* +, reduce: StringLiteral */
-			reduce(43), /* -, reduce: StringLiteral */
-			reduce(43), /* *, reduce: StringLiteral */
-			reduce(43), /* /, reduce: StringLiteral */
-			reduce(43), /* %, reduce: StringLiteral */
-			reduce(43), /* ^, reduce: StringLiteral */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S53
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(44), /* $, reduce: StringLiteral */
-			reduce(44), /* ||, reduce: StringLiteral */
-			reduce(44), /* &&, reduce: StringLiteral */
-			reduce(44), /* =, reduce: StringLiteral */
-			reduce(44), /* ==, reduce: StringLiteral */
-			reduce(44), /* !=, reduce: StringLiteral */
-			reduce(44), /* <=, reduce: StringLiteral */
-			reduce(44), /* >=, reduce: StringLiteral */
-			reduce(44), /* >, reduce: StringLiteral */
-			reduce(44), /* <, reduce: StringLiteral */
-			reduce(44), /* is, reduce: StringLiteral */
-			reduce(44), /* isnot, reduce: StringLiteral */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(44), /* +, reduce: StringLiteral */
-			reduce(44), /* -, reduce: StringLiteral */
-			reduce(44), /* *, reduce: StringLiteral */
-			reduce(44), /* /, reduce: StringLiteral */
-			reduce(44), /* %, reduce: StringLiteral */
-			reduce(44), /* ^, reduce: StringLiteral */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S54
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(50), /* $, reduce: Identifier */
-			reduce(50), /* ||, reduce: Identifier */
-			reduce(50), /* &&, reduce: Identifier */
-			reduce(50), /* =, reduce: Identifier */
-			reduce(50), /* ==, reduce: Identifier */
-			reduce(50), /* !=, reduce: Identifier */
-			reduce(50), /* <=, reduce: Identifier */
-			reduce(50), /* >=, reduce: Identifier */
-			reduce(50), /* >, reduce: Identifier */
-			reduce(50), /* <, reduce: Identifier */
-			reduce(50), /* is, reduce: Identifier */
-			reduce(50), /* isnot, reduce: Identifier */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(50), /* +, reduce: Identifier */
-			reduce(50), /* -, reduce: Identifier */
-			reduce(50), /* *, reduce: Identifier */
-			reduce(50), /* /, reduce: Identifier */
-			reduce(50), /* %, reduce: Identifier */
-			reduce(50), /* ^, reduce: Identifier */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			reduce(50), /* ., reduce: Identifier */
-			reduce(50), /* [, reduce: Identifier */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S55
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(49), /* $, reduce: ObjectKey */
-			reduce(49), /* ||, reduce: ObjectKey */
-			reduce(49), /* &&, reduce: ObjectKey */
-			reduce(49), /* =, reduce: ObjectKey */
-			reduce(49), /* ==, reduce: ObjectKey */
-			reduce(49), /* !=, reduce: ObjectKey */
-			reduce(49), /* <=, reduce: ObjectKey */
-			reduce(49), /* >=, reduce: ObjectKey */
-			reduce(49), /* >, reduce: ObjectKey */
-			reduce(49), /* <, reduce: ObjectKey */
-			reduce(49), /* is, reduce: ObjectKey */
-			reduce(49), /* isnot, reduce: ObjectKey */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(49), /* +, reduce: ObjectKey */
-			reduce(49), /* -, reduce: ObjectKey */
-			reduce(49), /* *, reduce: ObjectKey */
-			reduce(49), /* /, reduce: ObjectKey */
-			reduce(49), /* %, reduce: ObjectKey */
-			reduce(49), /* ^, reduce: ObjectKey */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			reduce(49), /* ., reduce: ObjectKey */
-			reduce(49), /* [, reduce: ObjectKey */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S56
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			shift(5),  /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			shift(12), /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			shift(16), /* ! */
-			shift(20), /* true */
-			shift(21), /* false */
-			shift(23), /* intLit */
-			shift(24), /* floatLit */
-			shift(52), /* doubleStringLit */
-			shift(53), /* singleStringLit */
-			shift(55), /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S57
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(35), /* $, reduce: UnaryExpr */
-			reduce(35), /* ||, reduce: UnaryExpr */
-			reduce(35), /* &&, reduce: UnaryExpr */
-			reduce(35), /* =, reduce: UnaryExpr */
-			reduce(35), /* ==, reduce: UnaryExpr */
-			reduce(35), /* !=, reduce: UnaryExpr */
-			reduce(35), /* <=, reduce: UnaryExpr */
-			reduce(35), /* >=, reduce: UnaryExpr */
-			reduce(35), /* >, reduce: UnaryExpr */
-			reduce(35), /* <, reduce: UnaryExpr */
-			reduce(35), /* is, reduce: UnaryExpr */
-			reduce(35), /* isnot, reduce: UnaryExpr */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(35), /* +, reduce: UnaryExpr */
-			reduce(35), /* -, reduce: UnaryExpr */
-			reduce(35), /* *, reduce: UnaryExpr */
-			reduce(35), /* /, reduce: UnaryExpr */
-			reduce(35), /* %, reduce: UnaryExpr */
-			reduce(35), /* ^, reduce: UnaryExpr */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S58
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			reduce(2), /* $, reduce: OrExpr */
-			reduce(2), /* ||, reduce: OrExpr */
-			shift(30), /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			nil,       /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			nil,       /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			nil,       /* ! */
-			nil,       /* true */
-			nil,       /* false */
-			nil,       /* intLit */
-			nil,       /* floatLit */
-			nil,       /* doubleStringLit */
-			nil,       /* singleStringLit */
-			nil,       /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S59
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			reduce(4), /* $, reduce: AndExpr */
-			reduce(4), /* ||, reduce: AndExpr */
-			reduce(4), /* &&, reduce: AndExpr */
-			shift(31), /* = */
-			shift(32), /* == */
-			shift(33), /* != */
-			shift(34), /* <= */
-			shift(35), /* >= */
-			shift(36), /* > */
-			shift(37), /* < */
-			shift(38), /* is */
-			shift(39), /* isnot */
-			nil,       /* not */
-			nil,       /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			nil,       /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			nil,       /* ! */
-			nil,       /* true */
-			nil,       /* false */
-			nil,       /* intLit */
-			nil,       /* floatLit */
-			nil,       /* doubleStringLit */
-			nil,       /* singleStringLit */
-			nil,       /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S60
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,       /* INVALID */
@@ -2439,6 +249,8 @@ var actionTab = actionTable{
 			nil,       /* % */
 			nil,       /* ^ */
 			nil,       /* ! */
+			nil,       /* ( */
+			nil,       /* ) */
 			nil,       /* true */
 			nil,       /* false */
 			nil,       /* intLit */
@@ -2451,154 +263,36 @@ var actionTab = actionTable{
 			nil,       /* ] */
 		},
 	},
-	actionRow{ // S61
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			reduce(7), /* $, reduce: CompareExpr */
-			reduce(7), /* ||, reduce: CompareExpr */
-			reduce(7), /* &&, reduce: CompareExpr */
-			reduce(7), /* =, reduce: CompareExpr */
-			reduce(7), /* ==, reduce: CompareExpr */
-			reduce(7), /* !=, reduce: CompareExpr */
-			reduce(7), /* <=, reduce: CompareExpr */
-			reduce(7), /* >=, reduce: CompareExpr */
-			reduce(7), /* >, reduce: CompareExpr */
-			reduce(7), /* <, reduce: CompareExpr */
-			reduce(7), /* is, reduce: CompareExpr */
-			reduce(7), /* isnot, reduce: CompareExpr */
-			nil,       /* not */
-			nil,       /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			nil,       /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			nil,       /* ! */
-			nil,       /* true */
-			nil,       /* false */
-			nil,       /* intLit */
-			nil,       /* floatLit */
-			nil,       /* doubleStringLit */
-			nil,       /* singleStringLit */
-			nil,       /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S62
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			reduce(8), /* $, reduce: CompareExpr */
-			reduce(8), /* ||, reduce: CompareExpr */
-			reduce(8), /* &&, reduce: CompareExpr */
-			reduce(8), /* =, reduce: CompareExpr */
-			reduce(8), /* ==, reduce: CompareExpr */
-			reduce(8), /* !=, reduce: CompareExpr */
-			reduce(8), /* <=, reduce: CompareExpr */
-			reduce(8), /* >=, reduce: CompareExpr */
-			reduce(8), /* >, reduce: CompareExpr */
-			reduce(8), /* <, reduce: CompareExpr */
-			reduce(8), /* is, reduce: CompareExpr */
-			reduce(8), /* isnot, reduce: CompareExpr */
-			nil,       /* not */
-			nil,       /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			nil,       /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			nil,       /* ! */
-			nil,       /* true */
-			nil,       /* false */
-			nil,       /* intLit */
-			nil,       /* floatLit */
-			nil,       /* doubleStringLit */
-			nil,       /* singleStringLit */
-			nil,       /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S63
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			reduce(9), /* $, reduce: CompareExpr */
-			reduce(9), /* ||, reduce: CompareExpr */
-			reduce(9), /* &&, reduce: CompareExpr */
-			reduce(9), /* =, reduce: CompareExpr */
-			reduce(9), /* ==, reduce: CompareExpr */
-			reduce(9), /* !=, reduce: CompareExpr */
-			reduce(9), /* <=, reduce: CompareExpr */
-			reduce(9), /* >=, reduce: CompareExpr */
-			reduce(9), /* >, reduce: CompareExpr */
-			reduce(9), /* <, reduce: CompareExpr */
-			reduce(9), /* is, reduce: CompareExpr */
-			reduce(9), /* isnot, reduce: CompareExpr */
-			nil,       /* not */
-			nil,       /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			nil,       /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			nil,       /* ! */
-			nil,       /* true */
-			nil,       /* false */
-			nil,       /* intLit */
-			nil,       /* floatLit */
-			nil,       /* doubleStringLit */
-			nil,       /* singleStringLit */
-			nil,       /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S64
+	actionRow{ // S6
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,        /* INVALID */
-			reduce(10), /* $, reduce: CompareExpr */
-			reduce(10), /* ||, reduce: CompareExpr */
-			reduce(10), /* &&, reduce: CompareExpr */
-			reduce(10), /* =, reduce: CompareExpr */
-			reduce(10), /* ==, reduce: CompareExpr */
-			reduce(10), /* !=, reduce: CompareExpr */
-			reduce(10), /* <=, reduce: CompareExpr */
-			reduce(10), /* >=, reduce: CompareExpr */
-			reduce(10), /* >, reduce: CompareExpr */
-			reduce(10), /* <, reduce: CompareExpr */
-			reduce(10), /* is, reduce: CompareExpr */
-			reduce(10), /* isnot, reduce: CompareExpr */
+			reduce(41), /* $, reduce: NullLiteral */
+			reduce(41), /* ||, reduce: NullLiteral */
+			reduce(41), /* &&, reduce: NullLiteral */
+			reduce(41), /* =, reduce: NullLiteral */
+			reduce(41), /* ==, reduce: NullLiteral */
+			reduce(41), /* !=, reduce: NullLiteral */
+			reduce(41), /* <=, reduce: NullLiteral */
+			reduce(41), /* >=, reduce: NullLiteral */
+			reduce(41), /* >, reduce: NullLiteral */
+			reduce(41), /* <, reduce: NullLiteral */
+			reduce(41), /* is, reduce: NullLiteral */
+			reduce(41), /* isnot, reduce: NullLiteral */
 			nil,        /* not */
 			nil,        /* null */
 			nil,        /* defined */
 			nil,        /* ~= */
 			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
+			reduce(41), /* +, reduce: NullLiteral */
+			reduce(41), /* -, reduce: NullLiteral */
+			reduce(41), /* *, reduce: NullLiteral */
+			reduce(41), /* /, reduce: NullLiteral */
+			reduce(41), /* %, reduce: NullLiteral */
+			reduce(41), /* ^, reduce: NullLiteral */
 			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
 			nil,        /* true */
 			nil,        /* false */
 			nil,        /* intLit */
@@ -2611,22 +305,22 @@ var actionTab = actionTable{
 			nil,        /* ] */
 		},
 	},
-	actionRow{ // S65
+	actionRow{ // S7
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,        /* INVALID */
-			reduce(11), /* $, reduce: CompareExpr */
-			reduce(11), /* ||, reduce: CompareExpr */
-			reduce(11), /* &&, reduce: CompareExpr */
-			reduce(11), /* =, reduce: CompareExpr */
-			reduce(11), /* ==, reduce: CompareExpr */
-			reduce(11), /* !=, reduce: CompareExpr */
-			reduce(11), /* <=, reduce: CompareExpr */
-			reduce(11), /* >=, reduce: CompareExpr */
-			reduce(11), /* >, reduce: CompareExpr */
-			reduce(11), /* <, reduce: CompareExpr */
-			reduce(11), /* is, reduce: CompareExpr */
-			reduce(11), /* isnot, reduce: CompareExpr */
+			reduce(19), /* $, reduce: ValueExpr */
+			reduce(19), /* ||, reduce: ValueExpr */
+			reduce(19), /* &&, reduce: ValueExpr */
+			reduce(19), /* =, reduce: ValueExpr */
+			reduce(19), /* ==, reduce: ValueExpr */
+			reduce(19), /* !=, reduce: ValueExpr */
+			reduce(19), /* <=, reduce: ValueExpr */
+			reduce(19), /* >=, reduce: ValueExpr */
+			reduce(19), /* >, reduce: ValueExpr */
+			reduce(19), /* <, reduce: ValueExpr */
+			reduce(19), /* is, reduce: ValueExpr */
+			reduce(19), /* isnot, reduce: ValueExpr */
 			nil,        /* not */
 			nil,        /* null */
 			nil,        /* defined */
@@ -2639,6 +333,8 @@ var actionTab = actionTable{
 			nil,        /* % */
 			nil,        /* ^ */
 			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
 			nil,        /* true */
 			nil,        /* false */
 			nil,        /* intLit */
@@ -2651,34 +347,36 @@ var actionTab = actionTable{
 			nil,        /* ] */
 		},
 	},
-	actionRow{ // S66
+	actionRow{ // S8
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,        /* INVALID */
-			reduce(12), /* $, reduce: CompareExpr */
-			reduce(12), /* ||, reduce: CompareExpr */
-			reduce(12), /* &&, reduce: CompareExpr */
-			reduce(12), /* =, reduce: CompareExpr */
-			reduce(12), /* ==, reduce: CompareExpr */
-			reduce(12), /* !=, reduce: CompareExpr */
-			reduce(12), /* <=, reduce: CompareExpr */
-			reduce(12), /* >=, reduce: CompareExpr */
-			reduce(12), /* >, reduce: CompareExpr */
-			reduce(12), /* <, reduce: CompareExpr */
-			reduce(12), /* is, reduce: CompareExpr */
-			reduce(12), /* isnot, reduce: CompareExpr */
+			reduce(20), /* $, reduce: ValueExpr */
+			reduce(20), /* ||, reduce: ValueExpr */
+			reduce(20), /* &&, reduce: ValueExpr */
+			reduce(20), /* =, reduce: ValueExpr */
+			reduce(20), /* ==, reduce: ValueExpr */
+			reduce(20), /* !=, reduce: ValueExpr */
+			reduce(20), /* <=, reduce: ValueExpr */
+			reduce(20), /* >=, reduce: ValueExpr */
+			reduce(20), /* >, reduce: ValueExpr */
+			reduce(20), /* <, reduce: ValueExpr */
+			reduce(20), /* is, reduce: ValueExpr */
+			reduce(20), /* isnot, reduce: ValueExpr */
 			nil,        /* not */
 			nil,        /* null */
 			nil,        /* defined */
 			nil,        /* ~= */
 			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
+			shift(43),  /* + */
+			shift(44),  /* - */
 			nil,        /* * */
 			nil,        /* / */
 			nil,        /* % */
 			nil,        /* ^ */
 			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
 			nil,        /* true */
 			nil,        /* false */
 			nil,        /* intLit */
@@ -2691,47 +389,7 @@ var actionTab = actionTable{
 			nil,        /* ] */
 		},
 	},
-	actionRow{ // S67
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(13), /* $, reduce: CompareExpr */
-			reduce(13), /* ||, reduce: CompareExpr */
-			reduce(13), /* &&, reduce: CompareExpr */
-			reduce(13), /* =, reduce: CompareExpr */
-			reduce(13), /* ==, reduce: CompareExpr */
-			reduce(13), /* !=, reduce: CompareExpr */
-			reduce(13), /* <=, reduce: CompareExpr */
-			reduce(13), /* >=, reduce: CompareExpr */
-			reduce(13), /* >, reduce: CompareExpr */
-			reduce(13), /* <, reduce: CompareExpr */
-			reduce(13), /* is, reduce: CompareExpr */
-			reduce(13), /* isnot, reduce: CompareExpr */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S68
+	actionRow{ // S9
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,       /* INVALID */
@@ -2748,10 +406,10 @@ var actionTab = actionTable{
 			nil,       /* is */
 			nil,       /* isnot */
 			nil,       /* not */
-			shift(69), /* null */
-			shift(70), /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
+			nil,       /* null */
+			nil,       /* defined */
+			shift(45), /* ~= */
+			shift(46), /* !~= */
 			nil,       /* + */
 			nil,       /* - */
 			nil,       /* * */
@@ -2759,6 +417,8 @@ var actionTab = actionTable{
 			nil,       /* % */
 			nil,       /* ^ */
 			nil,       /* ! */
+			nil,       /* ( */
+			nil,       /* ) */
 			nil,       /* true */
 			nil,       /* false */
 			nil,       /* intLit */
@@ -2771,34 +431,78 @@ var actionTab = actionTable{
 			nil,       /* ] */
 		},
 	},
-	actionRow{ // S69
+	actionRow{ // S10
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,        /* INVALID */
-			reduce(16), /* $, reduce: ExistentialWord */
-			reduce(16), /* ||, reduce: ExistentialWord */
-			reduce(16), /* &&, reduce: ExistentialWord */
-			reduce(16), /* =, reduce: ExistentialWord */
-			reduce(16), /* ==, reduce: ExistentialWord */
-			reduce(16), /* !=, reduce: ExistentialWord */
-			reduce(16), /* <=, reduce: ExistentialWord */
-			reduce(16), /* >=, reduce: ExistentialWord */
-			reduce(16), /* >, reduce: ExistentialWord */
-			reduce(16), /* <, reduce: ExistentialWord */
-			reduce(16), /* is, reduce: ExistentialWord */
-			reduce(16), /* isnot, reduce: ExistentialWord */
+			reduce(40), /* $, reduce: Term */
+			reduce(40), /* ||, reduce: Term */
+			reduce(40), /* &&, reduce: Term */
+			reduce(40), /* =, reduce: Term */
+			reduce(40), /* ==, reduce: Term */
+			reduce(40), /* !=, reduce: Term */
+			reduce(40), /* <=, reduce: Term */
+			reduce(40), /* >=, reduce: Term */
+			reduce(40), /* >, reduce: Term */
+			reduce(40), /* <, reduce: Term */
+			reduce(40), /* is, reduce: Term */
+			reduce(40), /* isnot, reduce: Term */
 			nil,        /* not */
 			nil,        /* null */
 			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
+			reduce(21), /* ~=, reduce: RegexpArgument */
+			reduce(21), /* !~=, reduce: RegexpArgument */
+			reduce(40), /* +, reduce: Term */
+			reduce(40), /* -, reduce: Term */
+			reduce(40), /* *, reduce: Term */
+			reduce(40), /* /, reduce: Term */
+			reduce(40), /* %, reduce: Term */
+			reduce(40), /* ^, reduce: Term */
 			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			shift(47),  /* . */
+			shift(48),  /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S11
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(51), /* $, reduce: Literal */
+			reduce(51), /* ||, reduce: Literal */
+			reduce(51), /* &&, reduce: Literal */
+			reduce(51), /* =, reduce: Literal */
+			reduce(51), /* ==, reduce: Literal */
+			reduce(51), /* !=, reduce: Literal */
+			reduce(51), /* <=, reduce: Literal */
+			reduce(51), /* >=, reduce: Literal */
+			reduce(51), /* >, reduce: Literal */
+			reduce(51), /* <, reduce: Literal */
+			reduce(51), /* is, reduce: Literal */
+			reduce(51), /* isnot, reduce: Literal */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(22), /* ~=, reduce: RegexpArgument */
+			reduce(22), /* !~=, reduce: RegexpArgument */
+			reduce(51), /* +, reduce: Literal */
+			reduce(51), /* -, reduce: Literal */
+			reduce(51), /* *, reduce: Literal */
+			reduce(51), /* /, reduce: Literal */
+			reduce(51), /* %, reduce: Literal */
+			reduce(51), /* ^, reduce: Literal */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
 			nil,        /* true */
 			nil,        /* false */
 			nil,        /* intLit */
@@ -2811,87 +515,7 @@ var actionTab = actionTable{
 			nil,        /* ] */
 		},
 	},
-	actionRow{ // S70
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(17), /* $, reduce: ExistentialWord */
-			reduce(17), /* ||, reduce: ExistentialWord */
-			reduce(17), /* &&, reduce: ExistentialWord */
-			reduce(17), /* =, reduce: ExistentialWord */
-			reduce(17), /* ==, reduce: ExistentialWord */
-			reduce(17), /* !=, reduce: ExistentialWord */
-			reduce(17), /* <=, reduce: ExistentialWord */
-			reduce(17), /* >=, reduce: ExistentialWord */
-			reduce(17), /* >, reduce: ExistentialWord */
-			reduce(17), /* <, reduce: ExistentialWord */
-			reduce(17), /* is, reduce: ExistentialWord */
-			reduce(17), /* isnot, reduce: ExistentialWord */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S71
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(14), /* $, reduce: CompareExpr */
-			reduce(14), /* ||, reduce: CompareExpr */
-			reduce(14), /* &&, reduce: CompareExpr */
-			reduce(14), /* =, reduce: CompareExpr */
-			reduce(14), /* ==, reduce: CompareExpr */
-			reduce(14), /* !=, reduce: CompareExpr */
-			reduce(14), /* <=, reduce: CompareExpr */
-			reduce(14), /* >=, reduce: CompareExpr */
-			reduce(14), /* >, reduce: CompareExpr */
-			reduce(14), /* <, reduce: CompareExpr */
-			reduce(14), /* is, reduce: CompareExpr */
-			reduce(14), /* isnot, reduce: CompareExpr */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S72
+	actionRow{ // S12
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,        /* INVALID */
@@ -2914,11 +538,13 @@ var actionTab = actionTable{
 			nil,        /* !~= */
 			reduce(25), /* +, reduce: AddExpr */
 			reduce(25), /* -, reduce: AddExpr */
-			shift(46),  /* * */
-			shift(47),  /* / */
-			shift(48),  /* % */
+			shift(49),  /* * */
+			shift(50),  /* / */
+			shift(51),  /* % */
 			nil,        /* ^ */
 			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
 			nil,        /* true */
 			nil,        /* false */
 			nil,        /* intLit */
@@ -2931,887 +557,49 @@ var actionTab = actionTable{
 			nil,        /* ] */
 		},
 	},
-	actionRow{ // S73
+	actionRow{ // S13
 		canRecover: false,
 		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(26), /* $, reduce: AddExpr */
-			reduce(26), /* ||, reduce: AddExpr */
-			reduce(26), /* &&, reduce: AddExpr */
-			reduce(26), /* =, reduce: AddExpr */
-			reduce(26), /* ==, reduce: AddExpr */
-			reduce(26), /* !=, reduce: AddExpr */
-			reduce(26), /* <=, reduce: AddExpr */
-			reduce(26), /* >=, reduce: AddExpr */
-			reduce(26), /* >, reduce: AddExpr */
-			reduce(26), /* <, reduce: AddExpr */
-			reduce(26), /* is, reduce: AddExpr */
-			reduce(26), /* isnot, reduce: AddExpr */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(26), /* +, reduce: AddExpr */
-			reduce(26), /* -, reduce: AddExpr */
-			shift(46),  /* * */
-			shift(47),  /* / */
-			shift(48),  /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(6),  /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			nil,       /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			nil,       /* ! */
+			shift(19), /* ( */
+			nil,       /* ) */
+			shift(23), /* true */
+			shift(24), /* false */
+			shift(26), /* intLit */
+			shift(27), /* floatLit */
+			shift(55), /* doubleStringLit */
+			shift(56), /* singleStringLit */
+			shift(58), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
 		},
 	},
-	actionRow{ // S74
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(22), /* $, reduce: RegexpExpr */
-			reduce(22), /* ||, reduce: RegexpExpr */
-			reduce(22), /* &&, reduce: RegexpExpr */
-			reduce(22), /* =, reduce: RegexpExpr */
-			reduce(22), /* ==, reduce: RegexpExpr */
-			reduce(22), /* !=, reduce: RegexpExpr */
-			reduce(22), /* <=, reduce: RegexpExpr */
-			reduce(22), /* >=, reduce: RegexpExpr */
-			reduce(22), /* >, reduce: RegexpExpr */
-			reduce(22), /* <, reduce: RegexpExpr */
-			reduce(22), /* is, reduce: RegexpExpr */
-			reduce(22), /* isnot, reduce: RegexpExpr */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S75
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(43), /* $, reduce: StringLiteral */
-			reduce(43), /* ||, reduce: StringLiteral */
-			reduce(43), /* &&, reduce: StringLiteral */
-			reduce(43), /* =, reduce: StringLiteral */
-			reduce(43), /* ==, reduce: StringLiteral */
-			reduce(43), /* !=, reduce: StringLiteral */
-			reduce(43), /* <=, reduce: StringLiteral */
-			reduce(43), /* >=, reduce: StringLiteral */
-			reduce(43), /* >, reduce: StringLiteral */
-			reduce(43), /* <, reduce: StringLiteral */
-			reduce(43), /* is, reduce: StringLiteral */
-			reduce(43), /* isnot, reduce: StringLiteral */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S76
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(44), /* $, reduce: StringLiteral */
-			reduce(44), /* ||, reduce: StringLiteral */
-			reduce(44), /* &&, reduce: StringLiteral */
-			reduce(44), /* =, reduce: StringLiteral */
-			reduce(44), /* ==, reduce: StringLiteral */
-			reduce(44), /* !=, reduce: StringLiteral */
-			reduce(44), /* <=, reduce: StringLiteral */
-			reduce(44), /* >=, reduce: StringLiteral */
-			reduce(44), /* >, reduce: StringLiteral */
-			reduce(44), /* <, reduce: StringLiteral */
-			reduce(44), /* is, reduce: StringLiteral */
-			reduce(44), /* isnot, reduce: StringLiteral */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S77
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(23), /* $, reduce: RegexpExpr */
-			reduce(23), /* ||, reduce: RegexpExpr */
-			reduce(23), /* &&, reduce: RegexpExpr */
-			reduce(23), /* =, reduce: RegexpExpr */
-			reduce(23), /* ==, reduce: RegexpExpr */
-			reduce(23), /* !=, reduce: RegexpExpr */
-			reduce(23), /* <=, reduce: RegexpExpr */
-			reduce(23), /* >=, reduce: RegexpExpr */
-			reduce(23), /* >, reduce: RegexpExpr */
-			reduce(23), /* <, reduce: RegexpExpr */
-			reduce(23), /* is, reduce: RegexpExpr */
-			reduce(23), /* isnot, reduce: RegexpExpr */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S78
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(51), /* $, reduce: Identifier */
-			reduce(51), /* ||, reduce: Identifier */
-			reduce(51), /* &&, reduce: Identifier */
-			reduce(51), /* =, reduce: Identifier */
-			reduce(51), /* ==, reduce: Identifier */
-			reduce(51), /* !=, reduce: Identifier */
-			reduce(51), /* <=, reduce: Identifier */
-			reduce(51), /* >=, reduce: Identifier */
-			reduce(51), /* >, reduce: Identifier */
-			reduce(51), /* <, reduce: Identifier */
-			reduce(51), /* is, reduce: Identifier */
-			reduce(51), /* isnot, reduce: Identifier */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			reduce(51), /* ~=, reduce: Identifier */
-			reduce(51), /* !~=, reduce: Identifier */
-			reduce(51), /* +, reduce: Identifier */
-			reduce(51), /* -, reduce: Identifier */
-			reduce(51), /* *, reduce: Identifier */
-			reduce(51), /* /, reduce: Identifier */
-			reduce(51), /* %, reduce: Identifier */
-			reduce(51), /* ^, reduce: Identifier */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			reduce(51), /* ., reduce: Identifier */
-			reduce(51), /* [, reduce: Identifier */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S79
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			nil,        /* $ */
-			nil,        /* || */
-			nil,        /* && */
-			nil,        /* = */
-			nil,        /* == */
-			nil,        /* != */
-			nil,        /* <= */
-			nil,        /* >= */
-			nil,        /* > */
-			nil,        /* < */
-			nil,        /* is */
-			nil,        /* isnot */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			reduce(38), /* ], reduce: NullLiteral */
-		},
-	},
-	actionRow{ // S80
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			nil,        /* $ */
-			nil,        /* || */
-			nil,        /* && */
-			nil,        /* = */
-			nil,        /* == */
-			nil,        /* != */
-			nil,        /* <= */
-			nil,        /* >= */
-			nil,        /* > */
-			nil,        /* < */
-			nil,        /* is */
-			nil,        /* isnot */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			shift(102), /* . */
-			shift(103), /* [ */
-			reduce(37), /* ], reduce: Expr */
-		},
-	},
-	actionRow{ // S81
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			nil,        /* $ */
-			nil,        /* || */
-			nil,        /* && */
-			nil,        /* = */
-			nil,        /* == */
-			nil,        /* != */
-			nil,        /* <= */
-			nil,        /* >= */
-			nil,        /* > */
-			nil,        /* < */
-			nil,        /* is */
-			nil,        /* isnot */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			reduce(48), /* ], reduce: Literal */
-		},
-	},
-	actionRow{ // S82
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			nil,        /* $ */
-			nil,        /* || */
-			nil,        /* && */
-			nil,        /* = */
-			nil,        /* == */
-			nil,        /* != */
-			nil,        /* <= */
-			nil,        /* >= */
-			nil,        /* > */
-			nil,        /* < */
-			nil,        /* is */
-			nil,        /* isnot */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			shift(104), /* ] */
-		},
-	},
-	actionRow{ // S83
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			nil,        /* $ */
-			nil,        /* || */
-			nil,        /* && */
-			nil,        /* = */
-			nil,        /* == */
-			nil,        /* != */
-			nil,        /* <= */
-			nil,        /* >= */
-			nil,        /* > */
-			nil,        /* < */
-			nil,        /* is */
-			nil,        /* isnot */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			reduce(36), /* ], reduce: Expr */
-		},
-	},
-	actionRow{ // S84
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			nil,        /* $ */
-			nil,        /* || */
-			nil,        /* && */
-			nil,        /* = */
-			nil,        /* == */
-			nil,        /* != */
-			nil,        /* <= */
-			nil,        /* >= */
-			nil,        /* > */
-			nil,        /* < */
-			nil,        /* is */
-			nil,        /* isnot */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			reduce(45), /* ], reduce: Literal */
-		},
-	},
-	actionRow{ // S85
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			nil,        /* $ */
-			nil,        /* || */
-			nil,        /* && */
-			nil,        /* = */
-			nil,        /* == */
-			nil,        /* != */
-			nil,        /* <= */
-			nil,        /* >= */
-			nil,        /* > */
-			nil,        /* < */
-			nil,        /* is */
-			nil,        /* isnot */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			reduce(46), /* ], reduce: Literal */
-		},
-	},
-	actionRow{ // S86
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			nil,        /* $ */
-			nil,        /* || */
-			nil,        /* && */
-			nil,        /* = */
-			nil,        /* == */
-			nil,        /* != */
-			nil,        /* <= */
-			nil,        /* >= */
-			nil,        /* > */
-			nil,        /* < */
-			nil,        /* is */
-			nil,        /* isnot */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			reduce(39), /* ], reduce: BooleanLiteral */
-		},
-	},
-	actionRow{ // S87
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			nil,        /* $ */
-			nil,        /* || */
-			nil,        /* && */
-			nil,        /* = */
-			nil,        /* == */
-			nil,        /* != */
-			nil,        /* <= */
-			nil,        /* >= */
-			nil,        /* > */
-			nil,        /* < */
-			nil,        /* is */
-			nil,        /* isnot */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			reduce(40), /* ], reduce: BooleanLiteral */
-		},
-	},
-	actionRow{ // S88
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			nil,        /* $ */
-			nil,        /* || */
-			nil,        /* && */
-			nil,        /* = */
-			nil,        /* == */
-			nil,        /* != */
-			nil,        /* <= */
-			nil,        /* >= */
-			nil,        /* > */
-			nil,        /* < */
-			nil,        /* is */
-			nil,        /* isnot */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			reduce(47), /* ], reduce: Literal */
-		},
-	},
-	actionRow{ // S89
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			nil,        /* $ */
-			nil,        /* || */
-			nil,        /* && */
-			nil,        /* = */
-			nil,        /* == */
-			nil,        /* != */
-			nil,        /* <= */
-			nil,        /* >= */
-			nil,        /* > */
-			nil,        /* < */
-			nil,        /* is */
-			nil,        /* isnot */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			reduce(41), /* ], reduce: NumericLiteral */
-		},
-	},
-	actionRow{ // S90
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			nil,        /* $ */
-			nil,        /* || */
-			nil,        /* && */
-			nil,        /* = */
-			nil,        /* == */
-			nil,        /* != */
-			nil,        /* <= */
-			nil,        /* >= */
-			nil,        /* > */
-			nil,        /* < */
-			nil,        /* is */
-			nil,        /* isnot */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			reduce(42), /* ], reduce: NumericLiteral */
-		},
-	},
-	actionRow{ // S91
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			nil,        /* $ */
-			nil,        /* || */
-			nil,        /* && */
-			nil,        /* = */
-			nil,        /* == */
-			nil,        /* != */
-			nil,        /* <= */
-			nil,        /* >= */
-			nil,        /* > */
-			nil,        /* < */
-			nil,        /* is */
-			nil,        /* isnot */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			reduce(43), /* ], reduce: StringLiteral */
-		},
-	},
-	actionRow{ // S92
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			nil,        /* $ */
-			nil,        /* || */
-			nil,        /* && */
-			nil,        /* = */
-			nil,        /* == */
-			nil,        /* != */
-			nil,        /* <= */
-			nil,        /* >= */
-			nil,        /* > */
-			nil,        /* < */
-			nil,        /* is */
-			nil,        /* isnot */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			reduce(44), /* ], reduce: StringLiteral */
-		},
-	},
-	actionRow{ // S93
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			nil,        /* $ */
-			nil,        /* || */
-			nil,        /* && */
-			nil,        /* = */
-			nil,        /* == */
-			nil,        /* != */
-			nil,        /* <= */
-			nil,        /* >= */
-			nil,        /* > */
-			nil,        /* < */
-			nil,        /* is */
-			nil,        /* isnot */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			reduce(50), /* ., reduce: Identifier */
-			reduce(50), /* [, reduce: Identifier */
-			reduce(50), /* ], reduce: Identifier */
-		},
-	},
-	actionRow{ // S94
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			nil,        /* $ */
-			nil,        /* || */
-			nil,        /* && */
-			nil,        /* = */
-			nil,        /* == */
-			nil,        /* != */
-			nil,        /* <= */
-			nil,        /* >= */
-			nil,        /* > */
-			nil,        /* < */
-			nil,        /* is */
-			nil,        /* isnot */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			reduce(49), /* ., reduce: ObjectKey */
-			reduce(49), /* [, reduce: ObjectKey */
-			reduce(49), /* ], reduce: ObjectKey */
-		},
-	},
-	actionRow{ // S95
+	actionRow{ // S14
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,        /* INVALID */
@@ -3837,8 +625,10 @@ var actionTab = actionTable{
 			reduce(28), /* *, reduce: MulExpr */
 			reduce(28), /* /, reduce: MulExpr */
 			reduce(28), /* %, reduce: MulExpr */
-			shift(56),  /* ^ */
+			shift(59),  /* ^ */
 			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
 			nil,        /* true */
 			nil,        /* false */
 			nil,        /* intLit */
@@ -3851,167 +641,7 @@ var actionTab = actionTable{
 			nil,        /* ] */
 		},
 	},
-	actionRow{ // S96
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(29), /* $, reduce: MulExpr */
-			reduce(29), /* ||, reduce: MulExpr */
-			reduce(29), /* &&, reduce: MulExpr */
-			reduce(29), /* =, reduce: MulExpr */
-			reduce(29), /* ==, reduce: MulExpr */
-			reduce(29), /* !=, reduce: MulExpr */
-			reduce(29), /* <=, reduce: MulExpr */
-			reduce(29), /* >=, reduce: MulExpr */
-			reduce(29), /* >, reduce: MulExpr */
-			reduce(29), /* <, reduce: MulExpr */
-			reduce(29), /* is, reduce: MulExpr */
-			reduce(29), /* isnot, reduce: MulExpr */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(29), /* +, reduce: MulExpr */
-			reduce(29), /* -, reduce: MulExpr */
-			reduce(29), /* *, reduce: MulExpr */
-			reduce(29), /* /, reduce: MulExpr */
-			reduce(29), /* %, reduce: MulExpr */
-			shift(56),  /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S97
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			reduce(30), /* $, reduce: MulExpr */
-			reduce(30), /* ||, reduce: MulExpr */
-			reduce(30), /* &&, reduce: MulExpr */
-			reduce(30), /* =, reduce: MulExpr */
-			reduce(30), /* ==, reduce: MulExpr */
-			reduce(30), /* !=, reduce: MulExpr */
-			reduce(30), /* <=, reduce: MulExpr */
-			reduce(30), /* >=, reduce: MulExpr */
-			reduce(30), /* >, reduce: MulExpr */
-			reduce(30), /* <, reduce: MulExpr */
-			reduce(30), /* is, reduce: MulExpr */
-			reduce(30), /* isnot, reduce: MulExpr */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			reduce(30), /* +, reduce: MulExpr */
-			reduce(30), /* -, reduce: MulExpr */
-			reduce(30), /* *, reduce: MulExpr */
-			reduce(30), /* /, reduce: MulExpr */
-			reduce(30), /* %, reduce: MulExpr */
-			shift(56),  /* ^ */
-			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			nil,        /* . */
-			nil,        /* [ */
-			nil,        /* ] */
-		},
-	},
-	actionRow{ // S98
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			nil,       /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			nil,       /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			nil,       /* ! */
-			nil,       /* true */
-			nil,       /* false */
-			nil,       /* intLit */
-			nil,       /* floatLit */
-			nil,       /* doubleStringLit */
-			nil,       /* singleStringLit */
-			shift(55), /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S99
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,       /* INVALID */
-			nil,       /* $ */
-			nil,       /* || */
-			nil,       /* && */
-			nil,       /* = */
-			nil,       /* == */
-			nil,       /* != */
-			nil,       /* <= */
-			nil,       /* >= */
-			nil,       /* > */
-			nil,       /* < */
-			nil,       /* is */
-			nil,       /* isnot */
-			nil,       /* not */
-			shift(79), /* null */
-			nil,       /* defined */
-			nil,       /* ~= */
-			nil,       /* !~= */
-			nil,       /* + */
-			nil,       /* - */
-			nil,       /* * */
-			nil,       /* / */
-			nil,       /* % */
-			nil,       /* ^ */
-			nil,       /* ! */
-			shift(86), /* true */
-			shift(87), /* false */
-			shift(89), /* intLit */
-			shift(90), /* floatLit */
-			shift(91), /* doubleStringLit */
-			shift(92), /* singleStringLit */
-			shift(94), /* symbol */
-			nil,       /* . */
-			nil,       /* [ */
-			nil,       /* ] */
-		},
-	},
-	actionRow{ // S100
+	actionRow{ // S15
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,        /* INVALID */
@@ -4039,6 +669,8 @@ var actionTab = actionTable{
 			reduce(32), /* %, reduce: ExpExpr */
 			reduce(32), /* ^, reduce: ExpExpr */
 			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
 			nil,        /* true */
 			nil,        /* false */
 			nil,        /* intLit */
@@ -4051,22 +683,1240 @@ var actionTab = actionTable{
 			nil,        /* ] */
 		},
 	},
-	actionRow{ // S101
+	actionRow{ // S16
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,        /* INVALID */
-			reduce(15), /* $, reduce: CompareExpr */
-			reduce(15), /* ||, reduce: CompareExpr */
-			reduce(15), /* &&, reduce: CompareExpr */
-			reduce(15), /* =, reduce: CompareExpr */
-			reduce(15), /* ==, reduce: CompareExpr */
-			reduce(15), /* !=, reduce: CompareExpr */
-			reduce(15), /* <=, reduce: CompareExpr */
-			reduce(15), /* >=, reduce: CompareExpr */
-			reduce(15), /* >, reduce: CompareExpr */
-			reduce(15), /* <, reduce: CompareExpr */
-			reduce(15), /* is, reduce: CompareExpr */
-			reduce(15), /* isnot, reduce: CompareExpr */
+			reduce(34), /* $, reduce: UnaryExpr */
+			reduce(34), /* ||, reduce: UnaryExpr */
+			reduce(34), /* &&, reduce: UnaryExpr */
+			reduce(34), /* =, reduce: UnaryExpr */
+			reduce(34), /* ==, reduce: UnaryExpr */
+			reduce(34), /* !=, reduce: UnaryExpr */
+			reduce(34), /* <=, reduce: UnaryExpr */
+			reduce(34), /* >=, reduce: UnaryExpr */
+			reduce(34), /* >, reduce: UnaryExpr */
+			reduce(34), /* <, reduce: UnaryExpr */
+			reduce(34), /* is, reduce: UnaryExpr */
+			reduce(34), /* isnot, reduce: UnaryExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(34), /* +, reduce: UnaryExpr */
+			reduce(34), /* -, reduce: UnaryExpr */
+			reduce(34), /* *, reduce: UnaryExpr */
+			reduce(34), /* /, reduce: UnaryExpr */
+			reduce(34), /* %, reduce: UnaryExpr */
+			reduce(34), /* ^, reduce: UnaryExpr */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S17
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(6),  /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(13), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(17), /* ! */
+			shift(19), /* ( */
+			nil,       /* ) */
+			shift(23), /* true */
+			shift(24), /* false */
+			shift(26), /* intLit */
+			shift(27), /* floatLit */
+			shift(55), /* doubleStringLit */
+			shift(56), /* singleStringLit */
+			shift(58), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S18
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(37), /* $, reduce: ParenExpr */
+			reduce(37), /* ||, reduce: ParenExpr */
+			reduce(37), /* &&, reduce: ParenExpr */
+			reduce(37), /* =, reduce: ParenExpr */
+			reduce(37), /* ==, reduce: ParenExpr */
+			reduce(37), /* !=, reduce: ParenExpr */
+			reduce(37), /* <=, reduce: ParenExpr */
+			reduce(37), /* >=, reduce: ParenExpr */
+			reduce(37), /* >, reduce: ParenExpr */
+			reduce(37), /* <, reduce: ParenExpr */
+			reduce(37), /* is, reduce: ParenExpr */
+			reduce(37), /* isnot, reduce: ParenExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(37), /* +, reduce: ParenExpr */
+			reduce(37), /* -, reduce: ParenExpr */
+			reduce(37), /* *, reduce: ParenExpr */
+			reduce(37), /* /, reduce: ParenExpr */
+			reduce(37), /* %, reduce: ParenExpr */
+			reduce(37), /* ^, reduce: ParenExpr */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S19
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(66), /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(73), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(77), /* ! */
+			shift(79), /* ( */
+			nil,       /* ) */
+			shift(83), /* true */
+			shift(84), /* false */
+			shift(86), /* intLit */
+			shift(87), /* floatLit */
+			shift(88), /* doubleStringLit */
+			shift(89), /* singleStringLit */
+			shift(91), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S20
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(39), /* $, reduce: Term */
+			reduce(39), /* ||, reduce: Term */
+			reduce(39), /* &&, reduce: Term */
+			reduce(39), /* =, reduce: Term */
+			reduce(39), /* ==, reduce: Term */
+			reduce(39), /* !=, reduce: Term */
+			reduce(39), /* <=, reduce: Term */
+			reduce(39), /* >=, reduce: Term */
+			reduce(39), /* >, reduce: Term */
+			reduce(39), /* <, reduce: Term */
+			reduce(39), /* is, reduce: Term */
+			reduce(39), /* isnot, reduce: Term */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(39), /* +, reduce: Term */
+			reduce(39), /* -, reduce: Term */
+			reduce(39), /* *, reduce: Term */
+			reduce(39), /* /, reduce: Term */
+			reduce(39), /* %, reduce: Term */
+			reduce(39), /* ^, reduce: Term */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S21
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(48), /* $, reduce: Literal */
+			reduce(48), /* ||, reduce: Literal */
+			reduce(48), /* &&, reduce: Literal */
+			reduce(48), /* =, reduce: Literal */
+			reduce(48), /* ==, reduce: Literal */
+			reduce(48), /* !=, reduce: Literal */
+			reduce(48), /* <=, reduce: Literal */
+			reduce(48), /* >=, reduce: Literal */
+			reduce(48), /* >, reduce: Literal */
+			reduce(48), /* <, reduce: Literal */
+			reduce(48), /* is, reduce: Literal */
+			reduce(48), /* isnot, reduce: Literal */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(48), /* +, reduce: Literal */
+			reduce(48), /* -, reduce: Literal */
+			reduce(48), /* *, reduce: Literal */
+			reduce(48), /* /, reduce: Literal */
+			reduce(48), /* %, reduce: Literal */
+			reduce(48), /* ^, reduce: Literal */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S22
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(49), /* $, reduce: Literal */
+			reduce(49), /* ||, reduce: Literal */
+			reduce(49), /* &&, reduce: Literal */
+			reduce(49), /* =, reduce: Literal */
+			reduce(49), /* ==, reduce: Literal */
+			reduce(49), /* !=, reduce: Literal */
+			reduce(49), /* <=, reduce: Literal */
+			reduce(49), /* >=, reduce: Literal */
+			reduce(49), /* >, reduce: Literal */
+			reduce(49), /* <, reduce: Literal */
+			reduce(49), /* is, reduce: Literal */
+			reduce(49), /* isnot, reduce: Literal */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(49), /* +, reduce: Literal */
+			reduce(49), /* -, reduce: Literal */
+			reduce(49), /* *, reduce: Literal */
+			reduce(49), /* /, reduce: Literal */
+			reduce(49), /* %, reduce: Literal */
+			reduce(49), /* ^, reduce: Literal */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S23
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(42), /* $, reduce: BooleanLiteral */
+			reduce(42), /* ||, reduce: BooleanLiteral */
+			reduce(42), /* &&, reduce: BooleanLiteral */
+			reduce(42), /* =, reduce: BooleanLiteral */
+			reduce(42), /* ==, reduce: BooleanLiteral */
+			reduce(42), /* !=, reduce: BooleanLiteral */
+			reduce(42), /* <=, reduce: BooleanLiteral */
+			reduce(42), /* >=, reduce: BooleanLiteral */
+			reduce(42), /* >, reduce: BooleanLiteral */
+			reduce(42), /* <, reduce: BooleanLiteral */
+			reduce(42), /* is, reduce: BooleanLiteral */
+			reduce(42), /* isnot, reduce: BooleanLiteral */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(42), /* +, reduce: BooleanLiteral */
+			reduce(42), /* -, reduce: BooleanLiteral */
+			reduce(42), /* *, reduce: BooleanLiteral */
+			reduce(42), /* /, reduce: BooleanLiteral */
+			reduce(42), /* %, reduce: BooleanLiteral */
+			reduce(42), /* ^, reduce: BooleanLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S24
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(43), /* $, reduce: BooleanLiteral */
+			reduce(43), /* ||, reduce: BooleanLiteral */
+			reduce(43), /* &&, reduce: BooleanLiteral */
+			reduce(43), /* =, reduce: BooleanLiteral */
+			reduce(43), /* ==, reduce: BooleanLiteral */
+			reduce(43), /* !=, reduce: BooleanLiteral */
+			reduce(43), /* <=, reduce: BooleanLiteral */
+			reduce(43), /* >=, reduce: BooleanLiteral */
+			reduce(43), /* >, reduce: BooleanLiteral */
+			reduce(43), /* <, reduce: BooleanLiteral */
+			reduce(43), /* is, reduce: BooleanLiteral */
+			reduce(43), /* isnot, reduce: BooleanLiteral */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(43), /* +, reduce: BooleanLiteral */
+			reduce(43), /* -, reduce: BooleanLiteral */
+			reduce(43), /* *, reduce: BooleanLiteral */
+			reduce(43), /* /, reduce: BooleanLiteral */
+			reduce(43), /* %, reduce: BooleanLiteral */
+			reduce(43), /* ^, reduce: BooleanLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S25
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(50), /* $, reduce: Literal */
+			reduce(50), /* ||, reduce: Literal */
+			reduce(50), /* &&, reduce: Literal */
+			reduce(50), /* =, reduce: Literal */
+			reduce(50), /* ==, reduce: Literal */
+			reduce(50), /* !=, reduce: Literal */
+			reduce(50), /* <=, reduce: Literal */
+			reduce(50), /* >=, reduce: Literal */
+			reduce(50), /* >, reduce: Literal */
+			reduce(50), /* <, reduce: Literal */
+			reduce(50), /* is, reduce: Literal */
+			reduce(50), /* isnot, reduce: Literal */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(50), /* +, reduce: Literal */
+			reduce(50), /* -, reduce: Literal */
+			reduce(50), /* *, reduce: Literal */
+			reduce(50), /* /, reduce: Literal */
+			reduce(50), /* %, reduce: Literal */
+			reduce(50), /* ^, reduce: Literal */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S26
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(44), /* $, reduce: NumericLiteral */
+			reduce(44), /* ||, reduce: NumericLiteral */
+			reduce(44), /* &&, reduce: NumericLiteral */
+			reduce(44), /* =, reduce: NumericLiteral */
+			reduce(44), /* ==, reduce: NumericLiteral */
+			reduce(44), /* !=, reduce: NumericLiteral */
+			reduce(44), /* <=, reduce: NumericLiteral */
+			reduce(44), /* >=, reduce: NumericLiteral */
+			reduce(44), /* >, reduce: NumericLiteral */
+			reduce(44), /* <, reduce: NumericLiteral */
+			reduce(44), /* is, reduce: NumericLiteral */
+			reduce(44), /* isnot, reduce: NumericLiteral */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(44), /* +, reduce: NumericLiteral */
+			reduce(44), /* -, reduce: NumericLiteral */
+			reduce(44), /* *, reduce: NumericLiteral */
+			reduce(44), /* /, reduce: NumericLiteral */
+			reduce(44), /* %, reduce: NumericLiteral */
+			reduce(44), /* ^, reduce: NumericLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S27
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(45), /* $, reduce: NumericLiteral */
+			reduce(45), /* ||, reduce: NumericLiteral */
+			reduce(45), /* &&, reduce: NumericLiteral */
+			reduce(45), /* =, reduce: NumericLiteral */
+			reduce(45), /* ==, reduce: NumericLiteral */
+			reduce(45), /* !=, reduce: NumericLiteral */
+			reduce(45), /* <=, reduce: NumericLiteral */
+			reduce(45), /* >=, reduce: NumericLiteral */
+			reduce(45), /* >, reduce: NumericLiteral */
+			reduce(45), /* <, reduce: NumericLiteral */
+			reduce(45), /* is, reduce: NumericLiteral */
+			reduce(45), /* isnot, reduce: NumericLiteral */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(45), /* +, reduce: NumericLiteral */
+			reduce(45), /* -, reduce: NumericLiteral */
+			reduce(45), /* *, reduce: NumericLiteral */
+			reduce(45), /* /, reduce: NumericLiteral */
+			reduce(45), /* %, reduce: NumericLiteral */
+			reduce(45), /* ^, reduce: NumericLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S28
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(46), /* $, reduce: StringLiteral */
+			reduce(46), /* ||, reduce: StringLiteral */
+			reduce(46), /* &&, reduce: StringLiteral */
+			reduce(46), /* =, reduce: StringLiteral */
+			reduce(46), /* ==, reduce: StringLiteral */
+			reduce(46), /* !=, reduce: StringLiteral */
+			reduce(46), /* <=, reduce: StringLiteral */
+			reduce(46), /* >=, reduce: StringLiteral */
+			reduce(46), /* >, reduce: StringLiteral */
+			reduce(46), /* <, reduce: StringLiteral */
+			reduce(46), /* is, reduce: StringLiteral */
+			reduce(46), /* isnot, reduce: StringLiteral */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(46), /* ~=, reduce: StringLiteral */
+			reduce(46), /* !~=, reduce: StringLiteral */
+			reduce(46), /* +, reduce: StringLiteral */
+			reduce(46), /* -, reduce: StringLiteral */
+			reduce(46), /* *, reduce: StringLiteral */
+			reduce(46), /* /, reduce: StringLiteral */
+			reduce(46), /* %, reduce: StringLiteral */
+			reduce(46), /* ^, reduce: StringLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S29
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(47), /* $, reduce: StringLiteral */
+			reduce(47), /* ||, reduce: StringLiteral */
+			reduce(47), /* &&, reduce: StringLiteral */
+			reduce(47), /* =, reduce: StringLiteral */
+			reduce(47), /* ==, reduce: StringLiteral */
+			reduce(47), /* !=, reduce: StringLiteral */
+			reduce(47), /* <=, reduce: StringLiteral */
+			reduce(47), /* >=, reduce: StringLiteral */
+			reduce(47), /* >, reduce: StringLiteral */
+			reduce(47), /* <, reduce: StringLiteral */
+			reduce(47), /* is, reduce: StringLiteral */
+			reduce(47), /* isnot, reduce: StringLiteral */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(47), /* ~=, reduce: StringLiteral */
+			reduce(47), /* !~=, reduce: StringLiteral */
+			reduce(47), /* +, reduce: StringLiteral */
+			reduce(47), /* -, reduce: StringLiteral */
+			reduce(47), /* *, reduce: StringLiteral */
+			reduce(47), /* /, reduce: StringLiteral */
+			reduce(47), /* %, reduce: StringLiteral */
+			reduce(47), /* ^, reduce: StringLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S30
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(53), /* $, reduce: Identifier */
+			reduce(53), /* ||, reduce: Identifier */
+			reduce(53), /* &&, reduce: Identifier */
+			reduce(53), /* =, reduce: Identifier */
+			reduce(53), /* ==, reduce: Identifier */
+			reduce(53), /* !=, reduce: Identifier */
+			reduce(53), /* <=, reduce: Identifier */
+			reduce(53), /* >=, reduce: Identifier */
+			reduce(53), /* >, reduce: Identifier */
+			reduce(53), /* <, reduce: Identifier */
+			reduce(53), /* is, reduce: Identifier */
+			reduce(53), /* isnot, reduce: Identifier */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(53), /* ~=, reduce: Identifier */
+			reduce(53), /* !~=, reduce: Identifier */
+			reduce(53), /* +, reduce: Identifier */
+			reduce(53), /* -, reduce: Identifier */
+			reduce(53), /* *, reduce: Identifier */
+			reduce(53), /* /, reduce: Identifier */
+			reduce(53), /* %, reduce: Identifier */
+			reduce(53), /* ^, reduce: Identifier */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(53), /* ., reduce: Identifier */
+			reduce(53), /* [, reduce: Identifier */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S31
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(52), /* $, reduce: ObjectKey */
+			reduce(52), /* ||, reduce: ObjectKey */
+			reduce(52), /* &&, reduce: ObjectKey */
+			reduce(52), /* =, reduce: ObjectKey */
+			reduce(52), /* ==, reduce: ObjectKey */
+			reduce(52), /* !=, reduce: ObjectKey */
+			reduce(52), /* <=, reduce: ObjectKey */
+			reduce(52), /* >=, reduce: ObjectKey */
+			reduce(52), /* >, reduce: ObjectKey */
+			reduce(52), /* <, reduce: ObjectKey */
+			reduce(52), /* is, reduce: ObjectKey */
+			reduce(52), /* isnot, reduce: ObjectKey */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(52), /* ~=, reduce: ObjectKey */
+			reduce(52), /* !~=, reduce: ObjectKey */
+			reduce(52), /* +, reduce: ObjectKey */
+			reduce(52), /* -, reduce: ObjectKey */
+			reduce(52), /* *, reduce: ObjectKey */
+			reduce(52), /* /, reduce: ObjectKey */
+			reduce(52), /* %, reduce: ObjectKey */
+			reduce(52), /* ^, reduce: ObjectKey */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(52), /* ., reduce: ObjectKey */
+			reduce(52), /* [, reduce: ObjectKey */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S32
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(6),  /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(13), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(17), /* ! */
+			shift(19), /* ( */
+			nil,       /* ) */
+			shift(23), /* true */
+			shift(24), /* false */
+			shift(26), /* intLit */
+			shift(27), /* floatLit */
+			shift(28), /* doubleStringLit */
+			shift(29), /* singleStringLit */
+			shift(31), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S33
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(6),  /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(13), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(17), /* ! */
+			shift(19), /* ( */
+			nil,       /* ) */
+			shift(23), /* true */
+			shift(24), /* false */
+			shift(26), /* intLit */
+			shift(27), /* floatLit */
+			shift(28), /* doubleStringLit */
+			shift(29), /* singleStringLit */
+			shift(31), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S34
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(6),  /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(13), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(17), /* ! */
+			shift(19), /* ( */
+			nil,       /* ) */
+			shift(23), /* true */
+			shift(24), /* false */
+			shift(26), /* intLit */
+			shift(27), /* floatLit */
+			shift(28), /* doubleStringLit */
+			shift(29), /* singleStringLit */
+			shift(31), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S35
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(6),  /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(13), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(17), /* ! */
+			shift(19), /* ( */
+			nil,       /* ) */
+			shift(23), /* true */
+			shift(24), /* false */
+			shift(26), /* intLit */
+			shift(27), /* floatLit */
+			shift(28), /* doubleStringLit */
+			shift(29), /* singleStringLit */
+			shift(31), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S36
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(6),  /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(13), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(17), /* ! */
+			shift(19), /* ( */
+			nil,       /* ) */
+			shift(23), /* true */
+			shift(24), /* false */
+			shift(26), /* intLit */
+			shift(27), /* floatLit */
+			shift(28), /* doubleStringLit */
+			shift(29), /* singleStringLit */
+			shift(31), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S37
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(6),  /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(13), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(17), /* ! */
+			shift(19), /* ( */
+			nil,       /* ) */
+			shift(23), /* true */
+			shift(24), /* false */
+			shift(26), /* intLit */
+			shift(27), /* floatLit */
+			shift(28), /* doubleStringLit */
+			shift(29), /* singleStringLit */
+			shift(31), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S38
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(6),  /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(13), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(17), /* ! */
+			shift(19), /* ( */
+			nil,       /* ) */
+			shift(23), /* true */
+			shift(24), /* false */
+			shift(26), /* intLit */
+			shift(27), /* floatLit */
+			shift(28), /* doubleStringLit */
+			shift(29), /* singleStringLit */
+			shift(31), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S39
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(6),  /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(13), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(17), /* ! */
+			shift(19), /* ( */
+			nil,       /* ) */
+			shift(23), /* true */
+			shift(24), /* false */
+			shift(26), /* intLit */
+			shift(27), /* floatLit */
+			shift(28), /* doubleStringLit */
+			shift(29), /* singleStringLit */
+			shift(31), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S40
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(6),  /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(13), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(17), /* ! */
+			shift(19), /* ( */
+			nil,       /* ) */
+			shift(23), /* true */
+			shift(24), /* false */
+			shift(26), /* intLit */
+			shift(27), /* floatLit */
+			shift(28), /* doubleStringLit */
+			shift(29), /* singleStringLit */
+			shift(31), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S41
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			shift(102), /* not */
+			shift(103), /* null */
+			shift(104), /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S42
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(103), /* null */
+			shift(104), /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S43
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(6),  /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(13), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(17), /* ! */
+			shift(19), /* ( */
+			nil,       /* ) */
+			shift(23), /* true */
+			shift(24), /* false */
+			shift(26), /* intLit */
+			shift(27), /* floatLit */
+			shift(55), /* doubleStringLit */
+			shift(56), /* singleStringLit */
+			shift(58), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S44
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(6),  /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(13), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(17), /* ! */
+			shift(19), /* ( */
+			nil,       /* ) */
+			shift(23), /* true */
+			shift(24), /* false */
+			shift(26), /* intLit */
+			shift(27), /* floatLit */
+			shift(55), /* doubleStringLit */
+			shift(56), /* singleStringLit */
+			shift(58), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S45
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
 			nil,        /* not */
 			nil,        /* null */
 			nil,        /* defined */
@@ -4079,19 +1929,63 @@ var actionTab = actionTable{
 			nil,        /* % */
 			nil,        /* ^ */
 			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
 			nil,        /* true */
 			nil,        /* false */
 			nil,        /* intLit */
 			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
+			shift(109), /* doubleStringLit */
+			shift(110), /* singleStringLit */
 			nil,        /* symbol */
 			nil,        /* . */
 			nil,        /* [ */
 			nil,        /* ] */
 		},
 	},
-	actionRow{ // S102
+	actionRow{ // S46
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			shift(109), /* doubleStringLit */
+			shift(110), /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S47
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,       /* INVALID */
@@ -4119,19 +2013,63 @@ var actionTab = actionTable{
 			nil,       /* % */
 			nil,       /* ^ */
 			nil,       /* ! */
+			nil,       /* ( */
+			nil,       /* ) */
 			nil,       /* true */
 			nil,       /* false */
 			nil,       /* intLit */
 			nil,       /* floatLit */
 			nil,       /* doubleStringLit */
 			nil,       /* singleStringLit */
-			shift(94), /* symbol */
+			shift(31), /* symbol */
 			nil,       /* . */
 			nil,       /* [ */
 			nil,       /* ] */
 		},
 	},
-	actionRow{ // S103
+	actionRow{ // S48
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(114), /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			shift(121), /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			shift(125), /* ! */
+			shift(127), /* ( */
+			nil,        /* ) */
+			shift(131), /* true */
+			shift(132), /* false */
+			shift(134), /* intLit */
+			shift(135), /* floatLit */
+			shift(136), /* doubleStringLit */
+			shift(137), /* singleStringLit */
+			shift(139), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S49
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,       /* INVALID */
@@ -4148,7 +2086,679 @@ var actionTab = actionTable{
 			nil,       /* is */
 			nil,       /* isnot */
 			nil,       /* not */
-			shift(79), /* null */
+			shift(6),  /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(13), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(17), /* ! */
+			shift(19), /* ( */
+			nil,       /* ) */
+			shift(23), /* true */
+			shift(24), /* false */
+			shift(26), /* intLit */
+			shift(27), /* floatLit */
+			shift(55), /* doubleStringLit */
+			shift(56), /* singleStringLit */
+			shift(58), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S50
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(6),  /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(13), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(17), /* ! */
+			shift(19), /* ( */
+			nil,       /* ) */
+			shift(23), /* true */
+			shift(24), /* false */
+			shift(26), /* intLit */
+			shift(27), /* floatLit */
+			shift(55), /* doubleStringLit */
+			shift(56), /* singleStringLit */
+			shift(58), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S51
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(6),  /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(13), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(17), /* ! */
+			shift(19), /* ( */
+			nil,       /* ) */
+			shift(23), /* true */
+			shift(24), /* false */
+			shift(26), /* intLit */
+			shift(27), /* floatLit */
+			shift(55), /* doubleStringLit */
+			shift(56), /* singleStringLit */
+			shift(58), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S52
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(40), /* $, reduce: Term */
+			reduce(40), /* ||, reduce: Term */
+			reduce(40), /* &&, reduce: Term */
+			reduce(40), /* =, reduce: Term */
+			reduce(40), /* ==, reduce: Term */
+			reduce(40), /* !=, reduce: Term */
+			reduce(40), /* <=, reduce: Term */
+			reduce(40), /* >=, reduce: Term */
+			reduce(40), /* >, reduce: Term */
+			reduce(40), /* <, reduce: Term */
+			reduce(40), /* is, reduce: Term */
+			reduce(40), /* isnot, reduce: Term */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(40), /* +, reduce: Term */
+			reduce(40), /* -, reduce: Term */
+			reduce(40), /* *, reduce: Term */
+			reduce(40), /* /, reduce: Term */
+			reduce(40), /* %, reduce: Term */
+			reduce(40), /* ^, reduce: Term */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			shift(143), /* . */
+			shift(144), /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S53
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(51), /* $, reduce: Literal */
+			reduce(51), /* ||, reduce: Literal */
+			reduce(51), /* &&, reduce: Literal */
+			reduce(51), /* =, reduce: Literal */
+			reduce(51), /* ==, reduce: Literal */
+			reduce(51), /* !=, reduce: Literal */
+			reduce(51), /* <=, reduce: Literal */
+			reduce(51), /* >=, reduce: Literal */
+			reduce(51), /* >, reduce: Literal */
+			reduce(51), /* <, reduce: Literal */
+			reduce(51), /* is, reduce: Literal */
+			reduce(51), /* isnot, reduce: Literal */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(51), /* +, reduce: Literal */
+			reduce(51), /* -, reduce: Literal */
+			reduce(51), /* *, reduce: Literal */
+			reduce(51), /* /, reduce: Literal */
+			reduce(51), /* %, reduce: Literal */
+			reduce(51), /* ^, reduce: Literal */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S54
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(35), /* $, reduce: UnaryExpr */
+			reduce(35), /* ||, reduce: UnaryExpr */
+			reduce(35), /* &&, reduce: UnaryExpr */
+			reduce(35), /* =, reduce: UnaryExpr */
+			reduce(35), /* ==, reduce: UnaryExpr */
+			reduce(35), /* !=, reduce: UnaryExpr */
+			reduce(35), /* <=, reduce: UnaryExpr */
+			reduce(35), /* >=, reduce: UnaryExpr */
+			reduce(35), /* >, reduce: UnaryExpr */
+			reduce(35), /* <, reduce: UnaryExpr */
+			reduce(35), /* is, reduce: UnaryExpr */
+			reduce(35), /* isnot, reduce: UnaryExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(35), /* +, reduce: UnaryExpr */
+			reduce(35), /* -, reduce: UnaryExpr */
+			reduce(35), /* *, reduce: UnaryExpr */
+			reduce(35), /* /, reduce: UnaryExpr */
+			reduce(35), /* %, reduce: UnaryExpr */
+			reduce(35), /* ^, reduce: UnaryExpr */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S55
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(46), /* $, reduce: StringLiteral */
+			reduce(46), /* ||, reduce: StringLiteral */
+			reduce(46), /* &&, reduce: StringLiteral */
+			reduce(46), /* =, reduce: StringLiteral */
+			reduce(46), /* ==, reduce: StringLiteral */
+			reduce(46), /* !=, reduce: StringLiteral */
+			reduce(46), /* <=, reduce: StringLiteral */
+			reduce(46), /* >=, reduce: StringLiteral */
+			reduce(46), /* >, reduce: StringLiteral */
+			reduce(46), /* <, reduce: StringLiteral */
+			reduce(46), /* is, reduce: StringLiteral */
+			reduce(46), /* isnot, reduce: StringLiteral */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(46), /* +, reduce: StringLiteral */
+			reduce(46), /* -, reduce: StringLiteral */
+			reduce(46), /* *, reduce: StringLiteral */
+			reduce(46), /* /, reduce: StringLiteral */
+			reduce(46), /* %, reduce: StringLiteral */
+			reduce(46), /* ^, reduce: StringLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S56
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(47), /* $, reduce: StringLiteral */
+			reduce(47), /* ||, reduce: StringLiteral */
+			reduce(47), /* &&, reduce: StringLiteral */
+			reduce(47), /* =, reduce: StringLiteral */
+			reduce(47), /* ==, reduce: StringLiteral */
+			reduce(47), /* !=, reduce: StringLiteral */
+			reduce(47), /* <=, reduce: StringLiteral */
+			reduce(47), /* >=, reduce: StringLiteral */
+			reduce(47), /* >, reduce: StringLiteral */
+			reduce(47), /* <, reduce: StringLiteral */
+			reduce(47), /* is, reduce: StringLiteral */
+			reduce(47), /* isnot, reduce: StringLiteral */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(47), /* +, reduce: StringLiteral */
+			reduce(47), /* -, reduce: StringLiteral */
+			reduce(47), /* *, reduce: StringLiteral */
+			reduce(47), /* /, reduce: StringLiteral */
+			reduce(47), /* %, reduce: StringLiteral */
+			reduce(47), /* ^, reduce: StringLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S57
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(53), /* $, reduce: Identifier */
+			reduce(53), /* ||, reduce: Identifier */
+			reduce(53), /* &&, reduce: Identifier */
+			reduce(53), /* =, reduce: Identifier */
+			reduce(53), /* ==, reduce: Identifier */
+			reduce(53), /* !=, reduce: Identifier */
+			reduce(53), /* <=, reduce: Identifier */
+			reduce(53), /* >=, reduce: Identifier */
+			reduce(53), /* >, reduce: Identifier */
+			reduce(53), /* <, reduce: Identifier */
+			reduce(53), /* is, reduce: Identifier */
+			reduce(53), /* isnot, reduce: Identifier */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(53), /* +, reduce: Identifier */
+			reduce(53), /* -, reduce: Identifier */
+			reduce(53), /* *, reduce: Identifier */
+			reduce(53), /* /, reduce: Identifier */
+			reduce(53), /* %, reduce: Identifier */
+			reduce(53), /* ^, reduce: Identifier */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(53), /* ., reduce: Identifier */
+			reduce(53), /* [, reduce: Identifier */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S58
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(52), /* $, reduce: ObjectKey */
+			reduce(52), /* ||, reduce: ObjectKey */
+			reduce(52), /* &&, reduce: ObjectKey */
+			reduce(52), /* =, reduce: ObjectKey */
+			reduce(52), /* ==, reduce: ObjectKey */
+			reduce(52), /* !=, reduce: ObjectKey */
+			reduce(52), /* <=, reduce: ObjectKey */
+			reduce(52), /* >=, reduce: ObjectKey */
+			reduce(52), /* >, reduce: ObjectKey */
+			reduce(52), /* <, reduce: ObjectKey */
+			reduce(52), /* is, reduce: ObjectKey */
+			reduce(52), /* isnot, reduce: ObjectKey */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(52), /* +, reduce: ObjectKey */
+			reduce(52), /* -, reduce: ObjectKey */
+			reduce(52), /* *, reduce: ObjectKey */
+			reduce(52), /* /, reduce: ObjectKey */
+			reduce(52), /* %, reduce: ObjectKey */
+			reduce(52), /* ^, reduce: ObjectKey */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(52), /* ., reduce: ObjectKey */
+			reduce(52), /* [, reduce: ObjectKey */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S59
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(6),  /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(13), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(17), /* ! */
+			shift(19), /* ( */
+			nil,       /* ) */
+			shift(23), /* true */
+			shift(24), /* false */
+			shift(26), /* intLit */
+			shift(27), /* floatLit */
+			shift(55), /* doubleStringLit */
+			shift(56), /* singleStringLit */
+			shift(58), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S60
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(36), /* $, reduce: UnaryExpr */
+			reduce(36), /* ||, reduce: UnaryExpr */
+			reduce(36), /* &&, reduce: UnaryExpr */
+			reduce(36), /* =, reduce: UnaryExpr */
+			reduce(36), /* ==, reduce: UnaryExpr */
+			reduce(36), /* !=, reduce: UnaryExpr */
+			reduce(36), /* <=, reduce: UnaryExpr */
+			reduce(36), /* >=, reduce: UnaryExpr */
+			reduce(36), /* >, reduce: UnaryExpr */
+			reduce(36), /* <, reduce: UnaryExpr */
+			reduce(36), /* is, reduce: UnaryExpr */
+			reduce(36), /* isnot, reduce: UnaryExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(36), /* +, reduce: UnaryExpr */
+			reduce(36), /* -, reduce: UnaryExpr */
+			reduce(36), /* *, reduce: UnaryExpr */
+			reduce(36), /* /, reduce: UnaryExpr */
+			reduce(36), /* %, reduce: UnaryExpr */
+			reduce(36), /* ^, reduce: UnaryExpr */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S61
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			shift(146), /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S62
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			shift(147), /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(1),  /* ), reduce: Expression */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S63
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(2),  /* ||, reduce: OrExpr */
+			shift(148), /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(2),  /* ), reduce: OrExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S64
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(4),  /* ||, reduce: AndExpr */
+			reduce(4),  /* &&, reduce: AndExpr */
+			shift(149), /* = */
+			shift(150), /* == */
+			shift(151), /* != */
+			shift(152), /* <= */
+			shift(153), /* >= */
+			shift(154), /* > */
+			shift(155), /* < */
+			shift(156), /* is */
+			shift(157), /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(4),  /* ), reduce: AndExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S65
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			reduce(6), /* ||, reduce: CompareExpr */
+			reduce(6), /* &&, reduce: CompareExpr */
+			reduce(6), /* =, reduce: CompareExpr */
+			reduce(6), /* ==, reduce: CompareExpr */
+			reduce(6), /* !=, reduce: CompareExpr */
+			reduce(6), /* <=, reduce: CompareExpr */
+			reduce(6), /* >=, reduce: CompareExpr */
+			reduce(6), /* >, reduce: CompareExpr */
+			reduce(6), /* <, reduce: CompareExpr */
+			reduce(6), /* is, reduce: CompareExpr */
+			reduce(6), /* isnot, reduce: CompareExpr */
+			nil,       /* not */
+			nil,       /* null */
 			nil,       /* defined */
 			nil,       /* ~= */
 			nil,       /* !~= */
@@ -4159,46 +2769,50 @@ var actionTab = actionTable{
 			nil,       /* % */
 			nil,       /* ^ */
 			nil,       /* ! */
-			shift(86), /* true */
-			shift(87), /* false */
-			shift(89), /* intLit */
-			shift(90), /* floatLit */
-			shift(91), /* doubleStringLit */
-			shift(92), /* singleStringLit */
-			shift(94), /* symbol */
+			nil,       /* ( */
+			reduce(6), /* ), reduce: CompareExpr */
+			nil,       /* true */
+			nil,       /* false */
+			nil,       /* intLit */
+			nil,       /* floatLit */
+			nil,       /* doubleStringLit */
+			nil,       /* singleStringLit */
+			nil,       /* symbol */
 			nil,       /* . */
 			nil,       /* [ */
 			nil,       /* ] */
 		},
 	},
-	actionRow{ // S104
+	actionRow{ // S66
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,        /* INVALID */
-			reduce(52), /* $, reduce: Identifier */
-			reduce(52), /* ||, reduce: Identifier */
-			reduce(52), /* &&, reduce: Identifier */
-			reduce(52), /* =, reduce: Identifier */
-			reduce(52), /* ==, reduce: Identifier */
-			reduce(52), /* !=, reduce: Identifier */
-			reduce(52), /* <=, reduce: Identifier */
-			reduce(52), /* >=, reduce: Identifier */
-			reduce(52), /* >, reduce: Identifier */
-			reduce(52), /* <, reduce: Identifier */
-			reduce(52), /* is, reduce: Identifier */
-			reduce(52), /* isnot, reduce: Identifier */
+			nil,        /* $ */
+			reduce(41), /* ||, reduce: NullLiteral */
+			reduce(41), /* &&, reduce: NullLiteral */
+			reduce(41), /* =, reduce: NullLiteral */
+			reduce(41), /* ==, reduce: NullLiteral */
+			reduce(41), /* !=, reduce: NullLiteral */
+			reduce(41), /* <=, reduce: NullLiteral */
+			reduce(41), /* >=, reduce: NullLiteral */
+			reduce(41), /* >, reduce: NullLiteral */
+			reduce(41), /* <, reduce: NullLiteral */
+			reduce(41), /* is, reduce: NullLiteral */
+			reduce(41), /* isnot, reduce: NullLiteral */
 			nil,        /* not */
 			nil,        /* null */
 			nil,        /* defined */
-			reduce(52), /* ~=, reduce: Identifier */
-			reduce(52), /* !~=, reduce: Identifier */
-			reduce(52), /* +, reduce: Identifier */
-			reduce(52), /* -, reduce: Identifier */
-			reduce(52), /* *, reduce: Identifier */
-			reduce(52), /* /, reduce: Identifier */
-			reduce(52), /* %, reduce: Identifier */
-			reduce(52), /* ^, reduce: Identifier */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(41), /* +, reduce: NullLiteral */
+			reduce(41), /* -, reduce: NullLiteral */
+			reduce(41), /* *, reduce: NullLiteral */
+			reduce(41), /* /, reduce: NullLiteral */
+			reduce(41), /* %, reduce: NullLiteral */
+			reduce(41), /* ^, reduce: NullLiteral */
 			nil,        /* ! */
+			nil,        /* ( */
+			reduce(41), /* ), reduce: NullLiteral */
 			nil,        /* true */
 			nil,        /* false */
 			nil,        /* intLit */
@@ -4206,8 +2820,1604 @@ var actionTab = actionTable{
 			nil,        /* doubleStringLit */
 			nil,        /* singleStringLit */
 			nil,        /* symbol */
-			reduce(52), /* ., reduce: Identifier */
-			reduce(52), /* [, reduce: Identifier */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S67
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(19), /* ||, reduce: ValueExpr */
+			reduce(19), /* &&, reduce: ValueExpr */
+			reduce(19), /* =, reduce: ValueExpr */
+			reduce(19), /* ==, reduce: ValueExpr */
+			reduce(19), /* !=, reduce: ValueExpr */
+			reduce(19), /* <=, reduce: ValueExpr */
+			reduce(19), /* >=, reduce: ValueExpr */
+			reduce(19), /* >, reduce: ValueExpr */
+			reduce(19), /* <, reduce: ValueExpr */
+			reduce(19), /* is, reduce: ValueExpr */
+			reduce(19), /* isnot, reduce: ValueExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(19), /* ), reduce: ValueExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S68
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(20), /* ||, reduce: ValueExpr */
+			reduce(20), /* &&, reduce: ValueExpr */
+			reduce(20), /* =, reduce: ValueExpr */
+			reduce(20), /* ==, reduce: ValueExpr */
+			reduce(20), /* !=, reduce: ValueExpr */
+			reduce(20), /* <=, reduce: ValueExpr */
+			reduce(20), /* >=, reduce: ValueExpr */
+			reduce(20), /* >, reduce: ValueExpr */
+			reduce(20), /* <, reduce: ValueExpr */
+			reduce(20), /* is, reduce: ValueExpr */
+			reduce(20), /* isnot, reduce: ValueExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			shift(158), /* + */
+			shift(159), /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(20), /* ), reduce: ValueExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S69
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			shift(160), /* ~= */
+			shift(161), /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S70
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(40), /* ||, reduce: Term */
+			reduce(40), /* &&, reduce: Term */
+			reduce(40), /* =, reduce: Term */
+			reduce(40), /* ==, reduce: Term */
+			reduce(40), /* !=, reduce: Term */
+			reduce(40), /* <=, reduce: Term */
+			reduce(40), /* >=, reduce: Term */
+			reduce(40), /* >, reduce: Term */
+			reduce(40), /* <, reduce: Term */
+			reduce(40), /* is, reduce: Term */
+			reduce(40), /* isnot, reduce: Term */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(21), /* ~=, reduce: RegexpArgument */
+			reduce(21), /* !~=, reduce: RegexpArgument */
+			reduce(40), /* +, reduce: Term */
+			reduce(40), /* -, reduce: Term */
+			reduce(40), /* *, reduce: Term */
+			reduce(40), /* /, reduce: Term */
+			reduce(40), /* %, reduce: Term */
+			reduce(40), /* ^, reduce: Term */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(40), /* ), reduce: Term */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			shift(162), /* . */
+			shift(163), /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S71
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(51), /* ||, reduce: Literal */
+			reduce(51), /* &&, reduce: Literal */
+			reduce(51), /* =, reduce: Literal */
+			reduce(51), /* ==, reduce: Literal */
+			reduce(51), /* !=, reduce: Literal */
+			reduce(51), /* <=, reduce: Literal */
+			reduce(51), /* >=, reduce: Literal */
+			reduce(51), /* >, reduce: Literal */
+			reduce(51), /* <, reduce: Literal */
+			reduce(51), /* is, reduce: Literal */
+			reduce(51), /* isnot, reduce: Literal */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(22), /* ~=, reduce: RegexpArgument */
+			reduce(22), /* !~=, reduce: RegexpArgument */
+			reduce(51), /* +, reduce: Literal */
+			reduce(51), /* -, reduce: Literal */
+			reduce(51), /* *, reduce: Literal */
+			reduce(51), /* /, reduce: Literal */
+			reduce(51), /* %, reduce: Literal */
+			reduce(51), /* ^, reduce: Literal */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(51), /* ), reduce: Literal */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S72
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(25), /* ||, reduce: AddExpr */
+			reduce(25), /* &&, reduce: AddExpr */
+			reduce(25), /* =, reduce: AddExpr */
+			reduce(25), /* ==, reduce: AddExpr */
+			reduce(25), /* !=, reduce: AddExpr */
+			reduce(25), /* <=, reduce: AddExpr */
+			reduce(25), /* >=, reduce: AddExpr */
+			reduce(25), /* >, reduce: AddExpr */
+			reduce(25), /* <, reduce: AddExpr */
+			reduce(25), /* is, reduce: AddExpr */
+			reduce(25), /* isnot, reduce: AddExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(25), /* +, reduce: AddExpr */
+			reduce(25), /* -, reduce: AddExpr */
+			shift(164), /* * */
+			shift(165), /* / */
+			shift(166), /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(25), /* ), reduce: AddExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S73
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(66),  /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			shift(79),  /* ( */
+			nil,        /* ) */
+			shift(83),  /* true */
+			shift(84),  /* false */
+			shift(86),  /* intLit */
+			shift(87),  /* floatLit */
+			shift(170), /* doubleStringLit */
+			shift(171), /* singleStringLit */
+			shift(173), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S74
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(28), /* ||, reduce: MulExpr */
+			reduce(28), /* &&, reduce: MulExpr */
+			reduce(28), /* =, reduce: MulExpr */
+			reduce(28), /* ==, reduce: MulExpr */
+			reduce(28), /* !=, reduce: MulExpr */
+			reduce(28), /* <=, reduce: MulExpr */
+			reduce(28), /* >=, reduce: MulExpr */
+			reduce(28), /* >, reduce: MulExpr */
+			reduce(28), /* <, reduce: MulExpr */
+			reduce(28), /* is, reduce: MulExpr */
+			reduce(28), /* isnot, reduce: MulExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(28), /* +, reduce: MulExpr */
+			reduce(28), /* -, reduce: MulExpr */
+			reduce(28), /* *, reduce: MulExpr */
+			reduce(28), /* /, reduce: MulExpr */
+			reduce(28), /* %, reduce: MulExpr */
+			shift(174), /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(28), /* ), reduce: MulExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S75
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(32), /* ||, reduce: ExpExpr */
+			reduce(32), /* &&, reduce: ExpExpr */
+			reduce(32), /* =, reduce: ExpExpr */
+			reduce(32), /* ==, reduce: ExpExpr */
+			reduce(32), /* !=, reduce: ExpExpr */
+			reduce(32), /* <=, reduce: ExpExpr */
+			reduce(32), /* >=, reduce: ExpExpr */
+			reduce(32), /* >, reduce: ExpExpr */
+			reduce(32), /* <, reduce: ExpExpr */
+			reduce(32), /* is, reduce: ExpExpr */
+			reduce(32), /* isnot, reduce: ExpExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(32), /* +, reduce: ExpExpr */
+			reduce(32), /* -, reduce: ExpExpr */
+			reduce(32), /* *, reduce: ExpExpr */
+			reduce(32), /* /, reduce: ExpExpr */
+			reduce(32), /* %, reduce: ExpExpr */
+			reduce(32), /* ^, reduce: ExpExpr */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(32), /* ), reduce: ExpExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S76
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(34), /* ||, reduce: UnaryExpr */
+			reduce(34), /* &&, reduce: UnaryExpr */
+			reduce(34), /* =, reduce: UnaryExpr */
+			reduce(34), /* ==, reduce: UnaryExpr */
+			reduce(34), /* !=, reduce: UnaryExpr */
+			reduce(34), /* <=, reduce: UnaryExpr */
+			reduce(34), /* >=, reduce: UnaryExpr */
+			reduce(34), /* >, reduce: UnaryExpr */
+			reduce(34), /* <, reduce: UnaryExpr */
+			reduce(34), /* is, reduce: UnaryExpr */
+			reduce(34), /* isnot, reduce: UnaryExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(34), /* +, reduce: UnaryExpr */
+			reduce(34), /* -, reduce: UnaryExpr */
+			reduce(34), /* *, reduce: UnaryExpr */
+			reduce(34), /* /, reduce: UnaryExpr */
+			reduce(34), /* %, reduce: UnaryExpr */
+			reduce(34), /* ^, reduce: UnaryExpr */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(34), /* ), reduce: UnaryExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S77
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(66),  /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			shift(73),  /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			shift(77),  /* ! */
+			shift(79),  /* ( */
+			nil,        /* ) */
+			shift(83),  /* true */
+			shift(84),  /* false */
+			shift(86),  /* intLit */
+			shift(87),  /* floatLit */
+			shift(170), /* doubleStringLit */
+			shift(171), /* singleStringLit */
+			shift(173), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S78
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(37), /* ||, reduce: ParenExpr */
+			reduce(37), /* &&, reduce: ParenExpr */
+			reduce(37), /* =, reduce: ParenExpr */
+			reduce(37), /* ==, reduce: ParenExpr */
+			reduce(37), /* !=, reduce: ParenExpr */
+			reduce(37), /* <=, reduce: ParenExpr */
+			reduce(37), /* >=, reduce: ParenExpr */
+			reduce(37), /* >, reduce: ParenExpr */
+			reduce(37), /* <, reduce: ParenExpr */
+			reduce(37), /* is, reduce: ParenExpr */
+			reduce(37), /* isnot, reduce: ParenExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(37), /* +, reduce: ParenExpr */
+			reduce(37), /* -, reduce: ParenExpr */
+			reduce(37), /* *, reduce: ParenExpr */
+			reduce(37), /* /, reduce: ParenExpr */
+			reduce(37), /* %, reduce: ParenExpr */
+			reduce(37), /* ^, reduce: ParenExpr */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(37), /* ), reduce: ParenExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S79
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(66), /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(73), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(77), /* ! */
+			shift(79), /* ( */
+			nil,       /* ) */
+			shift(83), /* true */
+			shift(84), /* false */
+			shift(86), /* intLit */
+			shift(87), /* floatLit */
+			shift(88), /* doubleStringLit */
+			shift(89), /* singleStringLit */
+			shift(91), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S80
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(39), /* ||, reduce: Term */
+			reduce(39), /* &&, reduce: Term */
+			reduce(39), /* =, reduce: Term */
+			reduce(39), /* ==, reduce: Term */
+			reduce(39), /* !=, reduce: Term */
+			reduce(39), /* <=, reduce: Term */
+			reduce(39), /* >=, reduce: Term */
+			reduce(39), /* >, reduce: Term */
+			reduce(39), /* <, reduce: Term */
+			reduce(39), /* is, reduce: Term */
+			reduce(39), /* isnot, reduce: Term */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(39), /* +, reduce: Term */
+			reduce(39), /* -, reduce: Term */
+			reduce(39), /* *, reduce: Term */
+			reduce(39), /* /, reduce: Term */
+			reduce(39), /* %, reduce: Term */
+			reduce(39), /* ^, reduce: Term */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(39), /* ), reduce: Term */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S81
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(48), /* ||, reduce: Literal */
+			reduce(48), /* &&, reduce: Literal */
+			reduce(48), /* =, reduce: Literal */
+			reduce(48), /* ==, reduce: Literal */
+			reduce(48), /* !=, reduce: Literal */
+			reduce(48), /* <=, reduce: Literal */
+			reduce(48), /* >=, reduce: Literal */
+			reduce(48), /* >, reduce: Literal */
+			reduce(48), /* <, reduce: Literal */
+			reduce(48), /* is, reduce: Literal */
+			reduce(48), /* isnot, reduce: Literal */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(48), /* +, reduce: Literal */
+			reduce(48), /* -, reduce: Literal */
+			reduce(48), /* *, reduce: Literal */
+			reduce(48), /* /, reduce: Literal */
+			reduce(48), /* %, reduce: Literal */
+			reduce(48), /* ^, reduce: Literal */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(48), /* ), reduce: Literal */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S82
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(49), /* ||, reduce: Literal */
+			reduce(49), /* &&, reduce: Literal */
+			reduce(49), /* =, reduce: Literal */
+			reduce(49), /* ==, reduce: Literal */
+			reduce(49), /* !=, reduce: Literal */
+			reduce(49), /* <=, reduce: Literal */
+			reduce(49), /* >=, reduce: Literal */
+			reduce(49), /* >, reduce: Literal */
+			reduce(49), /* <, reduce: Literal */
+			reduce(49), /* is, reduce: Literal */
+			reduce(49), /* isnot, reduce: Literal */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(49), /* +, reduce: Literal */
+			reduce(49), /* -, reduce: Literal */
+			reduce(49), /* *, reduce: Literal */
+			reduce(49), /* /, reduce: Literal */
+			reduce(49), /* %, reduce: Literal */
+			reduce(49), /* ^, reduce: Literal */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(49), /* ), reduce: Literal */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S83
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(42), /* ||, reduce: BooleanLiteral */
+			reduce(42), /* &&, reduce: BooleanLiteral */
+			reduce(42), /* =, reduce: BooleanLiteral */
+			reduce(42), /* ==, reduce: BooleanLiteral */
+			reduce(42), /* !=, reduce: BooleanLiteral */
+			reduce(42), /* <=, reduce: BooleanLiteral */
+			reduce(42), /* >=, reduce: BooleanLiteral */
+			reduce(42), /* >, reduce: BooleanLiteral */
+			reduce(42), /* <, reduce: BooleanLiteral */
+			reduce(42), /* is, reduce: BooleanLiteral */
+			reduce(42), /* isnot, reduce: BooleanLiteral */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(42), /* +, reduce: BooleanLiteral */
+			reduce(42), /* -, reduce: BooleanLiteral */
+			reduce(42), /* *, reduce: BooleanLiteral */
+			reduce(42), /* /, reduce: BooleanLiteral */
+			reduce(42), /* %, reduce: BooleanLiteral */
+			reduce(42), /* ^, reduce: BooleanLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(42), /* ), reduce: BooleanLiteral */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S84
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(43), /* ||, reduce: BooleanLiteral */
+			reduce(43), /* &&, reduce: BooleanLiteral */
+			reduce(43), /* =, reduce: BooleanLiteral */
+			reduce(43), /* ==, reduce: BooleanLiteral */
+			reduce(43), /* !=, reduce: BooleanLiteral */
+			reduce(43), /* <=, reduce: BooleanLiteral */
+			reduce(43), /* >=, reduce: BooleanLiteral */
+			reduce(43), /* >, reduce: BooleanLiteral */
+			reduce(43), /* <, reduce: BooleanLiteral */
+			reduce(43), /* is, reduce: BooleanLiteral */
+			reduce(43), /* isnot, reduce: BooleanLiteral */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(43), /* +, reduce: BooleanLiteral */
+			reduce(43), /* -, reduce: BooleanLiteral */
+			reduce(43), /* *, reduce: BooleanLiteral */
+			reduce(43), /* /, reduce: BooleanLiteral */
+			reduce(43), /* %, reduce: BooleanLiteral */
+			reduce(43), /* ^, reduce: BooleanLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(43), /* ), reduce: BooleanLiteral */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S85
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(50), /* ||, reduce: Literal */
+			reduce(50), /* &&, reduce: Literal */
+			reduce(50), /* =, reduce: Literal */
+			reduce(50), /* ==, reduce: Literal */
+			reduce(50), /* !=, reduce: Literal */
+			reduce(50), /* <=, reduce: Literal */
+			reduce(50), /* >=, reduce: Literal */
+			reduce(50), /* >, reduce: Literal */
+			reduce(50), /* <, reduce: Literal */
+			reduce(50), /* is, reduce: Literal */
+			reduce(50), /* isnot, reduce: Literal */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(50), /* +, reduce: Literal */
+			reduce(50), /* -, reduce: Literal */
+			reduce(50), /* *, reduce: Literal */
+			reduce(50), /* /, reduce: Literal */
+			reduce(50), /* %, reduce: Literal */
+			reduce(50), /* ^, reduce: Literal */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(50), /* ), reduce: Literal */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S86
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(44), /* ||, reduce: NumericLiteral */
+			reduce(44), /* &&, reduce: NumericLiteral */
+			reduce(44), /* =, reduce: NumericLiteral */
+			reduce(44), /* ==, reduce: NumericLiteral */
+			reduce(44), /* !=, reduce: NumericLiteral */
+			reduce(44), /* <=, reduce: NumericLiteral */
+			reduce(44), /* >=, reduce: NumericLiteral */
+			reduce(44), /* >, reduce: NumericLiteral */
+			reduce(44), /* <, reduce: NumericLiteral */
+			reduce(44), /* is, reduce: NumericLiteral */
+			reduce(44), /* isnot, reduce: NumericLiteral */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(44), /* +, reduce: NumericLiteral */
+			reduce(44), /* -, reduce: NumericLiteral */
+			reduce(44), /* *, reduce: NumericLiteral */
+			reduce(44), /* /, reduce: NumericLiteral */
+			reduce(44), /* %, reduce: NumericLiteral */
+			reduce(44), /* ^, reduce: NumericLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(44), /* ), reduce: NumericLiteral */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S87
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(45), /* ||, reduce: NumericLiteral */
+			reduce(45), /* &&, reduce: NumericLiteral */
+			reduce(45), /* =, reduce: NumericLiteral */
+			reduce(45), /* ==, reduce: NumericLiteral */
+			reduce(45), /* !=, reduce: NumericLiteral */
+			reduce(45), /* <=, reduce: NumericLiteral */
+			reduce(45), /* >=, reduce: NumericLiteral */
+			reduce(45), /* >, reduce: NumericLiteral */
+			reduce(45), /* <, reduce: NumericLiteral */
+			reduce(45), /* is, reduce: NumericLiteral */
+			reduce(45), /* isnot, reduce: NumericLiteral */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(45), /* +, reduce: NumericLiteral */
+			reduce(45), /* -, reduce: NumericLiteral */
+			reduce(45), /* *, reduce: NumericLiteral */
+			reduce(45), /* /, reduce: NumericLiteral */
+			reduce(45), /* %, reduce: NumericLiteral */
+			reduce(45), /* ^, reduce: NumericLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(45), /* ), reduce: NumericLiteral */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S88
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(46), /* ||, reduce: StringLiteral */
+			reduce(46), /* &&, reduce: StringLiteral */
+			reduce(46), /* =, reduce: StringLiteral */
+			reduce(46), /* ==, reduce: StringLiteral */
+			reduce(46), /* !=, reduce: StringLiteral */
+			reduce(46), /* <=, reduce: StringLiteral */
+			reduce(46), /* >=, reduce: StringLiteral */
+			reduce(46), /* >, reduce: StringLiteral */
+			reduce(46), /* <, reduce: StringLiteral */
+			reduce(46), /* is, reduce: StringLiteral */
+			reduce(46), /* isnot, reduce: StringLiteral */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(46), /* ~=, reduce: StringLiteral */
+			reduce(46), /* !~=, reduce: StringLiteral */
+			reduce(46), /* +, reduce: StringLiteral */
+			reduce(46), /* -, reduce: StringLiteral */
+			reduce(46), /* *, reduce: StringLiteral */
+			reduce(46), /* /, reduce: StringLiteral */
+			reduce(46), /* %, reduce: StringLiteral */
+			reduce(46), /* ^, reduce: StringLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(46), /* ), reduce: StringLiteral */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S89
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(47), /* ||, reduce: StringLiteral */
+			reduce(47), /* &&, reduce: StringLiteral */
+			reduce(47), /* =, reduce: StringLiteral */
+			reduce(47), /* ==, reduce: StringLiteral */
+			reduce(47), /* !=, reduce: StringLiteral */
+			reduce(47), /* <=, reduce: StringLiteral */
+			reduce(47), /* >=, reduce: StringLiteral */
+			reduce(47), /* >, reduce: StringLiteral */
+			reduce(47), /* <, reduce: StringLiteral */
+			reduce(47), /* is, reduce: StringLiteral */
+			reduce(47), /* isnot, reduce: StringLiteral */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(47), /* ~=, reduce: StringLiteral */
+			reduce(47), /* !~=, reduce: StringLiteral */
+			reduce(47), /* +, reduce: StringLiteral */
+			reduce(47), /* -, reduce: StringLiteral */
+			reduce(47), /* *, reduce: StringLiteral */
+			reduce(47), /* /, reduce: StringLiteral */
+			reduce(47), /* %, reduce: StringLiteral */
+			reduce(47), /* ^, reduce: StringLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(47), /* ), reduce: StringLiteral */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S90
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(53), /* ||, reduce: Identifier */
+			reduce(53), /* &&, reduce: Identifier */
+			reduce(53), /* =, reduce: Identifier */
+			reduce(53), /* ==, reduce: Identifier */
+			reduce(53), /* !=, reduce: Identifier */
+			reduce(53), /* <=, reduce: Identifier */
+			reduce(53), /* >=, reduce: Identifier */
+			reduce(53), /* >, reduce: Identifier */
+			reduce(53), /* <, reduce: Identifier */
+			reduce(53), /* is, reduce: Identifier */
+			reduce(53), /* isnot, reduce: Identifier */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(53), /* ~=, reduce: Identifier */
+			reduce(53), /* !~=, reduce: Identifier */
+			reduce(53), /* +, reduce: Identifier */
+			reduce(53), /* -, reduce: Identifier */
+			reduce(53), /* *, reduce: Identifier */
+			reduce(53), /* /, reduce: Identifier */
+			reduce(53), /* %, reduce: Identifier */
+			reduce(53), /* ^, reduce: Identifier */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(53), /* ), reduce: Identifier */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(53), /* ., reduce: Identifier */
+			reduce(53), /* [, reduce: Identifier */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S91
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(52), /* ||, reduce: ObjectKey */
+			reduce(52), /* &&, reduce: ObjectKey */
+			reduce(52), /* =, reduce: ObjectKey */
+			reduce(52), /* ==, reduce: ObjectKey */
+			reduce(52), /* !=, reduce: ObjectKey */
+			reduce(52), /* <=, reduce: ObjectKey */
+			reduce(52), /* >=, reduce: ObjectKey */
+			reduce(52), /* >, reduce: ObjectKey */
+			reduce(52), /* <, reduce: ObjectKey */
+			reduce(52), /* is, reduce: ObjectKey */
+			reduce(52), /* isnot, reduce: ObjectKey */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(52), /* ~=, reduce: ObjectKey */
+			reduce(52), /* !~=, reduce: ObjectKey */
+			reduce(52), /* +, reduce: ObjectKey */
+			reduce(52), /* -, reduce: ObjectKey */
+			reduce(52), /* *, reduce: ObjectKey */
+			reduce(52), /* /, reduce: ObjectKey */
+			reduce(52), /* %, reduce: ObjectKey */
+			reduce(52), /* ^, reduce: ObjectKey */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(52), /* ), reduce: ObjectKey */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(52), /* ., reduce: ObjectKey */
+			reduce(52), /* [, reduce: ObjectKey */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S92
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			reduce(3), /* $, reduce: OrExpr */
+			reduce(3), /* ||, reduce: OrExpr */
+			shift(33), /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			nil,       /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			nil,       /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			nil,       /* ! */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* true */
+			nil,       /* false */
+			nil,       /* intLit */
+			nil,       /* floatLit */
+			nil,       /* doubleStringLit */
+			nil,       /* singleStringLit */
+			nil,       /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S93
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			reduce(5), /* $, reduce: AndExpr */
+			reduce(5), /* ||, reduce: AndExpr */
+			reduce(5), /* &&, reduce: AndExpr */
+			shift(34), /* = */
+			shift(35), /* == */
+			shift(36), /* != */
+			shift(37), /* <= */
+			shift(38), /* >= */
+			shift(39), /* > */
+			shift(40), /* < */
+			shift(41), /* is */
+			shift(42), /* isnot */
+			nil,       /* not */
+			nil,       /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			nil,       /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			nil,       /* ! */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* true */
+			nil,       /* false */
+			nil,       /* intLit */
+			nil,       /* floatLit */
+			nil,       /* doubleStringLit */
+			nil,       /* singleStringLit */
+			nil,       /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S94
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			reduce(7), /* $, reduce: CompareExpr */
+			reduce(7), /* ||, reduce: CompareExpr */
+			reduce(7), /* &&, reduce: CompareExpr */
+			reduce(7), /* =, reduce: CompareExpr */
+			reduce(7), /* ==, reduce: CompareExpr */
+			reduce(7), /* !=, reduce: CompareExpr */
+			reduce(7), /* <=, reduce: CompareExpr */
+			reduce(7), /* >=, reduce: CompareExpr */
+			reduce(7), /* >, reduce: CompareExpr */
+			reduce(7), /* <, reduce: CompareExpr */
+			reduce(7), /* is, reduce: CompareExpr */
+			reduce(7), /* isnot, reduce: CompareExpr */
+			nil,       /* not */
+			nil,       /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			nil,       /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			nil,       /* ! */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* true */
+			nil,       /* false */
+			nil,       /* intLit */
+			nil,       /* floatLit */
+			nil,       /* doubleStringLit */
+			nil,       /* singleStringLit */
+			nil,       /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S95
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			reduce(8), /* $, reduce: CompareExpr */
+			reduce(8), /* ||, reduce: CompareExpr */
+			reduce(8), /* &&, reduce: CompareExpr */
+			reduce(8), /* =, reduce: CompareExpr */
+			reduce(8), /* ==, reduce: CompareExpr */
+			reduce(8), /* !=, reduce: CompareExpr */
+			reduce(8), /* <=, reduce: CompareExpr */
+			reduce(8), /* >=, reduce: CompareExpr */
+			reduce(8), /* >, reduce: CompareExpr */
+			reduce(8), /* <, reduce: CompareExpr */
+			reduce(8), /* is, reduce: CompareExpr */
+			reduce(8), /* isnot, reduce: CompareExpr */
+			nil,       /* not */
+			nil,       /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			nil,       /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			nil,       /* ! */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* true */
+			nil,       /* false */
+			nil,       /* intLit */
+			nil,       /* floatLit */
+			nil,       /* doubleStringLit */
+			nil,       /* singleStringLit */
+			nil,       /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S96
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			reduce(9), /* $, reduce: CompareExpr */
+			reduce(9), /* ||, reduce: CompareExpr */
+			reduce(9), /* &&, reduce: CompareExpr */
+			reduce(9), /* =, reduce: CompareExpr */
+			reduce(9), /* ==, reduce: CompareExpr */
+			reduce(9), /* !=, reduce: CompareExpr */
+			reduce(9), /* <=, reduce: CompareExpr */
+			reduce(9), /* >=, reduce: CompareExpr */
+			reduce(9), /* >, reduce: CompareExpr */
+			reduce(9), /* <, reduce: CompareExpr */
+			reduce(9), /* is, reduce: CompareExpr */
+			reduce(9), /* isnot, reduce: CompareExpr */
+			nil,       /* not */
+			nil,       /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			nil,       /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			nil,       /* ! */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* true */
+			nil,       /* false */
+			nil,       /* intLit */
+			nil,       /* floatLit */
+			nil,       /* doubleStringLit */
+			nil,       /* singleStringLit */
+			nil,       /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S97
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(10), /* $, reduce: CompareExpr */
+			reduce(10), /* ||, reduce: CompareExpr */
+			reduce(10), /* &&, reduce: CompareExpr */
+			reduce(10), /* =, reduce: CompareExpr */
+			reduce(10), /* ==, reduce: CompareExpr */
+			reduce(10), /* !=, reduce: CompareExpr */
+			reduce(10), /* <=, reduce: CompareExpr */
+			reduce(10), /* >=, reduce: CompareExpr */
+			reduce(10), /* >, reduce: CompareExpr */
+			reduce(10), /* <, reduce: CompareExpr */
+			reduce(10), /* is, reduce: CompareExpr */
+			reduce(10), /* isnot, reduce: CompareExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S98
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(11), /* $, reduce: CompareExpr */
+			reduce(11), /* ||, reduce: CompareExpr */
+			reduce(11), /* &&, reduce: CompareExpr */
+			reduce(11), /* =, reduce: CompareExpr */
+			reduce(11), /* ==, reduce: CompareExpr */
+			reduce(11), /* !=, reduce: CompareExpr */
+			reduce(11), /* <=, reduce: CompareExpr */
+			reduce(11), /* >=, reduce: CompareExpr */
+			reduce(11), /* >, reduce: CompareExpr */
+			reduce(11), /* <, reduce: CompareExpr */
+			reduce(11), /* is, reduce: CompareExpr */
+			reduce(11), /* isnot, reduce: CompareExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S99
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(12), /* $, reduce: CompareExpr */
+			reduce(12), /* ||, reduce: CompareExpr */
+			reduce(12), /* &&, reduce: CompareExpr */
+			reduce(12), /* =, reduce: CompareExpr */
+			reduce(12), /* ==, reduce: CompareExpr */
+			reduce(12), /* !=, reduce: CompareExpr */
+			reduce(12), /* <=, reduce: CompareExpr */
+			reduce(12), /* >=, reduce: CompareExpr */
+			reduce(12), /* >, reduce: CompareExpr */
+			reduce(12), /* <, reduce: CompareExpr */
+			reduce(12), /* is, reduce: CompareExpr */
+			reduce(12), /* isnot, reduce: CompareExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S100
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(13), /* $, reduce: CompareExpr */
+			reduce(13), /* ||, reduce: CompareExpr */
+			reduce(13), /* &&, reduce: CompareExpr */
+			reduce(13), /* =, reduce: CompareExpr */
+			reduce(13), /* ==, reduce: CompareExpr */
+			reduce(13), /* !=, reduce: CompareExpr */
+			reduce(13), /* <=, reduce: CompareExpr */
+			reduce(13), /* >=, reduce: CompareExpr */
+			reduce(13), /* >, reduce: CompareExpr */
+			reduce(13), /* <, reduce: CompareExpr */
+			reduce(13), /* is, reduce: CompareExpr */
+			reduce(13), /* isnot, reduce: CompareExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S101
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(14), /* $, reduce: CompareExpr */
+			reduce(14), /* ||, reduce: CompareExpr */
+			reduce(14), /* &&, reduce: CompareExpr */
+			reduce(14), /* =, reduce: CompareExpr */
+			reduce(14), /* ==, reduce: CompareExpr */
+			reduce(14), /* !=, reduce: CompareExpr */
+			reduce(14), /* <=, reduce: CompareExpr */
+			reduce(14), /* >=, reduce: CompareExpr */
+			reduce(14), /* >, reduce: CompareExpr */
+			reduce(14), /* <, reduce: CompareExpr */
+			reduce(14), /* is, reduce: CompareExpr */
+			reduce(14), /* isnot, reduce: CompareExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S102
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(103), /* null */
+			shift(104), /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S103
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(17), /* $, reduce: ExistentialWord */
+			reduce(17), /* ||, reduce: ExistentialWord */
+			reduce(17), /* &&, reduce: ExistentialWord */
+			reduce(17), /* =, reduce: ExistentialWord */
+			reduce(17), /* ==, reduce: ExistentialWord */
+			reduce(17), /* !=, reduce: ExistentialWord */
+			reduce(17), /* <=, reduce: ExistentialWord */
+			reduce(17), /* >=, reduce: ExistentialWord */
+			reduce(17), /* >, reduce: ExistentialWord */
+			reduce(17), /* <, reduce: ExistentialWord */
+			reduce(17), /* is, reduce: ExistentialWord */
+			reduce(17), /* isnot, reduce: ExistentialWord */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S104
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(18), /* $, reduce: ExistentialWord */
+			reduce(18), /* ||, reduce: ExistentialWord */
+			reduce(18), /* &&, reduce: ExistentialWord */
+			reduce(18), /* =, reduce: ExistentialWord */
+			reduce(18), /* ==, reduce: ExistentialWord */
+			reduce(18), /* !=, reduce: ExistentialWord */
+			reduce(18), /* <=, reduce: ExistentialWord */
+			reduce(18), /* >=, reduce: ExistentialWord */
+			reduce(18), /* >, reduce: ExistentialWord */
+			reduce(18), /* <, reduce: ExistentialWord */
+			reduce(18), /* is, reduce: ExistentialWord */
+			reduce(18), /* isnot, reduce: ExistentialWord */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
 			nil,        /* ] */
 		},
 	},
@@ -4215,30 +4425,32 @@ var actionTab = actionTable{
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,        /* INVALID */
-			reduce(51), /* $, reduce: Identifier */
-			reduce(51), /* ||, reduce: Identifier */
-			reduce(51), /* &&, reduce: Identifier */
-			reduce(51), /* =, reduce: Identifier */
-			reduce(51), /* ==, reduce: Identifier */
-			reduce(51), /* !=, reduce: Identifier */
-			reduce(51), /* <=, reduce: Identifier */
-			reduce(51), /* >=, reduce: Identifier */
-			reduce(51), /* >, reduce: Identifier */
-			reduce(51), /* <, reduce: Identifier */
-			reduce(51), /* is, reduce: Identifier */
-			reduce(51), /* isnot, reduce: Identifier */
+			reduce(15), /* $, reduce: CompareExpr */
+			reduce(15), /* ||, reduce: CompareExpr */
+			reduce(15), /* &&, reduce: CompareExpr */
+			reduce(15), /* =, reduce: CompareExpr */
+			reduce(15), /* ==, reduce: CompareExpr */
+			reduce(15), /* !=, reduce: CompareExpr */
+			reduce(15), /* <=, reduce: CompareExpr */
+			reduce(15), /* >=, reduce: CompareExpr */
+			reduce(15), /* >, reduce: CompareExpr */
+			reduce(15), /* <, reduce: CompareExpr */
+			reduce(15), /* is, reduce: CompareExpr */
+			reduce(15), /* isnot, reduce: CompareExpr */
 			nil,        /* not */
 			nil,        /* null */
 			nil,        /* defined */
 			nil,        /* ~= */
 			nil,        /* !~= */
-			reduce(51), /* +, reduce: Identifier */
-			reduce(51), /* -, reduce: Identifier */
-			reduce(51), /* *, reduce: Identifier */
-			reduce(51), /* /, reduce: Identifier */
-			reduce(51), /* %, reduce: Identifier */
-			reduce(51), /* ^, reduce: Identifier */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
 			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
 			nil,        /* true */
 			nil,        /* false */
 			nil,        /* intLit */
@@ -4246,8 +4458,8 @@ var actionTab = actionTable{
 			nil,        /* doubleStringLit */
 			nil,        /* singleStringLit */
 			nil,        /* symbol */
-			reduce(51), /* ., reduce: Identifier */
-			reduce(51), /* [, reduce: Identifier */
+			nil,        /* . */
+			nil,        /* [ */
 			nil,        /* ] */
 		},
 	},
@@ -4255,30 +4467,32 @@ var actionTab = actionTable{
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,        /* INVALID */
-			nil,        /* $ */
-			nil,        /* || */
-			nil,        /* && */
-			nil,        /* = */
-			nil,        /* == */
-			nil,        /* != */
-			nil,        /* <= */
-			nil,        /* >= */
-			nil,        /* > */
-			nil,        /* < */
-			nil,        /* is */
-			nil,        /* isnot */
+			reduce(26), /* $, reduce: AddExpr */
+			reduce(26), /* ||, reduce: AddExpr */
+			reduce(26), /* &&, reduce: AddExpr */
+			reduce(26), /* =, reduce: AddExpr */
+			reduce(26), /* ==, reduce: AddExpr */
+			reduce(26), /* !=, reduce: AddExpr */
+			reduce(26), /* <=, reduce: AddExpr */
+			reduce(26), /* >=, reduce: AddExpr */
+			reduce(26), /* >, reduce: AddExpr */
+			reduce(26), /* <, reduce: AddExpr */
+			reduce(26), /* is, reduce: AddExpr */
+			reduce(26), /* isnot, reduce: AddExpr */
 			nil,        /* not */
 			nil,        /* null */
 			nil,        /* defined */
 			nil,        /* ~= */
 			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
+			reduce(26), /* +, reduce: AddExpr */
+			reduce(26), /* -, reduce: AddExpr */
+			shift(49),  /* * */
+			shift(50),  /* / */
+			shift(51),  /* % */
 			nil,        /* ^ */
 			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
 			nil,        /* true */
 			nil,        /* false */
 			nil,        /* intLit */
@@ -4288,77 +4502,39 @@ var actionTab = actionTable{
 			nil,        /* symbol */
 			nil,        /* . */
 			nil,        /* [ */
-			shift(109), /* ] */
+			nil,        /* ] */
 		},
 	},
 	actionRow{ // S107
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,        /* INVALID */
-			nil,        /* $ */
-			nil,        /* || */
-			nil,        /* && */
-			nil,        /* = */
-			nil,        /* == */
-			nil,        /* != */
-			nil,        /* <= */
-			nil,        /* >= */
-			nil,        /* > */
-			nil,        /* < */
-			nil,        /* is */
-			nil,        /* isnot */
+			reduce(27), /* $, reduce: AddExpr */
+			reduce(27), /* ||, reduce: AddExpr */
+			reduce(27), /* &&, reduce: AddExpr */
+			reduce(27), /* =, reduce: AddExpr */
+			reduce(27), /* ==, reduce: AddExpr */
+			reduce(27), /* !=, reduce: AddExpr */
+			reduce(27), /* <=, reduce: AddExpr */
+			reduce(27), /* >=, reduce: AddExpr */
+			reduce(27), /* >, reduce: AddExpr */
+			reduce(27), /* <, reduce: AddExpr */
+			reduce(27), /* is, reduce: AddExpr */
+			reduce(27), /* isnot, reduce: AddExpr */
 			nil,        /* not */
 			nil,        /* null */
 			nil,        /* defined */
 			nil,        /* ~= */
 			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
+			reduce(27), /* +, reduce: AddExpr */
+			reduce(27), /* -, reduce: AddExpr */
+			shift(49),  /* * */
+			shift(50),  /* / */
+			shift(51),  /* % */
 			nil,        /* ^ */
 			nil,        /* ! */
-			nil,        /* true */
-			nil,        /* false */
-			nil,        /* intLit */
-			nil,        /* floatLit */
-			nil,        /* doubleStringLit */
-			nil,        /* singleStringLit */
-			nil,        /* symbol */
-			reduce(51), /* ., reduce: Identifier */
-			reduce(51), /* [, reduce: Identifier */
-			reduce(51), /* ], reduce: Identifier */
-		},
-	},
-	actionRow{ // S108
-		canRecover: false,
-		actions: [numSymbols]action{
-			nil,        /* INVALID */
-			nil,        /* $ */
-			nil,        /* || */
-			nil,        /* && */
-			nil,        /* = */
-			nil,        /* == */
-			nil,        /* != */
-			nil,        /* <= */
-			nil,        /* >= */
-			nil,        /* > */
-			nil,        /* < */
-			nil,        /* is */
-			nil,        /* isnot */
-			nil,        /* not */
-			nil,        /* null */
-			nil,        /* defined */
-			nil,        /* ~= */
-			nil,        /* !~= */
-			nil,        /* + */
-			nil,        /* - */
-			nil,        /* * */
-			nil,        /* / */
-			nil,        /* % */
-			nil,        /* ^ */
-			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
 			nil,        /* true */
 			nil,        /* false */
 			nil,        /* intLit */
@@ -4368,37 +4544,39 @@ var actionTab = actionTable{
 			nil,        /* symbol */
 			nil,        /* . */
 			nil,        /* [ */
-			shift(110), /* ] */
+			nil,        /* ] */
 		},
 	},
-	actionRow{ // S109
+	actionRow{ // S108
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,        /* INVALID */
-			reduce(52), /* $, reduce: Identifier */
-			reduce(52), /* ||, reduce: Identifier */
-			reduce(52), /* &&, reduce: Identifier */
-			reduce(52), /* =, reduce: Identifier */
-			reduce(52), /* ==, reduce: Identifier */
-			reduce(52), /* !=, reduce: Identifier */
-			reduce(52), /* <=, reduce: Identifier */
-			reduce(52), /* >=, reduce: Identifier */
-			reduce(52), /* >, reduce: Identifier */
-			reduce(52), /* <, reduce: Identifier */
-			reduce(52), /* is, reduce: Identifier */
-			reduce(52), /* isnot, reduce: Identifier */
+			reduce(23), /* $, reduce: RegexpExpr */
+			reduce(23), /* ||, reduce: RegexpExpr */
+			reduce(23), /* &&, reduce: RegexpExpr */
+			reduce(23), /* =, reduce: RegexpExpr */
+			reduce(23), /* ==, reduce: RegexpExpr */
+			reduce(23), /* !=, reduce: RegexpExpr */
+			reduce(23), /* <=, reduce: RegexpExpr */
+			reduce(23), /* >=, reduce: RegexpExpr */
+			reduce(23), /* >, reduce: RegexpExpr */
+			reduce(23), /* <, reduce: RegexpExpr */
+			reduce(23), /* is, reduce: RegexpExpr */
+			reduce(23), /* isnot, reduce: RegexpExpr */
 			nil,        /* not */
 			nil,        /* null */
 			nil,        /* defined */
 			nil,        /* ~= */
 			nil,        /* !~= */
-			reduce(52), /* +, reduce: Identifier */
-			reduce(52), /* -, reduce: Identifier */
-			reduce(52), /* *, reduce: Identifier */
-			reduce(52), /* /, reduce: Identifier */
-			reduce(52), /* %, reduce: Identifier */
-			reduce(52), /* ^, reduce: Identifier */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
 			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
 			nil,        /* true */
 			nil,        /* false */
 			nil,        /* intLit */
@@ -4406,8 +4584,50 @@ var actionTab = actionTable{
 			nil,        /* doubleStringLit */
 			nil,        /* singleStringLit */
 			nil,        /* symbol */
-			reduce(52), /* ., reduce: Identifier */
-			reduce(52), /* [, reduce: Identifier */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S109
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(46), /* $, reduce: StringLiteral */
+			reduce(46), /* ||, reduce: StringLiteral */
+			reduce(46), /* &&, reduce: StringLiteral */
+			reduce(46), /* =, reduce: StringLiteral */
+			reduce(46), /* ==, reduce: StringLiteral */
+			reduce(46), /* !=, reduce: StringLiteral */
+			reduce(46), /* <=, reduce: StringLiteral */
+			reduce(46), /* >=, reduce: StringLiteral */
+			reduce(46), /* >, reduce: StringLiteral */
+			reduce(46), /* <, reduce: StringLiteral */
+			reduce(46), /* is, reduce: StringLiteral */
+			reduce(46), /* isnot, reduce: StringLiteral */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
 			nil,        /* ] */
 		},
 	},
@@ -4415,6 +4635,132 @@ var actionTab = actionTable{
 		canRecover: false,
 		actions: [numSymbols]action{
 			nil,        /* INVALID */
+			reduce(47), /* $, reduce: StringLiteral */
+			reduce(47), /* ||, reduce: StringLiteral */
+			reduce(47), /* &&, reduce: StringLiteral */
+			reduce(47), /* =, reduce: StringLiteral */
+			reduce(47), /* ==, reduce: StringLiteral */
+			reduce(47), /* !=, reduce: StringLiteral */
+			reduce(47), /* <=, reduce: StringLiteral */
+			reduce(47), /* >=, reduce: StringLiteral */
+			reduce(47), /* >, reduce: StringLiteral */
+			reduce(47), /* <, reduce: StringLiteral */
+			reduce(47), /* is, reduce: StringLiteral */
+			reduce(47), /* isnot, reduce: StringLiteral */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S111
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(24), /* $, reduce: RegexpExpr */
+			reduce(24), /* ||, reduce: RegexpExpr */
+			reduce(24), /* &&, reduce: RegexpExpr */
+			reduce(24), /* =, reduce: RegexpExpr */
+			reduce(24), /* ==, reduce: RegexpExpr */
+			reduce(24), /* !=, reduce: RegexpExpr */
+			reduce(24), /* <=, reduce: RegexpExpr */
+			reduce(24), /* >=, reduce: RegexpExpr */
+			reduce(24), /* >, reduce: RegexpExpr */
+			reduce(24), /* <, reduce: RegexpExpr */
+			reduce(24), /* is, reduce: RegexpExpr */
+			reduce(24), /* isnot, reduce: RegexpExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S112
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(54), /* $, reduce: Identifier */
+			reduce(54), /* ||, reduce: Identifier */
+			reduce(54), /* &&, reduce: Identifier */
+			reduce(54), /* =, reduce: Identifier */
+			reduce(54), /* ==, reduce: Identifier */
+			reduce(54), /* !=, reduce: Identifier */
+			reduce(54), /* <=, reduce: Identifier */
+			reduce(54), /* >=, reduce: Identifier */
+			reduce(54), /* >, reduce: Identifier */
+			reduce(54), /* <, reduce: Identifier */
+			reduce(54), /* is, reduce: Identifier */
+			reduce(54), /* isnot, reduce: Identifier */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(54), /* ~=, reduce: Identifier */
+			reduce(54), /* !~=, reduce: Identifier */
+			reduce(54), /* +, reduce: Identifier */
+			reduce(54), /* -, reduce: Identifier */
+			reduce(54), /* *, reduce: Identifier */
+			reduce(54), /* /, reduce: Identifier */
+			reduce(54), /* %, reduce: Identifier */
+			reduce(54), /* ^, reduce: Identifier */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(54), /* ., reduce: Identifier */
+			reduce(54), /* [, reduce: Identifier */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S113
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
 			nil,        /* $ */
 			nil,        /* || */
 			nil,        /* && */
@@ -4439,6 +4785,8 @@ var actionTab = actionTable{
 			nil,        /* % */
 			nil,        /* ^ */
 			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
 			nil,        /* true */
 			nil,        /* false */
 			nil,        /* intLit */
@@ -4446,9 +4794,5889 @@ var actionTab = actionTable{
 			nil,        /* doubleStringLit */
 			nil,        /* singleStringLit */
 			nil,        /* symbol */
-			reduce(52), /* ., reduce: Identifier */
-			reduce(52), /* [, reduce: Identifier */
-			reduce(52), /* ], reduce: Identifier */
+			nil,        /* . */
+			nil,        /* [ */
+			shift(178), /* ] */
+		},
+	},
+	actionRow{ // S114
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(41), /* +, reduce: NullLiteral */
+			reduce(41), /* -, reduce: NullLiteral */
+			reduce(41), /* *, reduce: NullLiteral */
+			reduce(41), /* /, reduce: NullLiteral */
+			reduce(41), /* %, reduce: NullLiteral */
+			reduce(41), /* ^, reduce: NullLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(41), /* ], reduce: NullLiteral */
+		},
+	},
+	actionRow{ // S115
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(19), /* ], reduce: ValueExpr */
+		},
+	},
+	actionRow{ // S116
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			shift(179), /* + */
+			shift(180), /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(20), /* ], reduce: ValueExpr */
+		},
+	},
+	actionRow{ // S117
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			shift(181), /* ~= */
+			shift(182), /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S118
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(21), /* ~=, reduce: RegexpArgument */
+			reduce(21), /* !~=, reduce: RegexpArgument */
+			reduce(40), /* +, reduce: Term */
+			reduce(40), /* -, reduce: Term */
+			reduce(40), /* *, reduce: Term */
+			reduce(40), /* /, reduce: Term */
+			reduce(40), /* %, reduce: Term */
+			reduce(40), /* ^, reduce: Term */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			shift(183), /* . */
+			shift(184), /* [ */
+			reduce(40), /* ], reduce: Term */
+		},
+	},
+	actionRow{ // S119
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(22), /* ~=, reduce: RegexpArgument */
+			reduce(22), /* !~=, reduce: RegexpArgument */
+			reduce(51), /* +, reduce: Literal */
+			reduce(51), /* -, reduce: Literal */
+			reduce(51), /* *, reduce: Literal */
+			reduce(51), /* /, reduce: Literal */
+			reduce(51), /* %, reduce: Literal */
+			reduce(51), /* ^, reduce: Literal */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(51), /* ], reduce: Literal */
+		},
+	},
+	actionRow{ // S120
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(25), /* +, reduce: AddExpr */
+			reduce(25), /* -, reduce: AddExpr */
+			shift(185), /* * */
+			shift(186), /* / */
+			shift(187), /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(25), /* ], reduce: AddExpr */
+		},
+	},
+	actionRow{ // S121
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(114), /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			shift(127), /* ( */
+			nil,        /* ) */
+			shift(131), /* true */
+			shift(132), /* false */
+			shift(134), /* intLit */
+			shift(135), /* floatLit */
+			shift(191), /* doubleStringLit */
+			shift(192), /* singleStringLit */
+			shift(194), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S122
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(28), /* +, reduce: MulExpr */
+			reduce(28), /* -, reduce: MulExpr */
+			reduce(28), /* *, reduce: MulExpr */
+			reduce(28), /* /, reduce: MulExpr */
+			reduce(28), /* %, reduce: MulExpr */
+			shift(195), /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(28), /* ], reduce: MulExpr */
+		},
+	},
+	actionRow{ // S123
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(32), /* +, reduce: ExpExpr */
+			reduce(32), /* -, reduce: ExpExpr */
+			reduce(32), /* *, reduce: ExpExpr */
+			reduce(32), /* /, reduce: ExpExpr */
+			reduce(32), /* %, reduce: ExpExpr */
+			reduce(32), /* ^, reduce: ExpExpr */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(32), /* ], reduce: ExpExpr */
+		},
+	},
+	actionRow{ // S124
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(34), /* +, reduce: UnaryExpr */
+			reduce(34), /* -, reduce: UnaryExpr */
+			reduce(34), /* *, reduce: UnaryExpr */
+			reduce(34), /* /, reduce: UnaryExpr */
+			reduce(34), /* %, reduce: UnaryExpr */
+			reduce(34), /* ^, reduce: UnaryExpr */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(34), /* ], reduce: UnaryExpr */
+		},
+	},
+	actionRow{ // S125
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(114), /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			shift(121), /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			shift(125), /* ! */
+			shift(127), /* ( */
+			nil,        /* ) */
+			shift(131), /* true */
+			shift(132), /* false */
+			shift(134), /* intLit */
+			shift(135), /* floatLit */
+			shift(191), /* doubleStringLit */
+			shift(192), /* singleStringLit */
+			shift(194), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S126
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(37), /* +, reduce: ParenExpr */
+			reduce(37), /* -, reduce: ParenExpr */
+			reduce(37), /* *, reduce: ParenExpr */
+			reduce(37), /* /, reduce: ParenExpr */
+			reduce(37), /* %, reduce: ParenExpr */
+			reduce(37), /* ^, reduce: ParenExpr */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(37), /* ], reduce: ParenExpr */
+		},
+	},
+	actionRow{ // S127
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(66), /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(73), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(77), /* ! */
+			shift(79), /* ( */
+			nil,       /* ) */
+			shift(83), /* true */
+			shift(84), /* false */
+			shift(86), /* intLit */
+			shift(87), /* floatLit */
+			shift(88), /* doubleStringLit */
+			shift(89), /* singleStringLit */
+			shift(91), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S128
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(39), /* +, reduce: Term */
+			reduce(39), /* -, reduce: Term */
+			reduce(39), /* *, reduce: Term */
+			reduce(39), /* /, reduce: Term */
+			reduce(39), /* %, reduce: Term */
+			reduce(39), /* ^, reduce: Term */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(39), /* ], reduce: Term */
+		},
+	},
+	actionRow{ // S129
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(48), /* +, reduce: Literal */
+			reduce(48), /* -, reduce: Literal */
+			reduce(48), /* *, reduce: Literal */
+			reduce(48), /* /, reduce: Literal */
+			reduce(48), /* %, reduce: Literal */
+			reduce(48), /* ^, reduce: Literal */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(48), /* ], reduce: Literal */
+		},
+	},
+	actionRow{ // S130
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(49), /* +, reduce: Literal */
+			reduce(49), /* -, reduce: Literal */
+			reduce(49), /* *, reduce: Literal */
+			reduce(49), /* /, reduce: Literal */
+			reduce(49), /* %, reduce: Literal */
+			reduce(49), /* ^, reduce: Literal */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(49), /* ], reduce: Literal */
+		},
+	},
+	actionRow{ // S131
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(42), /* +, reduce: BooleanLiteral */
+			reduce(42), /* -, reduce: BooleanLiteral */
+			reduce(42), /* *, reduce: BooleanLiteral */
+			reduce(42), /* /, reduce: BooleanLiteral */
+			reduce(42), /* %, reduce: BooleanLiteral */
+			reduce(42), /* ^, reduce: BooleanLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(42), /* ], reduce: BooleanLiteral */
+		},
+	},
+	actionRow{ // S132
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(43), /* +, reduce: BooleanLiteral */
+			reduce(43), /* -, reduce: BooleanLiteral */
+			reduce(43), /* *, reduce: BooleanLiteral */
+			reduce(43), /* /, reduce: BooleanLiteral */
+			reduce(43), /* %, reduce: BooleanLiteral */
+			reduce(43), /* ^, reduce: BooleanLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(43), /* ], reduce: BooleanLiteral */
+		},
+	},
+	actionRow{ // S133
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(50), /* +, reduce: Literal */
+			reduce(50), /* -, reduce: Literal */
+			reduce(50), /* *, reduce: Literal */
+			reduce(50), /* /, reduce: Literal */
+			reduce(50), /* %, reduce: Literal */
+			reduce(50), /* ^, reduce: Literal */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(50), /* ], reduce: Literal */
+		},
+	},
+	actionRow{ // S134
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(44), /* +, reduce: NumericLiteral */
+			reduce(44), /* -, reduce: NumericLiteral */
+			reduce(44), /* *, reduce: NumericLiteral */
+			reduce(44), /* /, reduce: NumericLiteral */
+			reduce(44), /* %, reduce: NumericLiteral */
+			reduce(44), /* ^, reduce: NumericLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(44), /* ], reduce: NumericLiteral */
+		},
+	},
+	actionRow{ // S135
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(45), /* +, reduce: NumericLiteral */
+			reduce(45), /* -, reduce: NumericLiteral */
+			reduce(45), /* *, reduce: NumericLiteral */
+			reduce(45), /* /, reduce: NumericLiteral */
+			reduce(45), /* %, reduce: NumericLiteral */
+			reduce(45), /* ^, reduce: NumericLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(45), /* ], reduce: NumericLiteral */
+		},
+	},
+	actionRow{ // S136
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(46), /* ~=, reduce: StringLiteral */
+			reduce(46), /* !~=, reduce: StringLiteral */
+			reduce(46), /* +, reduce: StringLiteral */
+			reduce(46), /* -, reduce: StringLiteral */
+			reduce(46), /* *, reduce: StringLiteral */
+			reduce(46), /* /, reduce: StringLiteral */
+			reduce(46), /* %, reduce: StringLiteral */
+			reduce(46), /* ^, reduce: StringLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(46), /* ], reduce: StringLiteral */
+		},
+	},
+	actionRow{ // S137
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(47), /* ~=, reduce: StringLiteral */
+			reduce(47), /* !~=, reduce: StringLiteral */
+			reduce(47), /* +, reduce: StringLiteral */
+			reduce(47), /* -, reduce: StringLiteral */
+			reduce(47), /* *, reduce: StringLiteral */
+			reduce(47), /* /, reduce: StringLiteral */
+			reduce(47), /* %, reduce: StringLiteral */
+			reduce(47), /* ^, reduce: StringLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(47), /* ], reduce: StringLiteral */
+		},
+	},
+	actionRow{ // S138
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(53), /* ~=, reduce: Identifier */
+			reduce(53), /* !~=, reduce: Identifier */
+			reduce(53), /* +, reduce: Identifier */
+			reduce(53), /* -, reduce: Identifier */
+			reduce(53), /* *, reduce: Identifier */
+			reduce(53), /* /, reduce: Identifier */
+			reduce(53), /* %, reduce: Identifier */
+			reduce(53), /* ^, reduce: Identifier */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(53), /* ., reduce: Identifier */
+			reduce(53), /* [, reduce: Identifier */
+			reduce(53), /* ], reduce: Identifier */
+		},
+	},
+	actionRow{ // S139
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(52), /* ~=, reduce: ObjectKey */
+			reduce(52), /* !~=, reduce: ObjectKey */
+			reduce(52), /* +, reduce: ObjectKey */
+			reduce(52), /* -, reduce: ObjectKey */
+			reduce(52), /* *, reduce: ObjectKey */
+			reduce(52), /* /, reduce: ObjectKey */
+			reduce(52), /* %, reduce: ObjectKey */
+			reduce(52), /* ^, reduce: ObjectKey */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(52), /* ., reduce: ObjectKey */
+			reduce(52), /* [, reduce: ObjectKey */
+			reduce(52), /* ], reduce: ObjectKey */
+		},
+	},
+	actionRow{ // S140
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(29), /* $, reduce: MulExpr */
+			reduce(29), /* ||, reduce: MulExpr */
+			reduce(29), /* &&, reduce: MulExpr */
+			reduce(29), /* =, reduce: MulExpr */
+			reduce(29), /* ==, reduce: MulExpr */
+			reduce(29), /* !=, reduce: MulExpr */
+			reduce(29), /* <=, reduce: MulExpr */
+			reduce(29), /* >=, reduce: MulExpr */
+			reduce(29), /* >, reduce: MulExpr */
+			reduce(29), /* <, reduce: MulExpr */
+			reduce(29), /* is, reduce: MulExpr */
+			reduce(29), /* isnot, reduce: MulExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(29), /* +, reduce: MulExpr */
+			reduce(29), /* -, reduce: MulExpr */
+			reduce(29), /* *, reduce: MulExpr */
+			reduce(29), /* /, reduce: MulExpr */
+			reduce(29), /* %, reduce: MulExpr */
+			shift(59),  /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S141
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(30), /* $, reduce: MulExpr */
+			reduce(30), /* ||, reduce: MulExpr */
+			reduce(30), /* &&, reduce: MulExpr */
+			reduce(30), /* =, reduce: MulExpr */
+			reduce(30), /* ==, reduce: MulExpr */
+			reduce(30), /* !=, reduce: MulExpr */
+			reduce(30), /* <=, reduce: MulExpr */
+			reduce(30), /* >=, reduce: MulExpr */
+			reduce(30), /* >, reduce: MulExpr */
+			reduce(30), /* <, reduce: MulExpr */
+			reduce(30), /* is, reduce: MulExpr */
+			reduce(30), /* isnot, reduce: MulExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(30), /* +, reduce: MulExpr */
+			reduce(30), /* -, reduce: MulExpr */
+			reduce(30), /* *, reduce: MulExpr */
+			reduce(30), /* /, reduce: MulExpr */
+			reduce(30), /* %, reduce: MulExpr */
+			shift(59),  /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S142
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(31), /* $, reduce: MulExpr */
+			reduce(31), /* ||, reduce: MulExpr */
+			reduce(31), /* &&, reduce: MulExpr */
+			reduce(31), /* =, reduce: MulExpr */
+			reduce(31), /* ==, reduce: MulExpr */
+			reduce(31), /* !=, reduce: MulExpr */
+			reduce(31), /* <=, reduce: MulExpr */
+			reduce(31), /* >=, reduce: MulExpr */
+			reduce(31), /* >, reduce: MulExpr */
+			reduce(31), /* <, reduce: MulExpr */
+			reduce(31), /* is, reduce: MulExpr */
+			reduce(31), /* isnot, reduce: MulExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(31), /* +, reduce: MulExpr */
+			reduce(31), /* -, reduce: MulExpr */
+			reduce(31), /* *, reduce: MulExpr */
+			reduce(31), /* /, reduce: MulExpr */
+			reduce(31), /* %, reduce: MulExpr */
+			shift(59),  /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S143
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			nil,       /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			nil,       /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			nil,       /* ! */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* true */
+			nil,       /* false */
+			nil,       /* intLit */
+			nil,       /* floatLit */
+			nil,       /* doubleStringLit */
+			nil,       /* singleStringLit */
+			shift(58), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S144
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(114), /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			shift(121), /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			shift(125), /* ! */
+			shift(127), /* ( */
+			nil,        /* ) */
+			shift(131), /* true */
+			shift(132), /* false */
+			shift(134), /* intLit */
+			shift(135), /* floatLit */
+			shift(136), /* doubleStringLit */
+			shift(137), /* singleStringLit */
+			shift(139), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S145
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(33), /* $, reduce: ExpExpr */
+			reduce(33), /* ||, reduce: ExpExpr */
+			reduce(33), /* &&, reduce: ExpExpr */
+			reduce(33), /* =, reduce: ExpExpr */
+			reduce(33), /* ==, reduce: ExpExpr */
+			reduce(33), /* !=, reduce: ExpExpr */
+			reduce(33), /* <=, reduce: ExpExpr */
+			reduce(33), /* >=, reduce: ExpExpr */
+			reduce(33), /* >, reduce: ExpExpr */
+			reduce(33), /* <, reduce: ExpExpr */
+			reduce(33), /* is, reduce: ExpExpr */
+			reduce(33), /* isnot, reduce: ExpExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(33), /* +, reduce: ExpExpr */
+			reduce(33), /* -, reduce: ExpExpr */
+			reduce(33), /* *, reduce: ExpExpr */
+			reduce(33), /* /, reduce: ExpExpr */
+			reduce(33), /* %, reduce: ExpExpr */
+			reduce(33), /* ^, reduce: ExpExpr */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S146
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(38), /* $, reduce: ParenExpr */
+			reduce(38), /* ||, reduce: ParenExpr */
+			reduce(38), /* &&, reduce: ParenExpr */
+			reduce(38), /* =, reduce: ParenExpr */
+			reduce(38), /* ==, reduce: ParenExpr */
+			reduce(38), /* !=, reduce: ParenExpr */
+			reduce(38), /* <=, reduce: ParenExpr */
+			reduce(38), /* >=, reduce: ParenExpr */
+			reduce(38), /* >, reduce: ParenExpr */
+			reduce(38), /* <, reduce: ParenExpr */
+			reduce(38), /* is, reduce: ParenExpr */
+			reduce(38), /* isnot, reduce: ParenExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(38), /* +, reduce: ParenExpr */
+			reduce(38), /* -, reduce: ParenExpr */
+			reduce(38), /* *, reduce: ParenExpr */
+			reduce(38), /* /, reduce: ParenExpr */
+			reduce(38), /* %, reduce: ParenExpr */
+			reduce(38), /* ^, reduce: ParenExpr */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S147
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(66), /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(73), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(77), /* ! */
+			shift(79), /* ( */
+			nil,       /* ) */
+			shift(83), /* true */
+			shift(84), /* false */
+			shift(86), /* intLit */
+			shift(87), /* floatLit */
+			shift(88), /* doubleStringLit */
+			shift(89), /* singleStringLit */
+			shift(91), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S148
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(66), /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(73), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(77), /* ! */
+			shift(79), /* ( */
+			nil,       /* ) */
+			shift(83), /* true */
+			shift(84), /* false */
+			shift(86), /* intLit */
+			shift(87), /* floatLit */
+			shift(88), /* doubleStringLit */
+			shift(89), /* singleStringLit */
+			shift(91), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S149
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(66), /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(73), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(77), /* ! */
+			shift(79), /* ( */
+			nil,       /* ) */
+			shift(83), /* true */
+			shift(84), /* false */
+			shift(86), /* intLit */
+			shift(87), /* floatLit */
+			shift(88), /* doubleStringLit */
+			shift(89), /* singleStringLit */
+			shift(91), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S150
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(66), /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(73), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(77), /* ! */
+			shift(79), /* ( */
+			nil,       /* ) */
+			shift(83), /* true */
+			shift(84), /* false */
+			shift(86), /* intLit */
+			shift(87), /* floatLit */
+			shift(88), /* doubleStringLit */
+			shift(89), /* singleStringLit */
+			shift(91), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S151
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(66), /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(73), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(77), /* ! */
+			shift(79), /* ( */
+			nil,       /* ) */
+			shift(83), /* true */
+			shift(84), /* false */
+			shift(86), /* intLit */
+			shift(87), /* floatLit */
+			shift(88), /* doubleStringLit */
+			shift(89), /* singleStringLit */
+			shift(91), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S152
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(66), /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(73), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(77), /* ! */
+			shift(79), /* ( */
+			nil,       /* ) */
+			shift(83), /* true */
+			shift(84), /* false */
+			shift(86), /* intLit */
+			shift(87), /* floatLit */
+			shift(88), /* doubleStringLit */
+			shift(89), /* singleStringLit */
+			shift(91), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S153
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(66), /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(73), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(77), /* ! */
+			shift(79), /* ( */
+			nil,       /* ) */
+			shift(83), /* true */
+			shift(84), /* false */
+			shift(86), /* intLit */
+			shift(87), /* floatLit */
+			shift(88), /* doubleStringLit */
+			shift(89), /* singleStringLit */
+			shift(91), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S154
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(66), /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(73), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(77), /* ! */
+			shift(79), /* ( */
+			nil,       /* ) */
+			shift(83), /* true */
+			shift(84), /* false */
+			shift(86), /* intLit */
+			shift(87), /* floatLit */
+			shift(88), /* doubleStringLit */
+			shift(89), /* singleStringLit */
+			shift(91), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S155
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			shift(66), /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			shift(73), /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			shift(77), /* ! */
+			shift(79), /* ( */
+			nil,       /* ) */
+			shift(83), /* true */
+			shift(84), /* false */
+			shift(86), /* intLit */
+			shift(87), /* floatLit */
+			shift(88), /* doubleStringLit */
+			shift(89), /* singleStringLit */
+			shift(91), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S156
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			shift(210), /* not */
+			shift(211), /* null */
+			shift(212), /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S157
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(211), /* null */
+			shift(212), /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S158
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(66),  /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			shift(73),  /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			shift(77),  /* ! */
+			shift(79),  /* ( */
+			nil,        /* ) */
+			shift(83),  /* true */
+			shift(84),  /* false */
+			shift(86),  /* intLit */
+			shift(87),  /* floatLit */
+			shift(170), /* doubleStringLit */
+			shift(171), /* singleStringLit */
+			shift(173), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S159
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(66),  /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			shift(73),  /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			shift(77),  /* ! */
+			shift(79),  /* ( */
+			nil,        /* ) */
+			shift(83),  /* true */
+			shift(84),  /* false */
+			shift(86),  /* intLit */
+			shift(87),  /* floatLit */
+			shift(170), /* doubleStringLit */
+			shift(171), /* singleStringLit */
+			shift(173), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S160
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			shift(217), /* doubleStringLit */
+			shift(218), /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S161
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			shift(217), /* doubleStringLit */
+			shift(218), /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S162
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			nil,       /* || */
+			nil,       /* && */
+			nil,       /* = */
+			nil,       /* == */
+			nil,       /* != */
+			nil,       /* <= */
+			nil,       /* >= */
+			nil,       /* > */
+			nil,       /* < */
+			nil,       /* is */
+			nil,       /* isnot */
+			nil,       /* not */
+			nil,       /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			nil,       /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			nil,       /* ! */
+			nil,       /* ( */
+			nil,       /* ) */
+			nil,       /* true */
+			nil,       /* false */
+			nil,       /* intLit */
+			nil,       /* floatLit */
+			nil,       /* doubleStringLit */
+			nil,       /* singleStringLit */
+			shift(91), /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S163
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(114), /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			shift(121), /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			shift(125), /* ! */
+			shift(127), /* ( */
+			nil,        /* ) */
+			shift(131), /* true */
+			shift(132), /* false */
+			shift(134), /* intLit */
+			shift(135), /* floatLit */
+			shift(136), /* doubleStringLit */
+			shift(137), /* singleStringLit */
+			shift(139), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S164
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(66),  /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			shift(73),  /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			shift(77),  /* ! */
+			shift(79),  /* ( */
+			nil,        /* ) */
+			shift(83),  /* true */
+			shift(84),  /* false */
+			shift(86),  /* intLit */
+			shift(87),  /* floatLit */
+			shift(170), /* doubleStringLit */
+			shift(171), /* singleStringLit */
+			shift(173), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S165
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(66),  /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			shift(73),  /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			shift(77),  /* ! */
+			shift(79),  /* ( */
+			nil,        /* ) */
+			shift(83),  /* true */
+			shift(84),  /* false */
+			shift(86),  /* intLit */
+			shift(87),  /* floatLit */
+			shift(170), /* doubleStringLit */
+			shift(171), /* singleStringLit */
+			shift(173), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S166
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(66),  /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			shift(73),  /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			shift(77),  /* ! */
+			shift(79),  /* ( */
+			nil,        /* ) */
+			shift(83),  /* true */
+			shift(84),  /* false */
+			shift(86),  /* intLit */
+			shift(87),  /* floatLit */
+			shift(170), /* doubleStringLit */
+			shift(171), /* singleStringLit */
+			shift(173), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S167
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(40), /* ||, reduce: Term */
+			reduce(40), /* &&, reduce: Term */
+			reduce(40), /* =, reduce: Term */
+			reduce(40), /* ==, reduce: Term */
+			reduce(40), /* !=, reduce: Term */
+			reduce(40), /* <=, reduce: Term */
+			reduce(40), /* >=, reduce: Term */
+			reduce(40), /* >, reduce: Term */
+			reduce(40), /* <, reduce: Term */
+			reduce(40), /* is, reduce: Term */
+			reduce(40), /* isnot, reduce: Term */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(40), /* +, reduce: Term */
+			reduce(40), /* -, reduce: Term */
+			reduce(40), /* *, reduce: Term */
+			reduce(40), /* /, reduce: Term */
+			reduce(40), /* %, reduce: Term */
+			reduce(40), /* ^, reduce: Term */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(40), /* ), reduce: Term */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			shift(225), /* . */
+			shift(226), /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S168
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(51), /* ||, reduce: Literal */
+			reduce(51), /* &&, reduce: Literal */
+			reduce(51), /* =, reduce: Literal */
+			reduce(51), /* ==, reduce: Literal */
+			reduce(51), /* !=, reduce: Literal */
+			reduce(51), /* <=, reduce: Literal */
+			reduce(51), /* >=, reduce: Literal */
+			reduce(51), /* >, reduce: Literal */
+			reduce(51), /* <, reduce: Literal */
+			reduce(51), /* is, reduce: Literal */
+			reduce(51), /* isnot, reduce: Literal */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(51), /* +, reduce: Literal */
+			reduce(51), /* -, reduce: Literal */
+			reduce(51), /* *, reduce: Literal */
+			reduce(51), /* /, reduce: Literal */
+			reduce(51), /* %, reduce: Literal */
+			reduce(51), /* ^, reduce: Literal */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(51), /* ), reduce: Literal */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S169
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(35), /* ||, reduce: UnaryExpr */
+			reduce(35), /* &&, reduce: UnaryExpr */
+			reduce(35), /* =, reduce: UnaryExpr */
+			reduce(35), /* ==, reduce: UnaryExpr */
+			reduce(35), /* !=, reduce: UnaryExpr */
+			reduce(35), /* <=, reduce: UnaryExpr */
+			reduce(35), /* >=, reduce: UnaryExpr */
+			reduce(35), /* >, reduce: UnaryExpr */
+			reduce(35), /* <, reduce: UnaryExpr */
+			reduce(35), /* is, reduce: UnaryExpr */
+			reduce(35), /* isnot, reduce: UnaryExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(35), /* +, reduce: UnaryExpr */
+			reduce(35), /* -, reduce: UnaryExpr */
+			reduce(35), /* *, reduce: UnaryExpr */
+			reduce(35), /* /, reduce: UnaryExpr */
+			reduce(35), /* %, reduce: UnaryExpr */
+			reduce(35), /* ^, reduce: UnaryExpr */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(35), /* ), reduce: UnaryExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S170
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(46), /* ||, reduce: StringLiteral */
+			reduce(46), /* &&, reduce: StringLiteral */
+			reduce(46), /* =, reduce: StringLiteral */
+			reduce(46), /* ==, reduce: StringLiteral */
+			reduce(46), /* !=, reduce: StringLiteral */
+			reduce(46), /* <=, reduce: StringLiteral */
+			reduce(46), /* >=, reduce: StringLiteral */
+			reduce(46), /* >, reduce: StringLiteral */
+			reduce(46), /* <, reduce: StringLiteral */
+			reduce(46), /* is, reduce: StringLiteral */
+			reduce(46), /* isnot, reduce: StringLiteral */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(46), /* +, reduce: StringLiteral */
+			reduce(46), /* -, reduce: StringLiteral */
+			reduce(46), /* *, reduce: StringLiteral */
+			reduce(46), /* /, reduce: StringLiteral */
+			reduce(46), /* %, reduce: StringLiteral */
+			reduce(46), /* ^, reduce: StringLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(46), /* ), reduce: StringLiteral */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S171
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(47), /* ||, reduce: StringLiteral */
+			reduce(47), /* &&, reduce: StringLiteral */
+			reduce(47), /* =, reduce: StringLiteral */
+			reduce(47), /* ==, reduce: StringLiteral */
+			reduce(47), /* !=, reduce: StringLiteral */
+			reduce(47), /* <=, reduce: StringLiteral */
+			reduce(47), /* >=, reduce: StringLiteral */
+			reduce(47), /* >, reduce: StringLiteral */
+			reduce(47), /* <, reduce: StringLiteral */
+			reduce(47), /* is, reduce: StringLiteral */
+			reduce(47), /* isnot, reduce: StringLiteral */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(47), /* +, reduce: StringLiteral */
+			reduce(47), /* -, reduce: StringLiteral */
+			reduce(47), /* *, reduce: StringLiteral */
+			reduce(47), /* /, reduce: StringLiteral */
+			reduce(47), /* %, reduce: StringLiteral */
+			reduce(47), /* ^, reduce: StringLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(47), /* ), reduce: StringLiteral */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S172
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(53), /* ||, reduce: Identifier */
+			reduce(53), /* &&, reduce: Identifier */
+			reduce(53), /* =, reduce: Identifier */
+			reduce(53), /* ==, reduce: Identifier */
+			reduce(53), /* !=, reduce: Identifier */
+			reduce(53), /* <=, reduce: Identifier */
+			reduce(53), /* >=, reduce: Identifier */
+			reduce(53), /* >, reduce: Identifier */
+			reduce(53), /* <, reduce: Identifier */
+			reduce(53), /* is, reduce: Identifier */
+			reduce(53), /* isnot, reduce: Identifier */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(53), /* +, reduce: Identifier */
+			reduce(53), /* -, reduce: Identifier */
+			reduce(53), /* *, reduce: Identifier */
+			reduce(53), /* /, reduce: Identifier */
+			reduce(53), /* %, reduce: Identifier */
+			reduce(53), /* ^, reduce: Identifier */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(53), /* ), reduce: Identifier */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(53), /* ., reduce: Identifier */
+			reduce(53), /* [, reduce: Identifier */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S173
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(52), /* ||, reduce: ObjectKey */
+			reduce(52), /* &&, reduce: ObjectKey */
+			reduce(52), /* =, reduce: ObjectKey */
+			reduce(52), /* ==, reduce: ObjectKey */
+			reduce(52), /* !=, reduce: ObjectKey */
+			reduce(52), /* <=, reduce: ObjectKey */
+			reduce(52), /* >=, reduce: ObjectKey */
+			reduce(52), /* >, reduce: ObjectKey */
+			reduce(52), /* <, reduce: ObjectKey */
+			reduce(52), /* is, reduce: ObjectKey */
+			reduce(52), /* isnot, reduce: ObjectKey */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(52), /* +, reduce: ObjectKey */
+			reduce(52), /* -, reduce: ObjectKey */
+			reduce(52), /* *, reduce: ObjectKey */
+			reduce(52), /* /, reduce: ObjectKey */
+			reduce(52), /* %, reduce: ObjectKey */
+			reduce(52), /* ^, reduce: ObjectKey */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(52), /* ), reduce: ObjectKey */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(52), /* ., reduce: ObjectKey */
+			reduce(52), /* [, reduce: ObjectKey */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S174
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(66),  /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			shift(73),  /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			shift(77),  /* ! */
+			shift(79),  /* ( */
+			nil,        /* ) */
+			shift(83),  /* true */
+			shift(84),  /* false */
+			shift(86),  /* intLit */
+			shift(87),  /* floatLit */
+			shift(170), /* doubleStringLit */
+			shift(171), /* singleStringLit */
+			shift(173), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S175
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(36), /* ||, reduce: UnaryExpr */
+			reduce(36), /* &&, reduce: UnaryExpr */
+			reduce(36), /* =, reduce: UnaryExpr */
+			reduce(36), /* ==, reduce: UnaryExpr */
+			reduce(36), /* !=, reduce: UnaryExpr */
+			reduce(36), /* <=, reduce: UnaryExpr */
+			reduce(36), /* >=, reduce: UnaryExpr */
+			reduce(36), /* >, reduce: UnaryExpr */
+			reduce(36), /* <, reduce: UnaryExpr */
+			reduce(36), /* is, reduce: UnaryExpr */
+			reduce(36), /* isnot, reduce: UnaryExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(36), /* +, reduce: UnaryExpr */
+			reduce(36), /* -, reduce: UnaryExpr */
+			reduce(36), /* *, reduce: UnaryExpr */
+			reduce(36), /* /, reduce: UnaryExpr */
+			reduce(36), /* %, reduce: UnaryExpr */
+			reduce(36), /* ^, reduce: UnaryExpr */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(36), /* ), reduce: UnaryExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S176
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			shift(228), /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S177
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(16), /* $, reduce: CompareExpr */
+			reduce(16), /* ||, reduce: CompareExpr */
+			reduce(16), /* &&, reduce: CompareExpr */
+			reduce(16), /* =, reduce: CompareExpr */
+			reduce(16), /* ==, reduce: CompareExpr */
+			reduce(16), /* !=, reduce: CompareExpr */
+			reduce(16), /* <=, reduce: CompareExpr */
+			reduce(16), /* >=, reduce: CompareExpr */
+			reduce(16), /* >, reduce: CompareExpr */
+			reduce(16), /* <, reduce: CompareExpr */
+			reduce(16), /* is, reduce: CompareExpr */
+			reduce(16), /* isnot, reduce: CompareExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S178
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(55), /* $, reduce: Identifier */
+			reduce(55), /* ||, reduce: Identifier */
+			reduce(55), /* &&, reduce: Identifier */
+			reduce(55), /* =, reduce: Identifier */
+			reduce(55), /* ==, reduce: Identifier */
+			reduce(55), /* !=, reduce: Identifier */
+			reduce(55), /* <=, reduce: Identifier */
+			reduce(55), /* >=, reduce: Identifier */
+			reduce(55), /* >, reduce: Identifier */
+			reduce(55), /* <, reduce: Identifier */
+			reduce(55), /* is, reduce: Identifier */
+			reduce(55), /* isnot, reduce: Identifier */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(55), /* ~=, reduce: Identifier */
+			reduce(55), /* !~=, reduce: Identifier */
+			reduce(55), /* +, reduce: Identifier */
+			reduce(55), /* -, reduce: Identifier */
+			reduce(55), /* *, reduce: Identifier */
+			reduce(55), /* /, reduce: Identifier */
+			reduce(55), /* %, reduce: Identifier */
+			reduce(55), /* ^, reduce: Identifier */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(55), /* ., reduce: Identifier */
+			reduce(55), /* [, reduce: Identifier */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S179
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(114), /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			shift(121), /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			shift(125), /* ! */
+			shift(127), /* ( */
+			nil,        /* ) */
+			shift(131), /* true */
+			shift(132), /* false */
+			shift(134), /* intLit */
+			shift(135), /* floatLit */
+			shift(191), /* doubleStringLit */
+			shift(192), /* singleStringLit */
+			shift(194), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S180
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(114), /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			shift(121), /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			shift(125), /* ! */
+			shift(127), /* ( */
+			nil,        /* ) */
+			shift(131), /* true */
+			shift(132), /* false */
+			shift(134), /* intLit */
+			shift(135), /* floatLit */
+			shift(191), /* doubleStringLit */
+			shift(192), /* singleStringLit */
+			shift(194), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S181
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			shift(232), /* doubleStringLit */
+			shift(233), /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S182
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			shift(232), /* doubleStringLit */
+			shift(233), /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S183
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			shift(139), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S184
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(114), /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			shift(121), /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			shift(125), /* ! */
+			shift(127), /* ( */
+			nil,        /* ) */
+			shift(131), /* true */
+			shift(132), /* false */
+			shift(134), /* intLit */
+			shift(135), /* floatLit */
+			shift(136), /* doubleStringLit */
+			shift(137), /* singleStringLit */
+			shift(139), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S185
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(114), /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			shift(121), /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			shift(125), /* ! */
+			shift(127), /* ( */
+			nil,        /* ) */
+			shift(131), /* true */
+			shift(132), /* false */
+			shift(134), /* intLit */
+			shift(135), /* floatLit */
+			shift(191), /* doubleStringLit */
+			shift(192), /* singleStringLit */
+			shift(194), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S186
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(114), /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			shift(121), /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			shift(125), /* ! */
+			shift(127), /* ( */
+			nil,        /* ) */
+			shift(131), /* true */
+			shift(132), /* false */
+			shift(134), /* intLit */
+			shift(135), /* floatLit */
+			shift(191), /* doubleStringLit */
+			shift(192), /* singleStringLit */
+			shift(194), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S187
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(114), /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			shift(121), /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			shift(125), /* ! */
+			shift(127), /* ( */
+			nil,        /* ) */
+			shift(131), /* true */
+			shift(132), /* false */
+			shift(134), /* intLit */
+			shift(135), /* floatLit */
+			shift(191), /* doubleStringLit */
+			shift(192), /* singleStringLit */
+			shift(194), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S188
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(40), /* +, reduce: Term */
+			reduce(40), /* -, reduce: Term */
+			reduce(40), /* *, reduce: Term */
+			reduce(40), /* /, reduce: Term */
+			reduce(40), /* %, reduce: Term */
+			reduce(40), /* ^, reduce: Term */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			shift(240), /* . */
+			shift(241), /* [ */
+			reduce(40), /* ], reduce: Term */
+		},
+	},
+	actionRow{ // S189
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(51), /* +, reduce: Literal */
+			reduce(51), /* -, reduce: Literal */
+			reduce(51), /* *, reduce: Literal */
+			reduce(51), /* /, reduce: Literal */
+			reduce(51), /* %, reduce: Literal */
+			reduce(51), /* ^, reduce: Literal */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(51), /* ], reduce: Literal */
+		},
+	},
+	actionRow{ // S190
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(35), /* +, reduce: UnaryExpr */
+			reduce(35), /* -, reduce: UnaryExpr */
+			reduce(35), /* *, reduce: UnaryExpr */
+			reduce(35), /* /, reduce: UnaryExpr */
+			reduce(35), /* %, reduce: UnaryExpr */
+			reduce(35), /* ^, reduce: UnaryExpr */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(35), /* ], reduce: UnaryExpr */
+		},
+	},
+	actionRow{ // S191
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(46), /* +, reduce: StringLiteral */
+			reduce(46), /* -, reduce: StringLiteral */
+			reduce(46), /* *, reduce: StringLiteral */
+			reduce(46), /* /, reduce: StringLiteral */
+			reduce(46), /* %, reduce: StringLiteral */
+			reduce(46), /* ^, reduce: StringLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(46), /* ], reduce: StringLiteral */
+		},
+	},
+	actionRow{ // S192
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(47), /* +, reduce: StringLiteral */
+			reduce(47), /* -, reduce: StringLiteral */
+			reduce(47), /* *, reduce: StringLiteral */
+			reduce(47), /* /, reduce: StringLiteral */
+			reduce(47), /* %, reduce: StringLiteral */
+			reduce(47), /* ^, reduce: StringLiteral */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(47), /* ], reduce: StringLiteral */
+		},
+	},
+	actionRow{ // S193
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(53), /* +, reduce: Identifier */
+			reduce(53), /* -, reduce: Identifier */
+			reduce(53), /* *, reduce: Identifier */
+			reduce(53), /* /, reduce: Identifier */
+			reduce(53), /* %, reduce: Identifier */
+			reduce(53), /* ^, reduce: Identifier */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(53), /* ., reduce: Identifier */
+			reduce(53), /* [, reduce: Identifier */
+			reduce(53), /* ], reduce: Identifier */
+		},
+	},
+	actionRow{ // S194
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(52), /* +, reduce: ObjectKey */
+			reduce(52), /* -, reduce: ObjectKey */
+			reduce(52), /* *, reduce: ObjectKey */
+			reduce(52), /* /, reduce: ObjectKey */
+			reduce(52), /* %, reduce: ObjectKey */
+			reduce(52), /* ^, reduce: ObjectKey */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(52), /* ., reduce: ObjectKey */
+			reduce(52), /* [, reduce: ObjectKey */
+			reduce(52), /* ], reduce: ObjectKey */
+		},
+	},
+	actionRow{ // S195
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(114), /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			shift(121), /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			shift(125), /* ! */
+			shift(127), /* ( */
+			nil,        /* ) */
+			shift(131), /* true */
+			shift(132), /* false */
+			shift(134), /* intLit */
+			shift(135), /* floatLit */
+			shift(191), /* doubleStringLit */
+			shift(192), /* singleStringLit */
+			shift(194), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S196
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(36), /* +, reduce: UnaryExpr */
+			reduce(36), /* -, reduce: UnaryExpr */
+			reduce(36), /* *, reduce: UnaryExpr */
+			reduce(36), /* /, reduce: UnaryExpr */
+			reduce(36), /* %, reduce: UnaryExpr */
+			reduce(36), /* ^, reduce: UnaryExpr */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(36), /* ], reduce: UnaryExpr */
+		},
+	},
+	actionRow{ // S197
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			shift(243), /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S198
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(54), /* $, reduce: Identifier */
+			reduce(54), /* ||, reduce: Identifier */
+			reduce(54), /* &&, reduce: Identifier */
+			reduce(54), /* =, reduce: Identifier */
+			reduce(54), /* ==, reduce: Identifier */
+			reduce(54), /* !=, reduce: Identifier */
+			reduce(54), /* <=, reduce: Identifier */
+			reduce(54), /* >=, reduce: Identifier */
+			reduce(54), /* >, reduce: Identifier */
+			reduce(54), /* <, reduce: Identifier */
+			reduce(54), /* is, reduce: Identifier */
+			reduce(54), /* isnot, reduce: Identifier */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(54), /* +, reduce: Identifier */
+			reduce(54), /* -, reduce: Identifier */
+			reduce(54), /* *, reduce: Identifier */
+			reduce(54), /* /, reduce: Identifier */
+			reduce(54), /* %, reduce: Identifier */
+			reduce(54), /* ^, reduce: Identifier */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(54), /* ., reduce: Identifier */
+			reduce(54), /* [, reduce: Identifier */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S199
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			shift(244), /* ] */
+		},
+	},
+	actionRow{ // S200
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(3),  /* ||, reduce: OrExpr */
+			shift(148), /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(3),  /* ), reduce: OrExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S201
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(5),  /* ||, reduce: AndExpr */
+			reduce(5),  /* &&, reduce: AndExpr */
+			shift(149), /* = */
+			shift(150), /* == */
+			shift(151), /* != */
+			shift(152), /* <= */
+			shift(153), /* >= */
+			shift(154), /* > */
+			shift(155), /* < */
+			shift(156), /* is */
+			shift(157), /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(5),  /* ), reduce: AndExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S202
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			reduce(7), /* ||, reduce: CompareExpr */
+			reduce(7), /* &&, reduce: CompareExpr */
+			reduce(7), /* =, reduce: CompareExpr */
+			reduce(7), /* ==, reduce: CompareExpr */
+			reduce(7), /* !=, reduce: CompareExpr */
+			reduce(7), /* <=, reduce: CompareExpr */
+			reduce(7), /* >=, reduce: CompareExpr */
+			reduce(7), /* >, reduce: CompareExpr */
+			reduce(7), /* <, reduce: CompareExpr */
+			reduce(7), /* is, reduce: CompareExpr */
+			reduce(7), /* isnot, reduce: CompareExpr */
+			nil,       /* not */
+			nil,       /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			nil,       /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			nil,       /* ! */
+			nil,       /* ( */
+			reduce(7), /* ), reduce: CompareExpr */
+			nil,       /* true */
+			nil,       /* false */
+			nil,       /* intLit */
+			nil,       /* floatLit */
+			nil,       /* doubleStringLit */
+			nil,       /* singleStringLit */
+			nil,       /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S203
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			reduce(8), /* ||, reduce: CompareExpr */
+			reduce(8), /* &&, reduce: CompareExpr */
+			reduce(8), /* =, reduce: CompareExpr */
+			reduce(8), /* ==, reduce: CompareExpr */
+			reduce(8), /* !=, reduce: CompareExpr */
+			reduce(8), /* <=, reduce: CompareExpr */
+			reduce(8), /* >=, reduce: CompareExpr */
+			reduce(8), /* >, reduce: CompareExpr */
+			reduce(8), /* <, reduce: CompareExpr */
+			reduce(8), /* is, reduce: CompareExpr */
+			reduce(8), /* isnot, reduce: CompareExpr */
+			nil,       /* not */
+			nil,       /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			nil,       /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			nil,       /* ! */
+			nil,       /* ( */
+			reduce(8), /* ), reduce: CompareExpr */
+			nil,       /* true */
+			nil,       /* false */
+			nil,       /* intLit */
+			nil,       /* floatLit */
+			nil,       /* doubleStringLit */
+			nil,       /* singleStringLit */
+			nil,       /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S204
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,       /* INVALID */
+			nil,       /* $ */
+			reduce(9), /* ||, reduce: CompareExpr */
+			reduce(9), /* &&, reduce: CompareExpr */
+			reduce(9), /* =, reduce: CompareExpr */
+			reduce(9), /* ==, reduce: CompareExpr */
+			reduce(9), /* !=, reduce: CompareExpr */
+			reduce(9), /* <=, reduce: CompareExpr */
+			reduce(9), /* >=, reduce: CompareExpr */
+			reduce(9), /* >, reduce: CompareExpr */
+			reduce(9), /* <, reduce: CompareExpr */
+			reduce(9), /* is, reduce: CompareExpr */
+			reduce(9), /* isnot, reduce: CompareExpr */
+			nil,       /* not */
+			nil,       /* null */
+			nil,       /* defined */
+			nil,       /* ~= */
+			nil,       /* !~= */
+			nil,       /* + */
+			nil,       /* - */
+			nil,       /* * */
+			nil,       /* / */
+			nil,       /* % */
+			nil,       /* ^ */
+			nil,       /* ! */
+			nil,       /* ( */
+			reduce(9), /* ), reduce: CompareExpr */
+			nil,       /* true */
+			nil,       /* false */
+			nil,       /* intLit */
+			nil,       /* floatLit */
+			nil,       /* doubleStringLit */
+			nil,       /* singleStringLit */
+			nil,       /* symbol */
+			nil,       /* . */
+			nil,       /* [ */
+			nil,       /* ] */
+		},
+	},
+	actionRow{ // S205
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(10), /* ||, reduce: CompareExpr */
+			reduce(10), /* &&, reduce: CompareExpr */
+			reduce(10), /* =, reduce: CompareExpr */
+			reduce(10), /* ==, reduce: CompareExpr */
+			reduce(10), /* !=, reduce: CompareExpr */
+			reduce(10), /* <=, reduce: CompareExpr */
+			reduce(10), /* >=, reduce: CompareExpr */
+			reduce(10), /* >, reduce: CompareExpr */
+			reduce(10), /* <, reduce: CompareExpr */
+			reduce(10), /* is, reduce: CompareExpr */
+			reduce(10), /* isnot, reduce: CompareExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(10), /* ), reduce: CompareExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S206
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(11), /* ||, reduce: CompareExpr */
+			reduce(11), /* &&, reduce: CompareExpr */
+			reduce(11), /* =, reduce: CompareExpr */
+			reduce(11), /* ==, reduce: CompareExpr */
+			reduce(11), /* !=, reduce: CompareExpr */
+			reduce(11), /* <=, reduce: CompareExpr */
+			reduce(11), /* >=, reduce: CompareExpr */
+			reduce(11), /* >, reduce: CompareExpr */
+			reduce(11), /* <, reduce: CompareExpr */
+			reduce(11), /* is, reduce: CompareExpr */
+			reduce(11), /* isnot, reduce: CompareExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(11), /* ), reduce: CompareExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S207
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(12), /* ||, reduce: CompareExpr */
+			reduce(12), /* &&, reduce: CompareExpr */
+			reduce(12), /* =, reduce: CompareExpr */
+			reduce(12), /* ==, reduce: CompareExpr */
+			reduce(12), /* !=, reduce: CompareExpr */
+			reduce(12), /* <=, reduce: CompareExpr */
+			reduce(12), /* >=, reduce: CompareExpr */
+			reduce(12), /* >, reduce: CompareExpr */
+			reduce(12), /* <, reduce: CompareExpr */
+			reduce(12), /* is, reduce: CompareExpr */
+			reduce(12), /* isnot, reduce: CompareExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(12), /* ), reduce: CompareExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S208
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(13), /* ||, reduce: CompareExpr */
+			reduce(13), /* &&, reduce: CompareExpr */
+			reduce(13), /* =, reduce: CompareExpr */
+			reduce(13), /* ==, reduce: CompareExpr */
+			reduce(13), /* !=, reduce: CompareExpr */
+			reduce(13), /* <=, reduce: CompareExpr */
+			reduce(13), /* >=, reduce: CompareExpr */
+			reduce(13), /* >, reduce: CompareExpr */
+			reduce(13), /* <, reduce: CompareExpr */
+			reduce(13), /* is, reduce: CompareExpr */
+			reduce(13), /* isnot, reduce: CompareExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(13), /* ), reduce: CompareExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S209
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(14), /* ||, reduce: CompareExpr */
+			reduce(14), /* &&, reduce: CompareExpr */
+			reduce(14), /* =, reduce: CompareExpr */
+			reduce(14), /* ==, reduce: CompareExpr */
+			reduce(14), /* !=, reduce: CompareExpr */
+			reduce(14), /* <=, reduce: CompareExpr */
+			reduce(14), /* >=, reduce: CompareExpr */
+			reduce(14), /* >, reduce: CompareExpr */
+			reduce(14), /* <, reduce: CompareExpr */
+			reduce(14), /* is, reduce: CompareExpr */
+			reduce(14), /* isnot, reduce: CompareExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(14), /* ), reduce: CompareExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S210
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(211), /* null */
+			shift(212), /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S211
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(17), /* ||, reduce: ExistentialWord */
+			reduce(17), /* &&, reduce: ExistentialWord */
+			reduce(17), /* =, reduce: ExistentialWord */
+			reduce(17), /* ==, reduce: ExistentialWord */
+			reduce(17), /* !=, reduce: ExistentialWord */
+			reduce(17), /* <=, reduce: ExistentialWord */
+			reduce(17), /* >=, reduce: ExistentialWord */
+			reduce(17), /* >, reduce: ExistentialWord */
+			reduce(17), /* <, reduce: ExistentialWord */
+			reduce(17), /* is, reduce: ExistentialWord */
+			reduce(17), /* isnot, reduce: ExistentialWord */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(17), /* ), reduce: ExistentialWord */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S212
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(18), /* ||, reduce: ExistentialWord */
+			reduce(18), /* &&, reduce: ExistentialWord */
+			reduce(18), /* =, reduce: ExistentialWord */
+			reduce(18), /* ==, reduce: ExistentialWord */
+			reduce(18), /* !=, reduce: ExistentialWord */
+			reduce(18), /* <=, reduce: ExistentialWord */
+			reduce(18), /* >=, reduce: ExistentialWord */
+			reduce(18), /* >, reduce: ExistentialWord */
+			reduce(18), /* <, reduce: ExistentialWord */
+			reduce(18), /* is, reduce: ExistentialWord */
+			reduce(18), /* isnot, reduce: ExistentialWord */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(18), /* ), reduce: ExistentialWord */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S213
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(15), /* ||, reduce: CompareExpr */
+			reduce(15), /* &&, reduce: CompareExpr */
+			reduce(15), /* =, reduce: CompareExpr */
+			reduce(15), /* ==, reduce: CompareExpr */
+			reduce(15), /* !=, reduce: CompareExpr */
+			reduce(15), /* <=, reduce: CompareExpr */
+			reduce(15), /* >=, reduce: CompareExpr */
+			reduce(15), /* >, reduce: CompareExpr */
+			reduce(15), /* <, reduce: CompareExpr */
+			reduce(15), /* is, reduce: CompareExpr */
+			reduce(15), /* isnot, reduce: CompareExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(15), /* ), reduce: CompareExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S214
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(26), /* ||, reduce: AddExpr */
+			reduce(26), /* &&, reduce: AddExpr */
+			reduce(26), /* =, reduce: AddExpr */
+			reduce(26), /* ==, reduce: AddExpr */
+			reduce(26), /* !=, reduce: AddExpr */
+			reduce(26), /* <=, reduce: AddExpr */
+			reduce(26), /* >=, reduce: AddExpr */
+			reduce(26), /* >, reduce: AddExpr */
+			reduce(26), /* <, reduce: AddExpr */
+			reduce(26), /* is, reduce: AddExpr */
+			reduce(26), /* isnot, reduce: AddExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(26), /* +, reduce: AddExpr */
+			reduce(26), /* -, reduce: AddExpr */
+			shift(164), /* * */
+			shift(165), /* / */
+			shift(166), /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(26), /* ), reduce: AddExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S215
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(27), /* ||, reduce: AddExpr */
+			reduce(27), /* &&, reduce: AddExpr */
+			reduce(27), /* =, reduce: AddExpr */
+			reduce(27), /* ==, reduce: AddExpr */
+			reduce(27), /* !=, reduce: AddExpr */
+			reduce(27), /* <=, reduce: AddExpr */
+			reduce(27), /* >=, reduce: AddExpr */
+			reduce(27), /* >, reduce: AddExpr */
+			reduce(27), /* <, reduce: AddExpr */
+			reduce(27), /* is, reduce: AddExpr */
+			reduce(27), /* isnot, reduce: AddExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(27), /* +, reduce: AddExpr */
+			reduce(27), /* -, reduce: AddExpr */
+			shift(164), /* * */
+			shift(165), /* / */
+			shift(166), /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(27), /* ), reduce: AddExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S216
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(23), /* ||, reduce: RegexpExpr */
+			reduce(23), /* &&, reduce: RegexpExpr */
+			reduce(23), /* =, reduce: RegexpExpr */
+			reduce(23), /* ==, reduce: RegexpExpr */
+			reduce(23), /* !=, reduce: RegexpExpr */
+			reduce(23), /* <=, reduce: RegexpExpr */
+			reduce(23), /* >=, reduce: RegexpExpr */
+			reduce(23), /* >, reduce: RegexpExpr */
+			reduce(23), /* <, reduce: RegexpExpr */
+			reduce(23), /* is, reduce: RegexpExpr */
+			reduce(23), /* isnot, reduce: RegexpExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(23), /* ), reduce: RegexpExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S217
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(46), /* ||, reduce: StringLiteral */
+			reduce(46), /* &&, reduce: StringLiteral */
+			reduce(46), /* =, reduce: StringLiteral */
+			reduce(46), /* ==, reduce: StringLiteral */
+			reduce(46), /* !=, reduce: StringLiteral */
+			reduce(46), /* <=, reduce: StringLiteral */
+			reduce(46), /* >=, reduce: StringLiteral */
+			reduce(46), /* >, reduce: StringLiteral */
+			reduce(46), /* <, reduce: StringLiteral */
+			reduce(46), /* is, reduce: StringLiteral */
+			reduce(46), /* isnot, reduce: StringLiteral */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(46), /* ), reduce: StringLiteral */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S218
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(47), /* ||, reduce: StringLiteral */
+			reduce(47), /* &&, reduce: StringLiteral */
+			reduce(47), /* =, reduce: StringLiteral */
+			reduce(47), /* ==, reduce: StringLiteral */
+			reduce(47), /* !=, reduce: StringLiteral */
+			reduce(47), /* <=, reduce: StringLiteral */
+			reduce(47), /* >=, reduce: StringLiteral */
+			reduce(47), /* >, reduce: StringLiteral */
+			reduce(47), /* <, reduce: StringLiteral */
+			reduce(47), /* is, reduce: StringLiteral */
+			reduce(47), /* isnot, reduce: StringLiteral */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(47), /* ), reduce: StringLiteral */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S219
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(24), /* ||, reduce: RegexpExpr */
+			reduce(24), /* &&, reduce: RegexpExpr */
+			reduce(24), /* =, reduce: RegexpExpr */
+			reduce(24), /* ==, reduce: RegexpExpr */
+			reduce(24), /* !=, reduce: RegexpExpr */
+			reduce(24), /* <=, reduce: RegexpExpr */
+			reduce(24), /* >=, reduce: RegexpExpr */
+			reduce(24), /* >, reduce: RegexpExpr */
+			reduce(24), /* <, reduce: RegexpExpr */
+			reduce(24), /* is, reduce: RegexpExpr */
+			reduce(24), /* isnot, reduce: RegexpExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(24), /* ), reduce: RegexpExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S220
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(54), /* ||, reduce: Identifier */
+			reduce(54), /* &&, reduce: Identifier */
+			reduce(54), /* =, reduce: Identifier */
+			reduce(54), /* ==, reduce: Identifier */
+			reduce(54), /* !=, reduce: Identifier */
+			reduce(54), /* <=, reduce: Identifier */
+			reduce(54), /* >=, reduce: Identifier */
+			reduce(54), /* >, reduce: Identifier */
+			reduce(54), /* <, reduce: Identifier */
+			reduce(54), /* is, reduce: Identifier */
+			reduce(54), /* isnot, reduce: Identifier */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(54), /* ~=, reduce: Identifier */
+			reduce(54), /* !~=, reduce: Identifier */
+			reduce(54), /* +, reduce: Identifier */
+			reduce(54), /* -, reduce: Identifier */
+			reduce(54), /* *, reduce: Identifier */
+			reduce(54), /* /, reduce: Identifier */
+			reduce(54), /* %, reduce: Identifier */
+			reduce(54), /* ^, reduce: Identifier */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(54), /* ), reduce: Identifier */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(54), /* ., reduce: Identifier */
+			reduce(54), /* [, reduce: Identifier */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S221
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			shift(246), /* ] */
+		},
+	},
+	actionRow{ // S222
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(29), /* ||, reduce: MulExpr */
+			reduce(29), /* &&, reduce: MulExpr */
+			reduce(29), /* =, reduce: MulExpr */
+			reduce(29), /* ==, reduce: MulExpr */
+			reduce(29), /* !=, reduce: MulExpr */
+			reduce(29), /* <=, reduce: MulExpr */
+			reduce(29), /* >=, reduce: MulExpr */
+			reduce(29), /* >, reduce: MulExpr */
+			reduce(29), /* <, reduce: MulExpr */
+			reduce(29), /* is, reduce: MulExpr */
+			reduce(29), /* isnot, reduce: MulExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(29), /* +, reduce: MulExpr */
+			reduce(29), /* -, reduce: MulExpr */
+			reduce(29), /* *, reduce: MulExpr */
+			reduce(29), /* /, reduce: MulExpr */
+			reduce(29), /* %, reduce: MulExpr */
+			shift(174), /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(29), /* ), reduce: MulExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S223
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(30), /* ||, reduce: MulExpr */
+			reduce(30), /* &&, reduce: MulExpr */
+			reduce(30), /* =, reduce: MulExpr */
+			reduce(30), /* ==, reduce: MulExpr */
+			reduce(30), /* !=, reduce: MulExpr */
+			reduce(30), /* <=, reduce: MulExpr */
+			reduce(30), /* >=, reduce: MulExpr */
+			reduce(30), /* >, reduce: MulExpr */
+			reduce(30), /* <, reduce: MulExpr */
+			reduce(30), /* is, reduce: MulExpr */
+			reduce(30), /* isnot, reduce: MulExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(30), /* +, reduce: MulExpr */
+			reduce(30), /* -, reduce: MulExpr */
+			reduce(30), /* *, reduce: MulExpr */
+			reduce(30), /* /, reduce: MulExpr */
+			reduce(30), /* %, reduce: MulExpr */
+			shift(174), /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(30), /* ), reduce: MulExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S224
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(31), /* ||, reduce: MulExpr */
+			reduce(31), /* &&, reduce: MulExpr */
+			reduce(31), /* =, reduce: MulExpr */
+			reduce(31), /* ==, reduce: MulExpr */
+			reduce(31), /* !=, reduce: MulExpr */
+			reduce(31), /* <=, reduce: MulExpr */
+			reduce(31), /* >=, reduce: MulExpr */
+			reduce(31), /* >, reduce: MulExpr */
+			reduce(31), /* <, reduce: MulExpr */
+			reduce(31), /* is, reduce: MulExpr */
+			reduce(31), /* isnot, reduce: MulExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(31), /* +, reduce: MulExpr */
+			reduce(31), /* -, reduce: MulExpr */
+			reduce(31), /* *, reduce: MulExpr */
+			reduce(31), /* /, reduce: MulExpr */
+			reduce(31), /* %, reduce: MulExpr */
+			shift(174), /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(31), /* ), reduce: MulExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S225
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			shift(173), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S226
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(114), /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			shift(121), /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			shift(125), /* ! */
+			shift(127), /* ( */
+			nil,        /* ) */
+			shift(131), /* true */
+			shift(132), /* false */
+			shift(134), /* intLit */
+			shift(135), /* floatLit */
+			shift(136), /* doubleStringLit */
+			shift(137), /* singleStringLit */
+			shift(139), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S227
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(33), /* ||, reduce: ExpExpr */
+			reduce(33), /* &&, reduce: ExpExpr */
+			reduce(33), /* =, reduce: ExpExpr */
+			reduce(33), /* ==, reduce: ExpExpr */
+			reduce(33), /* !=, reduce: ExpExpr */
+			reduce(33), /* <=, reduce: ExpExpr */
+			reduce(33), /* >=, reduce: ExpExpr */
+			reduce(33), /* >, reduce: ExpExpr */
+			reduce(33), /* <, reduce: ExpExpr */
+			reduce(33), /* is, reduce: ExpExpr */
+			reduce(33), /* isnot, reduce: ExpExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(33), /* +, reduce: ExpExpr */
+			reduce(33), /* -, reduce: ExpExpr */
+			reduce(33), /* *, reduce: ExpExpr */
+			reduce(33), /* /, reduce: ExpExpr */
+			reduce(33), /* %, reduce: ExpExpr */
+			reduce(33), /* ^, reduce: ExpExpr */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(33), /* ), reduce: ExpExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S228
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(38), /* ||, reduce: ParenExpr */
+			reduce(38), /* &&, reduce: ParenExpr */
+			reduce(38), /* =, reduce: ParenExpr */
+			reduce(38), /* ==, reduce: ParenExpr */
+			reduce(38), /* !=, reduce: ParenExpr */
+			reduce(38), /* <=, reduce: ParenExpr */
+			reduce(38), /* >=, reduce: ParenExpr */
+			reduce(38), /* >, reduce: ParenExpr */
+			reduce(38), /* <, reduce: ParenExpr */
+			reduce(38), /* is, reduce: ParenExpr */
+			reduce(38), /* isnot, reduce: ParenExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(38), /* +, reduce: ParenExpr */
+			reduce(38), /* -, reduce: ParenExpr */
+			reduce(38), /* *, reduce: ParenExpr */
+			reduce(38), /* /, reduce: ParenExpr */
+			reduce(38), /* %, reduce: ParenExpr */
+			reduce(38), /* ^, reduce: ParenExpr */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(38), /* ), reduce: ParenExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S229
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(26), /* +, reduce: AddExpr */
+			reduce(26), /* -, reduce: AddExpr */
+			shift(185), /* * */
+			shift(186), /* / */
+			shift(187), /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(26), /* ], reduce: AddExpr */
+		},
+	},
+	actionRow{ // S230
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(27), /* +, reduce: AddExpr */
+			reduce(27), /* -, reduce: AddExpr */
+			shift(185), /* * */
+			shift(186), /* / */
+			shift(187), /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(27), /* ], reduce: AddExpr */
+		},
+	},
+	actionRow{ // S231
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(23), /* ], reduce: RegexpExpr */
+		},
+	},
+	actionRow{ // S232
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(46), /* ], reduce: StringLiteral */
+		},
+	},
+	actionRow{ // S233
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(47), /* ], reduce: StringLiteral */
+		},
+	},
+	actionRow{ // S234
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(24), /* ], reduce: RegexpExpr */
+		},
+	},
+	actionRow{ // S235
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(54), /* ~=, reduce: Identifier */
+			reduce(54), /* !~=, reduce: Identifier */
+			reduce(54), /* +, reduce: Identifier */
+			reduce(54), /* -, reduce: Identifier */
+			reduce(54), /* *, reduce: Identifier */
+			reduce(54), /* /, reduce: Identifier */
+			reduce(54), /* %, reduce: Identifier */
+			reduce(54), /* ^, reduce: Identifier */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(54), /* ., reduce: Identifier */
+			reduce(54), /* [, reduce: Identifier */
+			reduce(54), /* ], reduce: Identifier */
+		},
+	},
+	actionRow{ // S236
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			shift(249), /* ] */
+		},
+	},
+	actionRow{ // S237
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(29), /* +, reduce: MulExpr */
+			reduce(29), /* -, reduce: MulExpr */
+			reduce(29), /* *, reduce: MulExpr */
+			reduce(29), /* /, reduce: MulExpr */
+			reduce(29), /* %, reduce: MulExpr */
+			shift(195), /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(29), /* ], reduce: MulExpr */
+		},
+	},
+	actionRow{ // S238
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(30), /* +, reduce: MulExpr */
+			reduce(30), /* -, reduce: MulExpr */
+			reduce(30), /* *, reduce: MulExpr */
+			reduce(30), /* /, reduce: MulExpr */
+			reduce(30), /* %, reduce: MulExpr */
+			shift(195), /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(30), /* ], reduce: MulExpr */
+		},
+	},
+	actionRow{ // S239
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(31), /* +, reduce: MulExpr */
+			reduce(31), /* -, reduce: MulExpr */
+			reduce(31), /* *, reduce: MulExpr */
+			reduce(31), /* /, reduce: MulExpr */
+			reduce(31), /* %, reduce: MulExpr */
+			shift(195), /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(31), /* ], reduce: MulExpr */
+		},
+	},
+	actionRow{ // S240
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			shift(194), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S241
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			shift(114), /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			shift(121), /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			shift(125), /* ! */
+			shift(127), /* ( */
+			nil,        /* ) */
+			shift(131), /* true */
+			shift(132), /* false */
+			shift(134), /* intLit */
+			shift(135), /* floatLit */
+			shift(136), /* doubleStringLit */
+			shift(137), /* singleStringLit */
+			shift(139), /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S242
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(33), /* +, reduce: ExpExpr */
+			reduce(33), /* -, reduce: ExpExpr */
+			reduce(33), /* *, reduce: ExpExpr */
+			reduce(33), /* /, reduce: ExpExpr */
+			reduce(33), /* %, reduce: ExpExpr */
+			reduce(33), /* ^, reduce: ExpExpr */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(33), /* ], reduce: ExpExpr */
+		},
+	},
+	actionRow{ // S243
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(38), /* +, reduce: ParenExpr */
+			reduce(38), /* -, reduce: ParenExpr */
+			reduce(38), /* *, reduce: ParenExpr */
+			reduce(38), /* /, reduce: ParenExpr */
+			reduce(38), /* %, reduce: ParenExpr */
+			reduce(38), /* ^, reduce: ParenExpr */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			reduce(38), /* ], reduce: ParenExpr */
+		},
+	},
+	actionRow{ // S244
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			reduce(55), /* $, reduce: Identifier */
+			reduce(55), /* ||, reduce: Identifier */
+			reduce(55), /* &&, reduce: Identifier */
+			reduce(55), /* =, reduce: Identifier */
+			reduce(55), /* ==, reduce: Identifier */
+			reduce(55), /* !=, reduce: Identifier */
+			reduce(55), /* <=, reduce: Identifier */
+			reduce(55), /* >=, reduce: Identifier */
+			reduce(55), /* >, reduce: Identifier */
+			reduce(55), /* <, reduce: Identifier */
+			reduce(55), /* is, reduce: Identifier */
+			reduce(55), /* isnot, reduce: Identifier */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(55), /* +, reduce: Identifier */
+			reduce(55), /* -, reduce: Identifier */
+			reduce(55), /* *, reduce: Identifier */
+			reduce(55), /* /, reduce: Identifier */
+			reduce(55), /* %, reduce: Identifier */
+			reduce(55), /* ^, reduce: Identifier */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(55), /* ., reduce: Identifier */
+			reduce(55), /* [, reduce: Identifier */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S245
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(16), /* ||, reduce: CompareExpr */
+			reduce(16), /* &&, reduce: CompareExpr */
+			reduce(16), /* =, reduce: CompareExpr */
+			reduce(16), /* ==, reduce: CompareExpr */
+			reduce(16), /* !=, reduce: CompareExpr */
+			reduce(16), /* <=, reduce: CompareExpr */
+			reduce(16), /* >=, reduce: CompareExpr */
+			reduce(16), /* >, reduce: CompareExpr */
+			reduce(16), /* <, reduce: CompareExpr */
+			reduce(16), /* is, reduce: CompareExpr */
+			reduce(16), /* isnot, reduce: CompareExpr */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(16), /* ), reduce: CompareExpr */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S246
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(55), /* ||, reduce: Identifier */
+			reduce(55), /* &&, reduce: Identifier */
+			reduce(55), /* =, reduce: Identifier */
+			reduce(55), /* ==, reduce: Identifier */
+			reduce(55), /* !=, reduce: Identifier */
+			reduce(55), /* <=, reduce: Identifier */
+			reduce(55), /* >=, reduce: Identifier */
+			reduce(55), /* >, reduce: Identifier */
+			reduce(55), /* <, reduce: Identifier */
+			reduce(55), /* is, reduce: Identifier */
+			reduce(55), /* isnot, reduce: Identifier */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(55), /* ~=, reduce: Identifier */
+			reduce(55), /* !~=, reduce: Identifier */
+			reduce(55), /* +, reduce: Identifier */
+			reduce(55), /* -, reduce: Identifier */
+			reduce(55), /* *, reduce: Identifier */
+			reduce(55), /* /, reduce: Identifier */
+			reduce(55), /* %, reduce: Identifier */
+			reduce(55), /* ^, reduce: Identifier */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(55), /* ), reduce: Identifier */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(55), /* ., reduce: Identifier */
+			reduce(55), /* [, reduce: Identifier */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S247
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(54), /* ||, reduce: Identifier */
+			reduce(54), /* &&, reduce: Identifier */
+			reduce(54), /* =, reduce: Identifier */
+			reduce(54), /* ==, reduce: Identifier */
+			reduce(54), /* !=, reduce: Identifier */
+			reduce(54), /* <=, reduce: Identifier */
+			reduce(54), /* >=, reduce: Identifier */
+			reduce(54), /* >, reduce: Identifier */
+			reduce(54), /* <, reduce: Identifier */
+			reduce(54), /* is, reduce: Identifier */
+			reduce(54), /* isnot, reduce: Identifier */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(54), /* +, reduce: Identifier */
+			reduce(54), /* -, reduce: Identifier */
+			reduce(54), /* *, reduce: Identifier */
+			reduce(54), /* /, reduce: Identifier */
+			reduce(54), /* %, reduce: Identifier */
+			reduce(54), /* ^, reduce: Identifier */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(54), /* ), reduce: Identifier */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(54), /* ., reduce: Identifier */
+			reduce(54), /* [, reduce: Identifier */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S248
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			shift(252), /* ] */
+		},
+	},
+	actionRow{ // S249
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			reduce(55), /* ~=, reduce: Identifier */
+			reduce(55), /* !~=, reduce: Identifier */
+			reduce(55), /* +, reduce: Identifier */
+			reduce(55), /* -, reduce: Identifier */
+			reduce(55), /* *, reduce: Identifier */
+			reduce(55), /* /, reduce: Identifier */
+			reduce(55), /* %, reduce: Identifier */
+			reduce(55), /* ^, reduce: Identifier */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(55), /* ., reduce: Identifier */
+			reduce(55), /* [, reduce: Identifier */
+			reduce(55), /* ], reduce: Identifier */
+		},
+	},
+	actionRow{ // S250
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(54), /* +, reduce: Identifier */
+			reduce(54), /* -, reduce: Identifier */
+			reduce(54), /* *, reduce: Identifier */
+			reduce(54), /* /, reduce: Identifier */
+			reduce(54), /* %, reduce: Identifier */
+			reduce(54), /* ^, reduce: Identifier */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(54), /* ., reduce: Identifier */
+			reduce(54), /* [, reduce: Identifier */
+			reduce(54), /* ], reduce: Identifier */
+		},
+	},
+	actionRow{ // S251
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			nil,        /* + */
+			nil,        /* - */
+			nil,        /* * */
+			nil,        /* / */
+			nil,        /* % */
+			nil,        /* ^ */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			nil,        /* . */
+			nil,        /* [ */
+			shift(253), /* ] */
+		},
+	},
+	actionRow{ // S252
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			reduce(55), /* ||, reduce: Identifier */
+			reduce(55), /* &&, reduce: Identifier */
+			reduce(55), /* =, reduce: Identifier */
+			reduce(55), /* ==, reduce: Identifier */
+			reduce(55), /* !=, reduce: Identifier */
+			reduce(55), /* <=, reduce: Identifier */
+			reduce(55), /* >=, reduce: Identifier */
+			reduce(55), /* >, reduce: Identifier */
+			reduce(55), /* <, reduce: Identifier */
+			reduce(55), /* is, reduce: Identifier */
+			reduce(55), /* isnot, reduce: Identifier */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(55), /* +, reduce: Identifier */
+			reduce(55), /* -, reduce: Identifier */
+			reduce(55), /* *, reduce: Identifier */
+			reduce(55), /* /, reduce: Identifier */
+			reduce(55), /* %, reduce: Identifier */
+			reduce(55), /* ^, reduce: Identifier */
+			nil,        /* ! */
+			nil,        /* ( */
+			reduce(55), /* ), reduce: Identifier */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(55), /* ., reduce: Identifier */
+			reduce(55), /* [, reduce: Identifier */
+			nil,        /* ] */
+		},
+	},
+	actionRow{ // S253
+		canRecover: false,
+		actions: [numSymbols]action{
+			nil,        /* INVALID */
+			nil,        /* $ */
+			nil,        /* || */
+			nil,        /* && */
+			nil,        /* = */
+			nil,        /* == */
+			nil,        /* != */
+			nil,        /* <= */
+			nil,        /* >= */
+			nil,        /* > */
+			nil,        /* < */
+			nil,        /* is */
+			nil,        /* isnot */
+			nil,        /* not */
+			nil,        /* null */
+			nil,        /* defined */
+			nil,        /* ~= */
+			nil,        /* !~= */
+			reduce(55), /* +, reduce: Identifier */
+			reduce(55), /* -, reduce: Identifier */
+			reduce(55), /* *, reduce: Identifier */
+			reduce(55), /* /, reduce: Identifier */
+			reduce(55), /* %, reduce: Identifier */
+			reduce(55), /* ^, reduce: Identifier */
+			nil,        /* ! */
+			nil,        /* ( */
+			nil,        /* ) */
+			nil,        /* true */
+			nil,        /* false */
+			nil,        /* intLit */
+			nil,        /* floatLit */
+			nil,        /* doubleStringLit */
+			nil,        /* singleStringLit */
+			nil,        /* symbol */
+			reduce(55), /* ., reduce: Identifier */
+			reduce(55), /* [, reduce: Identifier */
+			reduce(55), /* ], reduce: Identifier */
 		},
 	},
 }
