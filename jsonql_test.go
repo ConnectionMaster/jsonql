@@ -165,6 +165,9 @@ func TestBEDMASExpr(t *testing.T) {
 		{`1/2^-1`, ``, 2.0},
 		{`8%5`, ``, int64(3)},
 		{`8%5.0`, ``, 3.0},
+		{`10-2*4`, ``, int64(2)},
+		{`10-2-4`, ``, int64(4)},
+		{`10*2+1/4`, ``, 20.25},
 	}
 
 	for i, testCase := range testCases {

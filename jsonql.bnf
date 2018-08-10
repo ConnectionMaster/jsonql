@@ -70,6 +70,12 @@ func SingleUnquote(tok string) (string, error) {
 
 /* Literals */
 
+AddExpr
+        : MulExpr
+        | AddExpr "+" MulExpr   << ast.Add($0, $2) >>
+        | AddExpr "-" MulExpr   << ast.Sub($0, $2) >>
+        ;
+
 MulExpr
         : ExpExpr
         | MulExpr "*" ExpExpr   << ast.Mul($0, $2) >>
