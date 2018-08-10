@@ -86,7 +86,11 @@ func (in IndexNode) Evaluate(val interface{}) (interface{}, error) {
 	}
 	indexInt, ok := indexVal.(int64)
 	if !ok {
-		return nil, fmt.Errorf("Index expression yielded %v, not an integer", indexVal)
+		indexFloat, ok := indexVal.(float64)
+		if !ok {
+			return nil, fmt.Errorf("Index expression yielded %v, not an integer", indexVal)
+		}
+		indexInt = int64(indexFloat)
 	}
 	val, err = in.Parent.Evaluate(val)
 	if arrVal, ok := val.([]interface{}); ok {

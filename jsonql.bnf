@@ -102,4 +102,7 @@ Literal
 ObjectKey:  symbol  << String($0), nil >> ;
 
 Identifier
-        : ObjectKey              << ast.ObjectKey($0) >>;
+        : ObjectKey                  << ast.ObjectKey($0) >>
+        | Identifier "." ObjectKey   << ast.SelectKey($0.(ast.Expr), $2) >>
+        | Identifier "[" Expr "]"    << ast.Index($0.(ast.Expr), $2.(ast.Expr)) >>
+        ;

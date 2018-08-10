@@ -63,10 +63,20 @@ var productionsTable = ProdTab{
 		},
 	},
 	ProdTabEntry{
+		String: `Expr : Identifier	<<  >>`,
+		Id:         "Expr",
+		NTType:     1,
+		Index:      2,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
 		String: `NullLiteral : "null"	<< nil, nil >>`,
 		Id:         "NullLiteral",
 		NTType:     2,
-		Index:      2,
+		Index:      3,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return nil, nil
@@ -76,7 +86,7 @@ var productionsTable = ProdTab{
 		String: `BooleanLiteral : "true"	<< true, nil >>`,
 		Id:         "BooleanLiteral",
 		NTType:     3,
-		Index:      3,
+		Index:      4,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return true, nil
@@ -86,7 +96,7 @@ var productionsTable = ProdTab{
 		String: `BooleanLiteral : "false"	<< false, nil >>`,
 		Id:         "BooleanLiteral",
 		NTType:     3,
-		Index:      4,
+		Index:      5,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return false, nil
@@ -96,7 +106,7 @@ var productionsTable = ProdTab{
 		String: `NumericLiteral : intLit	<< strconv.ParseInt(String(X[0]), 0, 64) >>`,
 		Id:         "NumericLiteral",
 		NTType:     4,
-		Index:      5,
+		Index:      6,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return strconv.ParseInt(String(X[0]), 0, 64)
@@ -106,7 +116,7 @@ var productionsTable = ProdTab{
 		String: `NumericLiteral : floatLit	<< strconv.ParseFloat(String(X[0]), 64) >>`,
 		Id:         "NumericLiteral",
 		NTType:     4,
-		Index:      6,
+		Index:      7,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return strconv.ParseFloat(String(X[0]), 64)
@@ -116,7 +126,7 @@ var productionsTable = ProdTab{
 		String: `StringLiteral : doubleStringLit	<< strconv.Unquote(String(X[0])) >>`,
 		Id:         "StringLiteral",
 		NTType:     5,
-		Index:      7,
+		Index:      8,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return strconv.Unquote(String(X[0]))
@@ -126,7 +136,7 @@ var productionsTable = ProdTab{
 		String: `StringLiteral : singleStringLit	<< SingleUnquote(String(X[0])) >>`,
 		Id:         "StringLiteral",
 		NTType:     5,
-		Index:      8,
+		Index:      9,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return SingleUnquote(String(X[0]))
@@ -136,7 +146,7 @@ var productionsTable = ProdTab{
 		String: `Literal : NullLiteral	<< ast.Literal(X[0]) >>`,
 		Id:         "Literal",
 		NTType:     6,
-		Index:      9,
+		Index:      10,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return ast.Literal(X[0])
@@ -146,7 +156,7 @@ var productionsTable = ProdTab{
 		String: `Literal : BooleanLiteral	<< ast.Literal(X[0]) >>`,
 		Id:         "Literal",
 		NTType:     6,
-		Index:      10,
+		Index:      11,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return ast.Literal(X[0])
@@ -156,7 +166,7 @@ var productionsTable = ProdTab{
 		String: `Literal : NumericLiteral	<< ast.Literal(X[0]) >>`,
 		Id:         "Literal",
 		NTType:     6,
-		Index:      11,
+		Index:      12,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return ast.Literal(X[0])
@@ -166,10 +176,50 @@ var productionsTable = ProdTab{
 		String: `Literal : StringLiteral	<< ast.Literal(X[0]) >>`,
 		Id:         "Literal",
 		NTType:     6,
-		Index:      12,
+		Index:      13,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return ast.Literal(X[0])
+		},
+	},
+	ProdTabEntry{
+		String: `ObjectKey : symbol	<< String(X[0]), nil >>`,
+		Id:         "ObjectKey",
+		NTType:     7,
+		Index:      14,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return String(X[0]), nil
+		},
+	},
+	ProdTabEntry{
+		String: `Identifier : ObjectKey	<< ast.ObjectKey(X[0]) >>`,
+		Id:         "Identifier",
+		NTType:     8,
+		Index:      15,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.ObjectKey(X[0])
+		},
+	},
+	ProdTabEntry{
+		String: `Identifier : Identifier "." ObjectKey	<< ast.SelectKey(X[0].(ast.Expr), X[2]) >>`,
+		Id:         "Identifier",
+		NTType:     8,
+		Index:      16,
+		NumSymbols: 3,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.SelectKey(X[0].(ast.Expr), X[2])
+		},
+	},
+	ProdTabEntry{
+		String: `Identifier : Identifier "[" Expr "]"	<< ast.Index(X[0].(ast.Expr), X[2].(ast.Expr)) >>`,
+		Id:         "Identifier",
+		NTType:     8,
+		Index:      17,
+		NumSymbols: 4,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.Index(X[0].(ast.Expr), X[2].(ast.Expr))
 		},
 	},
 }

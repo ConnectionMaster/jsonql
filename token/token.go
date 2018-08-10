@@ -69,6 +69,9 @@ var TokMap = TokenMap{
 		"doubleStringLit",
 		"singleStringLit",
 		"symbol",
+		".",
+		"[",
+		"]",
 	},
 
 	idMap: map[string]Type{
@@ -82,5 +85,8 @@ var TokMap = TokenMap{
 		"doubleStringLit": 7,
 		"singleStringLit": 8,
 		"symbol":          9,
+		".":               10,
+		"[":               11,
+		"]":               12,
 	},
 }

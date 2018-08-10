@@ -125,7 +125,7 @@ func TestParseIdentifiers(t *testing.T) {
 		{`blab`, `{"blah": "blah"}`, nil},
 		{`foo.bar`, `{"foo": {"bar": "baz"}}`, "baz"},
 		{`foo[1]`, `{"foo": [1, 2, 3]}`, 2.0},
-		{`foo[1]`, `{"foo": [1, 2, 3]}`, 2.0},
+		{`foo[bar]`, `{"foo": ["one", "two", "three"], "bar": 1}`, "two"},
 	}
 
 	for i, testCase := range testCases {
