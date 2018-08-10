@@ -70,6 +70,13 @@ func SingleUnquote(tok string) (string, error) {
 
 /* Literals */
 
+MulExpr
+        : ExpExpr
+        | MulExpr "*" ExpExpr   << ast.Mul($0, $2) >>
+        | MulExpr "/" ExpExpr   << ast.Div($0, $2) >>
+        | MulExpr "%" ExpExpr   << ast.Mod($0, $2) >>
+        ;
+
 // high precedence - exponentiation expressions
 ExpExpr
         : UnaryExpr

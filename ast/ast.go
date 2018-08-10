@@ -10,24 +10,6 @@ type Expr interface {
 	Evaluate(data interface{}) (interface{}, error)
 }
 
-type OpType int
-
-const (
-	OpAdd OpType = iota
-	OpSub
-	OpMul
-	OpDiv
-	OpMod
-	OpExp
-	OpAnd
-	OpOr
-)
-
-type ExprOp struct {
-	Op       OpType
-	Operands []Expr
-}
-
 // LiteralNode is an AST node for an immediate value
 type LiteralNode struct {
 	val interface{}
@@ -171,46 +153,38 @@ func (nn NotNode) Evaluate(val interface{}) (interface{}, error) {
 	}
 }
 
-type ExpNode struct {
-	Base Expr
-	Pow  Expr
+type BinaryOpNode struct {
+	Op       OpType
+	Operands [2]Expr
 }
 
-func Exp(base, pow interface{}) (Expr, error) {
-	return ExpNode{base.(Expr), pow.(Expr)}, nil
-}
-
-func (en ExpNode) Evaluate(val interface{}) (interface{}, error) {
-	base, err := en.Base.Evaluate(val)
+func (bon BinaryOpNode) Evaluate(val interface{}) (interface{}, error) {
+	left, err := bon.Operands[0].Evaluate(val)
 	if err != nil {
 		return nil, err
 	}
-	pow, err := en.Pow.Evaluate(val)
+	right, err := bon.Operands[1].Evaluate(val)
 	if err != nil {
 		return nil, err
 	}
-	switch p := pow.(type) {
+	switch left := left.(type) {
 	case nil:
 		return nil, nil
 	case int64:
-		switch b := base.(type) {
+		switch right := right.(type) {
 		case int64:
-			pow := math.Pow(float64(b), float64(p))
-			if float64(int64(pow)) != pow {
-				return pow, nil
-			}
-			return int64(pow), nil
+			return bon.Op.Int(left, right)
 		case float64:
-			return math.Pow(b, float64(p)), nil
+			return bon.Op.Float(float64(left), right)
 		default:
 			return nil, nil
 		}
 	case float64:
-		switch b := base.(type) {
+		switch right := right.(type) {
 		case int64:
-			return math.Pow(float64(b), p), nil
+			return bon.Op.Float(left, float64(right))
 		case float64:
-			return math.Pow(b, p), nil
+			return bon.Op.Float(left, right)
 		default:
 			return nil, nil
 		}
@@ -218,4 +192,97 @@ func (en ExpNode) Evaluate(val interface{}) (interface{}, error) {
 		// type error... nil for now
 		return nil, nil
 	}
+}
+
+type OpType int
+
+const (
+	OpAdd OpType = iota
+	OpSub
+	OpMul
+	OpDiv
+	OpMod
+	OpExp
+	OpAnd
+	OpOr
+)
+
+func (op OpType) Int(left, right int64) (interface{}, error) {
+	switch op {
+	case OpAdd:
+		return left + right, nil
+	case OpSub:
+		return left - right, nil
+	case OpMul:
+		return left * right, nil
+	case OpDiv:
+		if right == 0 {
+			return nil, nil
+		}
+		quot := left / right
+		if quot*right == left {
+			return quot, nil
+		}
+		return float64(left) / float64(right), nil
+	case OpMod:
+		if right == 0 {
+			return nil, nil
+		}
+		return left % right, nil
+	case OpExp:
+		// cheat :)
+		pow := math.Pow(float64(left), float64(right))
+		if float64(int64(pow)) != pow {
+			return pow, nil
+		}
+		return int64(pow), nil
+	default:
+		return nil, nil
+	}
+}
+
+func (op OpType) Float(left, right float64) (interface{}, error) {
+	switch op {
+	case OpAdd:
+		return left + right, nil
+	case OpSub:
+		return left - right, nil
+	case OpMul:
+		return left * right, nil
+	case OpDiv:
+		if right == 0 {
+			return nil, nil
+		}
+		return left / right, nil
+	case OpMod:
+		return math.Mod(left, right), nil
+	case OpExp:
+		return math.Pow(left, right), nil
+	default:
+		return nil, nil
+	}
+}
+
+func Mul(multiplicand, multiplier interface{}) (Expr, error) {
+	return BinaryOpNode{OpMul, [2]Expr{multiplicand.(Expr), multiplier.(Expr)}}, nil
+}
+
+func Div(dividend, divisor interface{}) (Expr, error) {
+	return BinaryOpNode{OpDiv, [2]Expr{dividend.(Expr), divisor.(Expr)}}, nil
+}
+
+func Mod(dividend, modulus interface{}) (Expr, error) {
+	return BinaryOpNode{OpMod, [2]Expr{dividend.(Expr), modulus.(Expr)}}, nil
+}
+
+func Add(augend, addend interface{}) (Expr, error) {
+	return BinaryOpNode{OpAdd, [2]Expr{augend.(Expr), addend.(Expr)}}, nil
+}
+
+func Sub(minuend, subtrahend interface{}) (Expr, error) {
+	return BinaryOpNode{OpSub, [2]Expr{minuend.(Expr), subtrahend.(Expr)}}, nil
+}
+
+func Exp(base, exponent interface{}) (Expr, error) {
+	return BinaryOpNode{OpExp, [2]Expr{base.(Expr), exponent.(Expr)}}, nil
 }
