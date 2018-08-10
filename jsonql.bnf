@@ -70,6 +70,12 @@ func SingleUnquote(tok string) (string, error) {
 
 /* Literals */
 
+UnaryExpr
+        : Expr
+        | "-" Expr   << ast.Negative($1) >>
+        | "!" UnaryExpr   << ast.Not($1) >>
+        ;
+
 Expr
         : Literal
         | Identifier

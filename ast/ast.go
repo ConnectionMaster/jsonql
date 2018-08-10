@@ -109,3 +109,62 @@ func abs(n int64) int64 {
 	y := n >> 63
 	return (n ^ y) - y
 }
+
+type NegateNode struct {
+	Expr Expr
+}
+
+func Negative(val interface{}) (Expr, error) {
+	return NegateNode{val.(Expr)}, nil
+}
+
+func (nn NegateNode) Evaluate(val interface{}) (interface{}, error) {
+	val, err := nn.Expr.Evaluate(val)
+	if err != nil {
+		return nil, err
+	}
+	switch v := val.(type) {
+	case nil:
+		return nil, nil
+	case int64:
+		return -v, nil
+	case int:
+		return -v, nil
+	case float64:
+		return -v, nil
+	default:
+		// type error... nil for now
+		return nil, nil
+	}
+}
+
+type NotNode struct {
+	Expr Expr
+}
+
+func Not(val interface{}) (Expr, error) {
+	return NotNode{val.(Expr)}, nil
+}
+
+func (nn NotNode) Evaluate(val interface{}) (interface{}, error) {
+	val, err := nn.Expr.Evaluate(val)
+	if err != nil {
+		return nil, err
+	}
+	switch v := val.(type) {
+	case nil:
+		return nil, nil
+	case bool:
+		return !v, nil
+	case int64:
+		return (v == 0), nil
+	case int:
+		return (v == 0), nil
+	case float64:
+		// equal to zero is strong for a float but hey
+		return (v == 0), nil
+	default:
+		// type error... nil for now
+		return nil, nil
+	}
+}

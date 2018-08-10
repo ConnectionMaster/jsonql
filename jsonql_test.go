@@ -101,21 +101,8 @@ func TestParseLiterals(t *testing.T) {
 	}
 
 	for i, testCase := range testCases {
-		testCaseName := fmt.Sprintf("Test case %d: `%s`", i, testCase.JQL)
-		ast, err := Parse(testCase.JQL)
-		if !(assert.NoError(t, err, testCaseName+" [parse]") &&
-			assert.NotNil(t, ast, testCaseName+" [parse]")) {
-			continue
-		}
-
-		val, err := ast.Evaluate(nil)
-		assert.NoError(t, err, testCaseName+fmt.Sprintf(" [evaluate(nil)]"))
-
-		var passfail = "pass"
-		if !assert.Equal(t, testCase.Expected, val, testCaseName) {
-			passfail = "fail"
-		}
-		fmt.Printf("%s - %s evaluated to %v\n", passfail, testCase.JQL, val)
+		testCaseName := fmt.Sprintf("Parse Literal case %d: `%s`", i, testCase.JQL)
+		assertTestCase(t, testCase, testCaseName)
 	}
 }
 
@@ -129,22 +116,61 @@ func TestParseIdentifiers(t *testing.T) {
 	}
 
 	for i, testCase := range testCases {
-		testCaseName := fmt.Sprintf("Test case %d: `%s`", i, testCase.JQL)
-		ast, err := Parse(testCase.JQL)
-		if !(assert.NoError(t, err, testCaseName+" [parse]") &&
-			assert.NotNil(t, ast, testCaseName+" [parse]")) {
-			continue
-		}
-
-		var data interface{}
-		assert.NoError(t, json.Unmarshal([]byte(testCase.Data), &data))
-		val, err := ast.Evaluate(data)
-		assert.NoError(t, err, testCaseName+fmt.Sprintf(" [evaluate(%v)]", data))
-
-		var passfail = "pass"
-		if !assert.Equal(t, testCase.Expected, val, testCaseName) {
-			passfail = "fail"
-		}
-		fmt.Printf("%s - %s on %v evaluated to %v (expected: %v)\n", passfail, testCase.JQL, testCase.Data, val, testCase.Expected)
+		testCaseName := fmt.Sprintf("Parse Identifier case %d: `%s`", i, testCase.JQL)
+		assertTestCase(t, testCase, testCaseName)
 	}
+}
+
+func TestUnaryExpressions(t *testing.T) {
+	testCases := []parseTestCase{
+		{`!null`, ``, nil},
+		{`!true`, ``, false},
+		{`!false`, ``, true},
+		{`!0`, ``, true},
+		{`!1`, ``, false},
+		{`!0.0`, ``, true},
+		{`!1.0`, ``, false},
+		{`!blah`, `{"blah": true}`, false},
+		{`!blah`, `{"blah": false}`, true},
+		{`!!blah`, `{"blah": 0.0}`, false},
+		{`!blah.blah`, `{"blah": {"blah": false}}`, true},
+		{`!blah.baa`, `{"blah": {"blah": false}}`, nil},
+		{`!!blah.baa`, `{"blah": {"blah": false}}`, nil},
+		{`-null`, ``, nil},
+		{`-0`, ``, int64(0)},
+		{`-1`, ``, int64(-1)},
+		{`-0.0`, ``, 0.0},
+		{`-1.0`, ``, -1.0},
+		{`-blah`, `{"blah": 42.0}`, -42.0},
+	}
+
+	for i, testCase := range testCases {
+		testCaseName := fmt.Sprintf("Parse Unary Expression case %d: `%s`", i, testCase.JQL)
+		assertTestCase(t, testCase, testCaseName)
+	}
+}
+
+func assertTestCase(t *testing.T, testCase parseTestCase, testCaseName string) {
+	ast, err := Parse(testCase.JQL)
+	if !(assert.NoError(t, err, testCaseName+" [parse]") &&
+		assert.NotNil(t, ast, testCaseName+" [parse]")) {
+		return
+	}
+
+	var data interface{}
+	if len(testCase.Data) > 0 {
+		if !assert.NoError(t, json.Unmarshal([]byte(testCase.Data), &data)) {
+			return
+		}
+	}
+	val, err := ast.Evaluate(data)
+	if !assert.NoError(t, err, testCaseName+fmt.Sprintf(" [evaluate(%v)]", data)) {
+		return
+	}
+	var passfail = "pass"
+	if !assert.Equal(t, testCase.Expected, val, testCaseName) {
+		passfail = "fail"
+	}
+	fmt.Printf("%s - %s on %v evaluated to %v (expected: %v)\n",
+		passfail, testCase.JQL, testCase.Data, val, testCase.Expected)
 }
