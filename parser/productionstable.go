@@ -21,9 +21,7 @@ func SingleUnquote(tok string) (string, error) {
      val = strings.Replace(val, "\\'", "'", -1)
      val = strings.Replace(val, "\"", "\\\"", -1)
      val = fmt.Sprintf("\"%s\"", val)
-     unq, err := strconv.Unquote(val)
-     fmt.Printf("unq: %#v => %#v (err: %v)\n", val, unq, err)
-     return unq, err
+     return strconv.Unquote(val)
 }
 
 type (
