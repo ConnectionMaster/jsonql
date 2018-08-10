@@ -602,4 +602,14 @@ var productionsTable = ProdTab{
 			return ast.Index(X[0].(ast.Expr), X[2].(ast.Expr))
 		},
 	},
+	ProdTabEntry{
+		String: `Identifier : Identifier ".[" ValueExpr "]"	<< ast.Index(X[0].(ast.Expr), X[2].(ast.Expr)) >>`,
+		Id:         "Identifier",
+		NTType:     21,
+		Index:      56,
+		NumSymbols: 4,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return ast.Index(X[0].(ast.Expr), X[2].(ast.Expr))
+		},
+	},
 }

@@ -248,6 +248,13 @@ func TestLogicalExpr(t *testing.T) {
 		{`field~="fo*b" && blah = "baz" || blah="bar"`, `{"field":"fib", "blah": "bar"}`, true},
 		{`field~="fo*b" && blah = "baz" || blah="bar"`, `{"field":"fob", "blah": "baq"}`, false},
 		{`field~="fo*b" && (blah = "baz" || blah="bar")`, `{"field":"fob", "blah": "bar"}`, true},
+		{"true && false", "", false},
+		{"true && true", "", true},
+		{"false && false", "", false},
+		{"true || true", "", true},
+		{"true || (true && false)", "", true},
+		{"true && (false && true)", "", false},
+		{"(true && false) || (false || true)", "", true},
 	}
 
 	for i, testCase := range testCases {
@@ -279,4 +286,108 @@ func assertTestCase(t *testing.T, testCase parseTestCase, testCaseName string) {
 	}
 	fmt.Printf("%s - %s on %v evaluated to %v (expected: %v)\n",
 		passfail, testCase.JQL, testCase.Data, val, testCase.Expected)
+}
+
+const jsonArray = `
+[
+  {
+    "name": "elgs",
+    "gender": "m",
+    "skills": [
+      "Golang",
+      "Java",
+      "C"
+    ]
+  },
+  {
+    "name": "enny",
+    "gender": "f",
+    "skills": [
+      "IC",
+      "Electric design",
+      "Verification"
+    ]
+  },
+  {
+    "name": "sam",
+    "gender": "m",
+    "skills": [
+      "Eating",
+      "Sleeping",
+      "Crawling"
+    ],
+	"hello": null,
+	"hello_world":true
+  }
+]
+`
+
+func TestParseJsonArray(t *testing.T) {
+	parserArray, err := NewJSONStringQuery(jsonArray)
+	if err != nil {
+		t.Error(err)
+	}
+
+	var pass = []struct {
+		in string
+		ex interface{}
+	}{
+		{"[0].name", "elgs"},
+		{"[1].gender", "f"},
+		{"[2].skills.[1]", "Sleeping"},
+		{"[2].hello", nil},
+		{"[2].hello_world", true},
+	}
+	for _, v := range pass {
+		result, err := parserArray.Query(v.in)
+		if err != nil {
+			t.Error(err)
+		}
+		if v.ex != result {
+			t.Error("Expected:", v.ex, "actual:", result)
+		} else {
+			fmt.Printf("pass - %v => %#v\n", v.in, result)
+		}
+	}
+}
+
+const jsonObj = `
+{
+  "name": "sam",
+  "gender": "m",
+  "skills": [
+    "Eating",
+    "Sleeping",
+    "Crawling"
+  ],
+  "hello":null
+}
+`
+
+func TestParseJsonObj(t *testing.T) {
+	parserObj, err := NewJSONStringQuery(jsonObj)
+	if err != nil {
+		t.Error(err)
+	}
+
+	var pass = []struct {
+		in string
+		ex interface{}
+	}{
+		{"name", "sam"},
+		{"gender", "m"},
+		{"skills.[1]", "Sleeping"},
+		{"hello", nil},
+	}
+	for _, v := range pass {
+		result, err := parserObj.Query(v.in)
+		if err != nil {
+			t.Error(err)
+		}
+		if v.ex != result {
+			t.Error("Expected:", v.ex, "actual:", result)
+		} else {
+			fmt.Printf("pass - %v => %#v\n", v.in, result)
+		}
+	}
 }

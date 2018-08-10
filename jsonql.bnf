@@ -181,4 +181,5 @@ Identifier
         : ObjectKey                  << ast.ObjectKey($0) >>
         | Identifier "." ObjectKey   << ast.SelectKey($0.(ast.Expr), $2) >>
         | Identifier "[" ValueExpr "]"    << ast.Index($0.(ast.Expr), $2.(ast.Expr)) >>
+        | Identifier ".[" ValueExpr "]"    << ast.Index($0.(ast.Expr), $2.(ast.Expr)) >>
         ;
