@@ -490,3 +490,56 @@ func (en ExistentialNode) Evaluate(val interface{}) (interface{}, error) {
 		return xor(en.Question == ToBe, en.Inverse), nil
 	}
 }
+
+type LogicalOpNode struct {
+	Op       OpType
+	Operands [2]Expr
+}
+
+func Or(operands ...interface{}) (Expr, error) {
+	return LogicalOpNode{OpOr, [2]Expr{operands[0].(Expr), operands[1].(Expr)}}, nil
+}
+func And(operands ...interface{}) (Expr, error) {
+	return LogicalOpNode{OpAnd, [2]Expr{operands[0].(Expr), operands[1].(Expr)}}, nil
+}
+
+func anyToBool(val interface{}) (boolVal bool, ok bool) {
+	boolVal, ok = val.(bool)
+	if ok {
+		return
+	}
+	ok = true
+	switch val := val.(type) {
+	case string:
+		boolVal = len(val) > 0
+	case int64:
+		boolVal = val != 0
+	case float64:
+		boolVal = math.Abs(val) > 1e-15
+	default:
+		ok = false
+	}
+	return
+}
+
+func (lon LogicalOpNode) Evaluate(val interface{}) (interface{}, error) {
+	var boolVals [2]bool
+	for i, operand := range lon.Operands {
+		operandVal, err := operand.Evaluate(val)
+		if err != nil {
+			return nil, err
+		}
+		var ok bool
+		boolVals[i], ok = anyToBool(operandVal)
+		if !ok {
+			return nil, nil
+		}
+	}
+	if lon.Op == OpAnd {
+		return boolVals[0] && boolVals[1], nil
+	}
+	if lon.Op == OpOr {
+		return boolVals[0] || boolVals[1], nil
+	}
+	return nil, fmt.Errorf("bad op %v in LogicalOpNode", lon.Op)
+}

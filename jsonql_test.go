@@ -228,6 +228,30 @@ func TestCompareExpr(t *testing.T) {
 	}
 }
 
+func TestLogicalExpr(t *testing.T) {
+	testCases := []parseTestCase{
+		{`"foo" = "foo" && "bar" = "bar"`, ``, true},
+		{`field="foo" && blah="bar"`, `{"field":"foo", "blah": "bar"}`, true},
+		{`field="foo" && blah="bar"`, `{"field":"foo", "blah": "baz"}`, false},
+		{`field="foo" && blah="bar"`, `{"field":"fob", "blah": "bar"}`, false},
+		{`field="foo" && blah="bar"`, `{"field":"fob", "blah": "baz"}`, false},
+		{`"foo" = "foo" || "bar" = "bar"`, ``, true},
+		{`field="foo" || blah="bar"`, `{"field":"foo", "blah": "bar"}`, true},
+		{`field="foo" || blah="bar"`, `{"field":"foo", "blah": "baz"}`, true},
+		{`field="foo" || blah="bar"`, `{"field":"fob", "blah": "bar"}`, true},
+		{`field="foo" || blah="bar"`, `{"field":"fob", "blah": "baz"}`, false},
+		{`field~="fo*b" && blah = "baz" || blah="bar"`, `{"field":"fb", "blah": "baz"}`, true},
+		{`field~="fo*b" && blah = "baz" || blah="bar"`, `{"field":"fib", "blah": "baz"}`, false},
+		{`field~="fo*b" && blah = "baz" || blah="bar"`, `{"field":"fib", "blah": "bar"}`, true},
+		{`field~="fo*b" && blah = "baz" || blah="bar"`, `{"field":"fob", "blah": "baq"}`, false},
+	}
+
+	for i, testCase := range testCases {
+		testCaseName := fmt.Sprintf("Logic expression case %d: `%s`", i, testCase.JQL)
+		assertTestCase(t, testCase, testCaseName)
+	}
+}
+
 func assertTestCase(t *testing.T, testCase parseTestCase, testCaseName string) {
 	ast, err := Parse(testCase.JQL)
 	if !(assert.NoError(t, err, testCaseName+" [parse]") &&

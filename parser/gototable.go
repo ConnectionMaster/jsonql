@@ -2,7 +2,7 @@
 
 package parser
 
-const numNTSymbols = 18
+const numNTSymbols = 20
 
 type (
 	gotoTable [numStates]gotoRow
@@ -12,26 +12,30 @@ type (
 var gotoTab = gotoTable{
 	gotoRow{ // S0
 		-1, // S'
-		1,  // CompareExpr
+		1,  // OrExpr
+		2,  // AndExpr
+		3,  // CompareExpr
 		-1, // ExistentialWord
-		2,  // Term
-		6,  // RegexpArgument
-		4,  // RegexpExpr
-		5,  // AddExpr
-		9,  // MulExpr
-		11, // ExpExpr
-		12, // UnaryExpr
-		13, // Expr
-		16, // NullLiteral
-		17, // BooleanLiteral
-		20, // NumericLiteral
-		8,  // StringLiteral
-		15, // Literal
-		25, // ObjectKey
-		7,  // Identifier
+		4,  // Term
+		8,  // RegexpArgument
+		6,  // RegexpExpr
+		7,  // AddExpr
+		11, // MulExpr
+		13, // ExpExpr
+		14, // UnaryExpr
+		15, // Expr
+		18, // NullLiteral
+		19, // BooleanLiteral
+		22, // NumericLiteral
+		10, // StringLiteral
+		17, // Literal
+		27, // ObjectKey
+		9,  // Identifier
 	},
 	gotoRow{ // S1
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -52,6 +56,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S2
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -72,6 +78,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S3
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -92,6 +100,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S4
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -112,6 +122,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S5
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -132,6 +144,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S6
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -152,6 +166,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S7
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -172,6 +188,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S8
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -192,6 +210,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S9
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -212,6 +232,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S10
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -221,17 +243,19 @@ var gotoTab = gotoTable{
 		-1, // MulExpr
 		-1, // ExpExpr
 		-1, // UnaryExpr
-		47, // Expr
-		16, // NullLiteral
-		17, // BooleanLiteral
-		20, // NumericLiteral
-		46, // StringLiteral
-		15, // Literal
-		50, // ObjectKey
-		45, // Identifier
+		-1, // Expr
+		-1, // NullLiteral
+		-1, // BooleanLiteral
+		-1, // NumericLiteral
+		-1, // StringLiteral
+		-1, // Literal
+		-1, // ObjectKey
+		-1, // Identifier
 	},
 	gotoRow{ // S11
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -252,6 +276,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S12
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -261,17 +287,19 @@ var gotoTab = gotoTable{
 		-1, // MulExpr
 		-1, // ExpExpr
 		-1, // UnaryExpr
-		-1, // Expr
-		-1, // NullLiteral
-		-1, // BooleanLiteral
-		-1, // NumericLiteral
-		-1, // StringLiteral
-		-1, // Literal
-		-1, // ObjectKey
-		-1, // Identifier
+		51, // Expr
+		18, // NullLiteral
+		19, // BooleanLiteral
+		22, // NumericLiteral
+		50, // StringLiteral
+		17, // Literal
+		54, // ObjectKey
+		49, // Identifier
 	},
 	gotoRow{ // S13
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -292,6 +320,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S14
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -300,18 +330,20 @@ var gotoTab = gotoTable{
 		-1, // AddExpr
 		-1, // MulExpr
 		-1, // ExpExpr
-		53, // UnaryExpr
-		13, // Expr
-		16, // NullLiteral
-		17, // BooleanLiteral
-		20, // NumericLiteral
-		46, // StringLiteral
-		15, // Literal
-		50, // ObjectKey
-		45, // Identifier
+		-1, // UnaryExpr
+		-1, // Expr
+		-1, // NullLiteral
+		-1, // BooleanLiteral
+		-1, // NumericLiteral
+		-1, // StringLiteral
+		-1, // Literal
+		-1, // ObjectKey
+		-1, // Identifier
 	},
 	gotoRow{ // S15
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -332,6 +364,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S16
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -340,18 +374,20 @@ var gotoTab = gotoTable{
 		-1, // AddExpr
 		-1, // MulExpr
 		-1, // ExpExpr
-		-1, // UnaryExpr
-		-1, // Expr
-		-1, // NullLiteral
-		-1, // BooleanLiteral
-		-1, // NumericLiteral
-		-1, // StringLiteral
-		-1, // Literal
-		-1, // ObjectKey
-		-1, // Identifier
+		57, // UnaryExpr
+		15, // Expr
+		18, // NullLiteral
+		19, // BooleanLiteral
+		22, // NumericLiteral
+		50, // StringLiteral
+		17, // Literal
+		54, // ObjectKey
+		49, // Identifier
 	},
 	gotoRow{ // S17
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -372,6 +408,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S18
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -392,6 +430,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S19
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -412,6 +452,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S20
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -432,6 +474,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S21
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -452,6 +496,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S22
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -472,6 +518,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S23
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -492,6 +540,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S24
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -512,6 +562,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S25
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -532,6 +584,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S26
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -552,168 +606,252 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S27
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
-		54, // Term
-		6,  // RegexpArgument
-		4,  // RegexpExpr
-		5,  // AddExpr
-		9,  // MulExpr
-		11, // ExpExpr
-		12, // UnaryExpr
-		13, // Expr
-		16, // NullLiteral
-		17, // BooleanLiteral
-		20, // NumericLiteral
-		8,  // StringLiteral
-		15, // Literal
-		25, // ObjectKey
-		7,  // Identifier
+		-1, // Term
+		-1, // RegexpArgument
+		-1, // RegexpExpr
+		-1, // AddExpr
+		-1, // MulExpr
+		-1, // ExpExpr
+		-1, // UnaryExpr
+		-1, // Expr
+		-1, // NullLiteral
+		-1, // BooleanLiteral
+		-1, // NumericLiteral
+		-1, // StringLiteral
+		-1, // Literal
+		-1, // ObjectKey
+		-1, // Identifier
 	},
 	gotoRow{ // S28
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
-		55, // Term
-		6,  // RegexpArgument
-		4,  // RegexpExpr
-		5,  // AddExpr
-		9,  // MulExpr
-		11, // ExpExpr
-		12, // UnaryExpr
-		13, // Expr
-		16, // NullLiteral
-		17, // BooleanLiteral
-		20, // NumericLiteral
-		8,  // StringLiteral
-		15, // Literal
-		25, // ObjectKey
-		7,  // Identifier
+		-1, // Term
+		-1, // RegexpArgument
+		-1, // RegexpExpr
+		-1, // AddExpr
+		-1, // MulExpr
+		-1, // ExpExpr
+		-1, // UnaryExpr
+		-1, // Expr
+		-1, // NullLiteral
+		-1, // BooleanLiteral
+		-1, // NumericLiteral
+		-1, // StringLiteral
+		-1, // Literal
+		-1, // ObjectKey
+		-1, // Identifier
 	},
 	gotoRow{ // S29
 		-1, // S'
-		-1, // CompareExpr
+		-1, // OrExpr
+		58, // AndExpr
+		3,  // CompareExpr
 		-1, // ExistentialWord
-		56, // Term
-		6,  // RegexpArgument
-		4,  // RegexpExpr
-		5,  // AddExpr
-		9,  // MulExpr
-		11, // ExpExpr
-		12, // UnaryExpr
-		13, // Expr
-		16, // NullLiteral
-		17, // BooleanLiteral
-		20, // NumericLiteral
-		8,  // StringLiteral
-		15, // Literal
-		25, // ObjectKey
-		7,  // Identifier
+		4,  // Term
+		8,  // RegexpArgument
+		6,  // RegexpExpr
+		7,  // AddExpr
+		11, // MulExpr
+		13, // ExpExpr
+		14, // UnaryExpr
+		15, // Expr
+		18, // NullLiteral
+		19, // BooleanLiteral
+		22, // NumericLiteral
+		10, // StringLiteral
+		17, // Literal
+		27, // ObjectKey
+		9,  // Identifier
 	},
 	gotoRow{ // S30
 		-1, // S'
-		-1, // CompareExpr
+		-1, // OrExpr
+		-1, // AndExpr
+		59, // CompareExpr
 		-1, // ExistentialWord
-		57, // Term
-		6,  // RegexpArgument
-		4,  // RegexpExpr
-		5,  // AddExpr
-		9,  // MulExpr
-		11, // ExpExpr
-		12, // UnaryExpr
-		13, // Expr
-		16, // NullLiteral
-		17, // BooleanLiteral
-		20, // NumericLiteral
-		8,  // StringLiteral
-		15, // Literal
-		25, // ObjectKey
-		7,  // Identifier
+		4,  // Term
+		8,  // RegexpArgument
+		6,  // RegexpExpr
+		7,  // AddExpr
+		11, // MulExpr
+		13, // ExpExpr
+		14, // UnaryExpr
+		15, // Expr
+		18, // NullLiteral
+		19, // BooleanLiteral
+		22, // NumericLiteral
+		10, // StringLiteral
+		17, // Literal
+		27, // ObjectKey
+		9,  // Identifier
 	},
 	gotoRow{ // S31
 		-1, // S'
-		-1, // CompareExpr
-		-1, // ExistentialWord
-		58, // Term
-		6,  // RegexpArgument
-		4,  // RegexpExpr
-		5,  // AddExpr
-		9,  // MulExpr
-		11, // ExpExpr
-		12, // UnaryExpr
-		13, // Expr
-		16, // NullLiteral
-		17, // BooleanLiteral
-		20, // NumericLiteral
-		8,  // StringLiteral
-		15, // Literal
-		25, // ObjectKey
-		7,  // Identifier
-	},
-	gotoRow{ // S32
-		-1, // S'
-		-1, // CompareExpr
-		-1, // ExistentialWord
-		59, // Term
-		6,  // RegexpArgument
-		4,  // RegexpExpr
-		5,  // AddExpr
-		9,  // MulExpr
-		11, // ExpExpr
-		12, // UnaryExpr
-		13, // Expr
-		16, // NullLiteral
-		17, // BooleanLiteral
-		20, // NumericLiteral
-		8,  // StringLiteral
-		15, // Literal
-		25, // ObjectKey
-		7,  // Identifier
-	},
-	gotoRow{ // S33
-		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		60, // Term
-		6,  // RegexpArgument
-		4,  // RegexpExpr
-		5,  // AddExpr
-		9,  // MulExpr
-		11, // ExpExpr
-		12, // UnaryExpr
-		13, // Expr
-		16, // NullLiteral
-		17, // BooleanLiteral
-		20, // NumericLiteral
-		8,  // StringLiteral
-		15, // Literal
-		25, // ObjectKey
-		7,  // Identifier
+		8,  // RegexpArgument
+		6,  // RegexpExpr
+		7,  // AddExpr
+		11, // MulExpr
+		13, // ExpExpr
+		14, // UnaryExpr
+		15, // Expr
+		18, // NullLiteral
+		19, // BooleanLiteral
+		22, // NumericLiteral
+		10, // StringLiteral
+		17, // Literal
+		27, // ObjectKey
+		9,  // Identifier
+	},
+	gotoRow{ // S32
+		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
+		-1, // CompareExpr
+		-1, // ExistentialWord
+		61, // Term
+		8,  // RegexpArgument
+		6,  // RegexpExpr
+		7,  // AddExpr
+		11, // MulExpr
+		13, // ExpExpr
+		14, // UnaryExpr
+		15, // Expr
+		18, // NullLiteral
+		19, // BooleanLiteral
+		22, // NumericLiteral
+		10, // StringLiteral
+		17, // Literal
+		27, // ObjectKey
+		9,  // Identifier
+	},
+	gotoRow{ // S33
+		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
+		-1, // CompareExpr
+		-1, // ExistentialWord
+		62, // Term
+		8,  // RegexpArgument
+		6,  // RegexpExpr
+		7,  // AddExpr
+		11, // MulExpr
+		13, // ExpExpr
+		14, // UnaryExpr
+		15, // Expr
+		18, // NullLiteral
+		19, // BooleanLiteral
+		22, // NumericLiteral
+		10, // StringLiteral
+		17, // Literal
+		27, // ObjectKey
+		9,  // Identifier
 	},
 	gotoRow{ // S34
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
-		61, // ExistentialWord
-		-1, // Term
-		-1, // RegexpArgument
-		-1, // RegexpExpr
-		-1, // AddExpr
-		-1, // MulExpr
-		-1, // ExpExpr
-		-1, // UnaryExpr
-		-1, // Expr
-		-1, // NullLiteral
-		-1, // BooleanLiteral
-		-1, // NumericLiteral
-		-1, // StringLiteral
-		-1, // Literal
-		-1, // ObjectKey
-		-1, // Identifier
+		-1, // ExistentialWord
+		63, // Term
+		8,  // RegexpArgument
+		6,  // RegexpExpr
+		7,  // AddExpr
+		11, // MulExpr
+		13, // ExpExpr
+		14, // UnaryExpr
+		15, // Expr
+		18, // NullLiteral
+		19, // BooleanLiteral
+		22, // NumericLiteral
+		10, // StringLiteral
+		17, // Literal
+		27, // ObjectKey
+		9,  // Identifier
 	},
 	gotoRow{ // S35
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
-		65, // ExistentialWord
+		-1, // ExistentialWord
+		64, // Term
+		8,  // RegexpArgument
+		6,  // RegexpExpr
+		7,  // AddExpr
+		11, // MulExpr
+		13, // ExpExpr
+		14, // UnaryExpr
+		15, // Expr
+		18, // NullLiteral
+		19, // BooleanLiteral
+		22, // NumericLiteral
+		10, // StringLiteral
+		17, // Literal
+		27, // ObjectKey
+		9,  // Identifier
+	},
+	gotoRow{ // S36
+		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
+		-1, // CompareExpr
+		-1, // ExistentialWord
+		65, // Term
+		8,  // RegexpArgument
+		6,  // RegexpExpr
+		7,  // AddExpr
+		11, // MulExpr
+		13, // ExpExpr
+		14, // UnaryExpr
+		15, // Expr
+		18, // NullLiteral
+		19, // BooleanLiteral
+		22, // NumericLiteral
+		10, // StringLiteral
+		17, // Literal
+		27, // ObjectKey
+		9,  // Identifier
+	},
+	gotoRow{ // S37
+		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
+		-1, // CompareExpr
+		-1, // ExistentialWord
+		66, // Term
+		8,  // RegexpArgument
+		6,  // RegexpExpr
+		7,  // AddExpr
+		11, // MulExpr
+		13, // ExpExpr
+		14, // UnaryExpr
+		15, // Expr
+		18, // NullLiteral
+		19, // BooleanLiteral
+		22, // NumericLiteral
+		10, // StringLiteral
+		17, // Literal
+		27, // ObjectKey
+		9,  // Identifier
+	},
+	gotoRow{ // S38
+		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
+		-1, // CompareExpr
+		67, // ExistentialWord
 		-1, // Term
 		-1, // RegexpArgument
 		-1, // RegexpExpr
@@ -726,74 +864,16 @@ var gotoTab = gotoTable{
 		-1, // BooleanLiteral
 		-1, // NumericLiteral
 		-1, // StringLiteral
-		-1, // Literal
-		-1, // ObjectKey
-		-1, // Identifier
-	},
-	gotoRow{ // S36
-		-1, // S'
-		-1, // CompareExpr
-		-1, // ExistentialWord
-		-1, // Term
-		-1, // RegexpArgument
-		-1, // RegexpExpr
-		-1, // AddExpr
-		66, // MulExpr
-		11, // ExpExpr
-		12, // UnaryExpr
-		13, // Expr
-		16, // NullLiteral
-		17, // BooleanLiteral
-		20, // NumericLiteral
-		46, // StringLiteral
-		15, // Literal
-		50, // ObjectKey
-		45, // Identifier
-	},
-	gotoRow{ // S37
-		-1, // S'
-		-1, // CompareExpr
-		-1, // ExistentialWord
-		-1, // Term
-		-1, // RegexpArgument
-		-1, // RegexpExpr
-		-1, // AddExpr
-		67, // MulExpr
-		11, // ExpExpr
-		12, // UnaryExpr
-		13, // Expr
-		16, // NullLiteral
-		17, // BooleanLiteral
-		20, // NumericLiteral
-		46, // StringLiteral
-		15, // Literal
-		50, // ObjectKey
-		45, // Identifier
-	},
-	gotoRow{ // S38
-		-1, // S'
-		-1, // CompareExpr
-		-1, // ExistentialWord
-		-1, // Term
-		-1, // RegexpArgument
-		-1, // RegexpExpr
-		-1, // AddExpr
-		-1, // MulExpr
-		-1, // ExpExpr
-		-1, // UnaryExpr
-		-1, // Expr
-		-1, // NullLiteral
-		-1, // BooleanLiteral
-		-1, // NumericLiteral
-		68, // StringLiteral
 		-1, // Literal
 		-1, // ObjectKey
 		-1, // Identifier
 	},
 	gotoRow{ // S39
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
-		-1, // ExistentialWord
+		71, // ExistentialWord
 		-1, // Term
 		-1, // RegexpArgument
 		-1, // RegexpExpr
@@ -805,53 +885,59 @@ var gotoTab = gotoTable{
 		-1, // NullLiteral
 		-1, // BooleanLiteral
 		-1, // NumericLiteral
-		71, // StringLiteral
+		-1, // StringLiteral
 		-1, // Literal
 		-1, // ObjectKey
 		-1, // Identifier
 	},
 	gotoRow{ // S40
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
 		-1, // RegexpArgument
 		-1, // RegexpExpr
 		-1, // AddExpr
-		-1, // MulExpr
-		-1, // ExpExpr
-		-1, // UnaryExpr
-		-1, // Expr
-		-1, // NullLiteral
-		-1, // BooleanLiteral
-		-1, // NumericLiteral
-		-1, // StringLiteral
-		-1, // Literal
-		72, // ObjectKey
-		-1, // Identifier
+		72, // MulExpr
+		13, // ExpExpr
+		14, // UnaryExpr
+		15, // Expr
+		18, // NullLiteral
+		19, // BooleanLiteral
+		22, // NumericLiteral
+		50, // StringLiteral
+		17, // Literal
+		54, // ObjectKey
+		49, // Identifier
 	},
 	gotoRow{ // S41
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
 		-1, // RegexpArgument
 		-1, // RegexpExpr
 		-1, // AddExpr
-		-1, // MulExpr
-		-1, // ExpExpr
-		-1, // UnaryExpr
-		76, // Expr
-		78, // NullLiteral
-		79, // BooleanLiteral
-		82, // NumericLiteral
-		75, // StringLiteral
-		77, // Literal
-		87, // ObjectKey
-		74, // Identifier
+		73, // MulExpr
+		13, // ExpExpr
+		14, // UnaryExpr
+		15, // Expr
+		18, // NullLiteral
+		19, // BooleanLiteral
+		22, // NumericLiteral
+		50, // StringLiteral
+		17, // Literal
+		54, // ObjectKey
+		49, // Identifier
 	},
 	gotoRow{ // S42
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -859,19 +945,21 @@ var gotoTab = gotoTable{
 		-1, // RegexpExpr
 		-1, // AddExpr
 		-1, // MulExpr
-		89, // ExpExpr
-		12, // UnaryExpr
-		13, // Expr
-		16, // NullLiteral
-		17, // BooleanLiteral
-		20, // NumericLiteral
-		46, // StringLiteral
-		15, // Literal
-		50, // ObjectKey
-		45, // Identifier
+		-1, // ExpExpr
+		-1, // UnaryExpr
+		-1, // Expr
+		-1, // NullLiteral
+		-1, // BooleanLiteral
+		-1, // NumericLiteral
+		74, // StringLiteral
+		-1, // Literal
+		-1, // ObjectKey
+		-1, // Identifier
 	},
 	gotoRow{ // S43
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -879,19 +967,21 @@ var gotoTab = gotoTable{
 		-1, // RegexpExpr
 		-1, // AddExpr
 		-1, // MulExpr
-		90, // ExpExpr
-		12, // UnaryExpr
-		13, // Expr
-		16, // NullLiteral
-		17, // BooleanLiteral
-		20, // NumericLiteral
-		46, // StringLiteral
-		15, // Literal
-		50, // ObjectKey
-		45, // Identifier
+		-1, // ExpExpr
+		-1, // UnaryExpr
+		-1, // Expr
+		-1, // NullLiteral
+		-1, // BooleanLiteral
+		-1, // NumericLiteral
+		77, // StringLiteral
+		-1, // Literal
+		-1, // ObjectKey
+		-1, // Identifier
 	},
 	gotoRow{ // S44
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -899,19 +989,21 @@ var gotoTab = gotoTable{
 		-1, // RegexpExpr
 		-1, // AddExpr
 		-1, // MulExpr
-		91, // ExpExpr
-		12, // UnaryExpr
-		13, // Expr
-		16, // NullLiteral
-		17, // BooleanLiteral
-		20, // NumericLiteral
-		46, // StringLiteral
-		15, // Literal
-		50, // ObjectKey
-		45, // Identifier
+		-1, // ExpExpr
+		-1, // UnaryExpr
+		-1, // Expr
+		-1, // NullLiteral
+		-1, // BooleanLiteral
+		-1, // NumericLiteral
+		-1, // StringLiteral
+		-1, // Literal
+		78, // ObjectKey
+		-1, // Identifier
 	},
 	gotoRow{ // S45
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -921,17 +1013,19 @@ var gotoTab = gotoTable{
 		-1, // MulExpr
 		-1, // ExpExpr
 		-1, // UnaryExpr
-		-1, // Expr
-		-1, // NullLiteral
-		-1, // BooleanLiteral
-		-1, // NumericLiteral
-		-1, // StringLiteral
-		-1, // Literal
-		-1, // ObjectKey
-		-1, // Identifier
+		82, // Expr
+		84, // NullLiteral
+		85, // BooleanLiteral
+		88, // NumericLiteral
+		81, // StringLiteral
+		83, // Literal
+		93, // ObjectKey
+		80, // Identifier
 	},
 	gotoRow{ // S46
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -939,19 +1033,21 @@ var gotoTab = gotoTable{
 		-1, // RegexpExpr
 		-1, // AddExpr
 		-1, // MulExpr
-		-1, // ExpExpr
-		-1, // UnaryExpr
-		-1, // Expr
-		-1, // NullLiteral
-		-1, // BooleanLiteral
-		-1, // NumericLiteral
-		-1, // StringLiteral
-		-1, // Literal
-		-1, // ObjectKey
-		-1, // Identifier
+		95, // ExpExpr
+		14, // UnaryExpr
+		15, // Expr
+		18, // NullLiteral
+		19, // BooleanLiteral
+		22, // NumericLiteral
+		50, // StringLiteral
+		17, // Literal
+		54, // ObjectKey
+		49, // Identifier
 	},
 	gotoRow{ // S47
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -959,19 +1055,21 @@ var gotoTab = gotoTable{
 		-1, // RegexpExpr
 		-1, // AddExpr
 		-1, // MulExpr
-		-1, // ExpExpr
-		-1, // UnaryExpr
-		-1, // Expr
-		-1, // NullLiteral
-		-1, // BooleanLiteral
-		-1, // NumericLiteral
-		-1, // StringLiteral
-		-1, // Literal
-		-1, // ObjectKey
-		-1, // Identifier
+		96, // ExpExpr
+		14, // UnaryExpr
+		15, // Expr
+		18, // NullLiteral
+		19, // BooleanLiteral
+		22, // NumericLiteral
+		50, // StringLiteral
+		17, // Literal
+		54, // ObjectKey
+		49, // Identifier
 	},
 	gotoRow{ // S48
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -979,19 +1077,21 @@ var gotoTab = gotoTable{
 		-1, // RegexpExpr
 		-1, // AddExpr
 		-1, // MulExpr
-		-1, // ExpExpr
-		-1, // UnaryExpr
-		-1, // Expr
-		-1, // NullLiteral
-		-1, // BooleanLiteral
-		-1, // NumericLiteral
-		-1, // StringLiteral
-		-1, // Literal
-		-1, // ObjectKey
-		-1, // Identifier
+		97, // ExpExpr
+		14, // UnaryExpr
+		15, // Expr
+		18, // NullLiteral
+		19, // BooleanLiteral
+		22, // NumericLiteral
+		50, // StringLiteral
+		17, // Literal
+		54, // ObjectKey
+		49, // Identifier
 	},
 	gotoRow{ // S49
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1012,6 +1112,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S50
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1032,6 +1134,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S51
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1052,6 +1156,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S52
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1060,18 +1166,20 @@ var gotoTab = gotoTable{
 		-1, // AddExpr
 		-1, // MulExpr
 		-1, // ExpExpr
-		94, // UnaryExpr
-		13, // Expr
-		16, // NullLiteral
-		17, // BooleanLiteral
-		20, // NumericLiteral
-		46, // StringLiteral
-		15, // Literal
-		50, // ObjectKey
-		45, // Identifier
+		-1, // UnaryExpr
+		-1, // Expr
+		-1, // NullLiteral
+		-1, // BooleanLiteral
+		-1, // NumericLiteral
+		-1, // StringLiteral
+		-1, // Literal
+		-1, // ObjectKey
+		-1, // Identifier
 	},
 	gotoRow{ // S53
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1092,6 +1200,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S54
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1112,6 +1222,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S55
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1131,27 +1243,31 @@ var gotoTab = gotoTable{
 		-1, // Identifier
 	},
 	gotoRow{ // S56
-		-1, // S'
-		-1, // CompareExpr
-		-1, // ExistentialWord
-		-1, // Term
-		-1, // RegexpArgument
-		-1, // RegexpExpr
-		-1, // AddExpr
-		-1, // MulExpr
-		-1, // ExpExpr
-		-1, // UnaryExpr
-		-1, // Expr
-		-1, // NullLiteral
-		-1, // BooleanLiteral
-		-1, // NumericLiteral
-		-1, // StringLiteral
-		-1, // Literal
-		-1, // ObjectKey
-		-1, // Identifier
+		-1,  // S'
+		-1,  // OrExpr
+		-1,  // AndExpr
+		-1,  // CompareExpr
+		-1,  // ExistentialWord
+		-1,  // Term
+		-1,  // RegexpArgument
+		-1,  // RegexpExpr
+		-1,  // AddExpr
+		-1,  // MulExpr
+		-1,  // ExpExpr
+		100, // UnaryExpr
+		15,  // Expr
+		18,  // NullLiteral
+		19,  // BooleanLiteral
+		22,  // NumericLiteral
+		50,  // StringLiteral
+		17,  // Literal
+		54,  // ObjectKey
+		49,  // Identifier
 	},
 	gotoRow{ // S57
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1172,6 +1288,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S58
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1192,6 +1310,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S59
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1212,6 +1332,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S60
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1232,6 +1354,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S61
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1252,8 +1376,10 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S62
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
-		95, // ExistentialWord
+		-1, // ExistentialWord
 		-1, // Term
 		-1, // RegexpArgument
 		-1, // RegexpExpr
@@ -1272,6 +1398,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S63
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1292,6 +1420,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S64
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1312,6 +1442,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S65
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1332,6 +1464,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S66
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1352,6 +1486,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S67
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1371,27 +1507,31 @@ var gotoTab = gotoTable{
 		-1, // Identifier
 	},
 	gotoRow{ // S68
-		-1, // S'
-		-1, // CompareExpr
-		-1, // ExistentialWord
-		-1, // Term
-		-1, // RegexpArgument
-		-1, // RegexpExpr
-		-1, // AddExpr
-		-1, // MulExpr
-		-1, // ExpExpr
-		-1, // UnaryExpr
-		-1, // Expr
-		-1, // NullLiteral
-		-1, // BooleanLiteral
-		-1, // NumericLiteral
-		-1, // StringLiteral
-		-1, // Literal
-		-1, // ObjectKey
-		-1, // Identifier
+		-1,  // S'
+		-1,  // OrExpr
+		-1,  // AndExpr
+		-1,  // CompareExpr
+		101, // ExistentialWord
+		-1,  // Term
+		-1,  // RegexpArgument
+		-1,  // RegexpExpr
+		-1,  // AddExpr
+		-1,  // MulExpr
+		-1,  // ExpExpr
+		-1,  // UnaryExpr
+		-1,  // Expr
+		-1,  // NullLiteral
+		-1,  // BooleanLiteral
+		-1,  // NumericLiteral
+		-1,  // StringLiteral
+		-1,  // Literal
+		-1,  // ObjectKey
+		-1,  // Identifier
 	},
 	gotoRow{ // S69
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1412,6 +1552,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S70
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1432,6 +1574,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S71
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1452,6 +1596,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S72
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1472,6 +1618,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S73
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1492,6 +1640,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S74
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1512,6 +1662,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S75
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1532,6 +1684,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S76
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1552,6 +1706,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S77
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1572,6 +1728,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S78
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1592,6 +1750,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S79
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1612,6 +1772,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S80
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1632,6 +1794,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S81
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1652,6 +1816,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S82
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1672,6 +1838,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S83
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1692,6 +1860,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S84
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1712,6 +1882,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S85
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1732,6 +1904,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S86
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1752,6 +1926,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S87
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1772,6 +1948,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S88
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1792,6 +1970,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S89
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1812,6 +1992,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S90
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1832,6 +2014,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S91
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1852,6 +2036,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S92
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1867,31 +2053,35 @@ var gotoTab = gotoTable{
 		-1, // NumericLiteral
 		-1, // StringLiteral
 		-1, // Literal
-		99, // ObjectKey
+		-1, // ObjectKey
 		-1, // Identifier
 	},
 	gotoRow{ // S93
-		-1,  // S'
-		-1,  // CompareExpr
-		-1,  // ExistentialWord
-		-1,  // Term
-		-1,  // RegexpArgument
-		-1,  // RegexpExpr
-		-1,  // AddExpr
-		-1,  // MulExpr
-		-1,  // ExpExpr
-		-1,  // UnaryExpr
-		100, // Expr
-		78,  // NullLiteral
-		79,  // BooleanLiteral
-		82,  // NumericLiteral
-		75,  // StringLiteral
-		77,  // Literal
-		87,  // ObjectKey
-		74,  // Identifier
+		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
+		-1, // CompareExpr
+		-1, // ExistentialWord
+		-1, // Term
+		-1, // RegexpArgument
+		-1, // RegexpExpr
+		-1, // AddExpr
+		-1, // MulExpr
+		-1, // ExpExpr
+		-1, // UnaryExpr
+		-1, // Expr
+		-1, // NullLiteral
+		-1, // BooleanLiteral
+		-1, // NumericLiteral
+		-1, // StringLiteral
+		-1, // Literal
+		-1, // ObjectKey
+		-1, // Identifier
 	},
 	gotoRow{ // S94
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1912,6 +2102,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S95
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -1931,7 +2123,53 @@ var gotoTab = gotoTable{
 		-1, // Identifier
 	},
 	gotoRow{ // S96
+		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
+		-1, // CompareExpr
+		-1, // ExistentialWord
+		-1, // Term
+		-1, // RegexpArgument
+		-1, // RegexpExpr
+		-1, // AddExpr
+		-1, // MulExpr
+		-1, // ExpExpr
+		-1, // UnaryExpr
+		-1, // Expr
+		-1, // NullLiteral
+		-1, // BooleanLiteral
+		-1, // NumericLiteral
+		-1, // StringLiteral
+		-1, // Literal
+		-1, // ObjectKey
+		-1, // Identifier
+	},
+	gotoRow{ // S97
+		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
+		-1, // CompareExpr
+		-1, // ExistentialWord
+		-1, // Term
+		-1, // RegexpArgument
+		-1, // RegexpExpr
+		-1, // AddExpr
+		-1, // MulExpr
+		-1, // ExpExpr
+		-1, // UnaryExpr
+		-1, // Expr
+		-1, // NullLiteral
+		-1, // BooleanLiteral
+		-1, // NumericLiteral
+		-1, // StringLiteral
+		-1, // Literal
+		-1, // ObjectKey
+		-1, // Identifier
+	},
+	gotoRow{ // S98
 		-1,  // S'
+		-1,  // OrExpr
+		-1,  // AndExpr
 		-1,  // CompareExpr
 		-1,  // ExistentialWord
 		-1,  // Term
@@ -1947,11 +2185,13 @@ var gotoTab = gotoTable{
 		-1,  // NumericLiteral
 		-1,  // StringLiteral
 		-1,  // Literal
-		101, // ObjectKey
+		105, // ObjectKey
 		-1,  // Identifier
 	},
-	gotoRow{ // S97
+	gotoRow{ // S99
 		-1,  // S'
+		-1,  // OrExpr
+		-1,  // AndExpr
 		-1,  // CompareExpr
 		-1,  // ExistentialWord
 		-1,  // Term
@@ -1961,57 +2201,19 @@ var gotoTab = gotoTable{
 		-1,  // MulExpr
 		-1,  // ExpExpr
 		-1,  // UnaryExpr
-		102, // Expr
-		78,  // NullLiteral
-		79,  // BooleanLiteral
-		82,  // NumericLiteral
-		75,  // StringLiteral
-		77,  // Literal
-		87,  // ObjectKey
-		74,  // Identifier
-	},
-	gotoRow{ // S98
-		-1, // S'
-		-1, // CompareExpr
-		-1, // ExistentialWord
-		-1, // Term
-		-1, // RegexpArgument
-		-1, // RegexpExpr
-		-1, // AddExpr
-		-1, // MulExpr
-		-1, // ExpExpr
-		-1, // UnaryExpr
-		-1, // Expr
-		-1, // NullLiteral
-		-1, // BooleanLiteral
-		-1, // NumericLiteral
-		-1, // StringLiteral
-		-1, // Literal
-		-1, // ObjectKey
-		-1, // Identifier
-	},
-	gotoRow{ // S99
-		-1, // S'
-		-1, // CompareExpr
-		-1, // ExistentialWord
-		-1, // Term
-		-1, // RegexpArgument
-		-1, // RegexpExpr
-		-1, // AddExpr
-		-1, // MulExpr
-		-1, // ExpExpr
-		-1, // UnaryExpr
-		-1, // Expr
-		-1, // NullLiteral
-		-1, // BooleanLiteral
-		-1, // NumericLiteral
-		-1, // StringLiteral
-		-1, // Literal
-		-1, // ObjectKey
-		-1, // Identifier
+		106, // Expr
+		84,  // NullLiteral
+		85,  // BooleanLiteral
+		88,  // NumericLiteral
+		81,  // StringLiteral
+		83,  // Literal
+		93,  // ObjectKey
+		80,  // Identifier
 	},
 	gotoRow{ // S100
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -2032,6 +2234,8 @@ var gotoTab = gotoTable{
 	},
 	gotoRow{ // S101
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term
@@ -2051,47 +2255,185 @@ var gotoTab = gotoTable{
 		-1, // Identifier
 	},
 	gotoRow{ // S102
-		-1, // S'
-		-1, // CompareExpr
-		-1, // ExistentialWord
-		-1, // Term
-		-1, // RegexpArgument
-		-1, // RegexpExpr
-		-1, // AddExpr
-		-1, // MulExpr
-		-1, // ExpExpr
-		-1, // UnaryExpr
-		-1, // Expr
-		-1, // NullLiteral
-		-1, // BooleanLiteral
-		-1, // NumericLiteral
-		-1, // StringLiteral
-		-1, // Literal
-		-1, // ObjectKey
-		-1, // Identifier
+		-1,  // S'
+		-1,  // OrExpr
+		-1,  // AndExpr
+		-1,  // CompareExpr
+		-1,  // ExistentialWord
+		-1,  // Term
+		-1,  // RegexpArgument
+		-1,  // RegexpExpr
+		-1,  // AddExpr
+		-1,  // MulExpr
+		-1,  // ExpExpr
+		-1,  // UnaryExpr
+		-1,  // Expr
+		-1,  // NullLiteral
+		-1,  // BooleanLiteral
+		-1,  // NumericLiteral
+		-1,  // StringLiteral
+		-1,  // Literal
+		107, // ObjectKey
+		-1,  // Identifier
 	},
 	gotoRow{ // S103
-		-1, // S'
-		-1, // CompareExpr
-		-1, // ExistentialWord
-		-1, // Term
-		-1, // RegexpArgument
-		-1, // RegexpExpr
-		-1, // AddExpr
-		-1, // MulExpr
-		-1, // ExpExpr
-		-1, // UnaryExpr
-		-1, // Expr
-		-1, // NullLiteral
-		-1, // BooleanLiteral
-		-1, // NumericLiteral
-		-1, // StringLiteral
-		-1, // Literal
-		-1, // ObjectKey
-		-1, // Identifier
+		-1,  // S'
+		-1,  // OrExpr
+		-1,  // AndExpr
+		-1,  // CompareExpr
+		-1,  // ExistentialWord
+		-1,  // Term
+		-1,  // RegexpArgument
+		-1,  // RegexpExpr
+		-1,  // AddExpr
+		-1,  // MulExpr
+		-1,  // ExpExpr
+		-1,  // UnaryExpr
+		108, // Expr
+		84,  // NullLiteral
+		85,  // BooleanLiteral
+		88,  // NumericLiteral
+		81,  // StringLiteral
+		83,  // Literal
+		93,  // ObjectKey
+		80,  // Identifier
 	},
 	gotoRow{ // S104
 		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
+		-1, // CompareExpr
+		-1, // ExistentialWord
+		-1, // Term
+		-1, // RegexpArgument
+		-1, // RegexpExpr
+		-1, // AddExpr
+		-1, // MulExpr
+		-1, // ExpExpr
+		-1, // UnaryExpr
+		-1, // Expr
+		-1, // NullLiteral
+		-1, // BooleanLiteral
+		-1, // NumericLiteral
+		-1, // StringLiteral
+		-1, // Literal
+		-1, // ObjectKey
+		-1, // Identifier
+	},
+	gotoRow{ // S105
+		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
+		-1, // CompareExpr
+		-1, // ExistentialWord
+		-1, // Term
+		-1, // RegexpArgument
+		-1, // RegexpExpr
+		-1, // AddExpr
+		-1, // MulExpr
+		-1, // ExpExpr
+		-1, // UnaryExpr
+		-1, // Expr
+		-1, // NullLiteral
+		-1, // BooleanLiteral
+		-1, // NumericLiteral
+		-1, // StringLiteral
+		-1, // Literal
+		-1, // ObjectKey
+		-1, // Identifier
+	},
+	gotoRow{ // S106
+		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
+		-1, // CompareExpr
+		-1, // ExistentialWord
+		-1, // Term
+		-1, // RegexpArgument
+		-1, // RegexpExpr
+		-1, // AddExpr
+		-1, // MulExpr
+		-1, // ExpExpr
+		-1, // UnaryExpr
+		-1, // Expr
+		-1, // NullLiteral
+		-1, // BooleanLiteral
+		-1, // NumericLiteral
+		-1, // StringLiteral
+		-1, // Literal
+		-1, // ObjectKey
+		-1, // Identifier
+	},
+	gotoRow{ // S107
+		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
+		-1, // CompareExpr
+		-1, // ExistentialWord
+		-1, // Term
+		-1, // RegexpArgument
+		-1, // RegexpExpr
+		-1, // AddExpr
+		-1, // MulExpr
+		-1, // ExpExpr
+		-1, // UnaryExpr
+		-1, // Expr
+		-1, // NullLiteral
+		-1, // BooleanLiteral
+		-1, // NumericLiteral
+		-1, // StringLiteral
+		-1, // Literal
+		-1, // ObjectKey
+		-1, // Identifier
+	},
+	gotoRow{ // S108
+		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
+		-1, // CompareExpr
+		-1, // ExistentialWord
+		-1, // Term
+		-1, // RegexpArgument
+		-1, // RegexpExpr
+		-1, // AddExpr
+		-1, // MulExpr
+		-1, // ExpExpr
+		-1, // UnaryExpr
+		-1, // Expr
+		-1, // NullLiteral
+		-1, // BooleanLiteral
+		-1, // NumericLiteral
+		-1, // StringLiteral
+		-1, // Literal
+		-1, // ObjectKey
+		-1, // Identifier
+	},
+	gotoRow{ // S109
+		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
+		-1, // CompareExpr
+		-1, // ExistentialWord
+		-1, // Term
+		-1, // RegexpArgument
+		-1, // RegexpExpr
+		-1, // AddExpr
+		-1, // MulExpr
+		-1, // ExpExpr
+		-1, // UnaryExpr
+		-1, // Expr
+		-1, // NullLiteral
+		-1, // BooleanLiteral
+		-1, // NumericLiteral
+		-1, // StringLiteral
+		-1, // Literal
+		-1, // ObjectKey
+		-1, // Identifier
+	},
+	gotoRow{ // S110
+		-1, // S'
+		-1, // OrExpr
+		-1, // AndExpr
 		-1, // CompareExpr
 		-1, // ExistentialWord
 		-1, // Term

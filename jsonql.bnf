@@ -70,7 +70,15 @@ func SingleUnquote(tok string) (string, error) {
 
 /* Literals */
 
+OrExpr
+        : AndExpr
+        | OrExpr "||" AndExpr   << ast.Or($0, $2) >>
+        ;
 
+AndExpr
+        : CompareExpr
+        | AndExpr "&&" CompareExpr   << ast.And($0, $2) >>
+        ;
 
 CompareExpr
         : Term
