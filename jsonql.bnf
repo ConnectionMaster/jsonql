@@ -70,7 +70,10 @@ func SingleUnquote(tok string) (string, error) {
 
 /* Literals */
 
-Expr: Literal;
+Expr
+        : Literal
+        | Identifier
+        ;
 
 NullLiteral: "null"   << nil, nil >> ;
 
@@ -95,3 +98,8 @@ Literal
         | NumericLiteral    << ast.Literal($0) >>
         | StringLiteral     << ast.Literal($0) >>
         ;
+
+ObjectKey:  symbol  << String($0), nil >> ;
+
+Identifier
+        : ObjectKey              << ast.ObjectKey($0) >>;

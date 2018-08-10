@@ -1,6 +1,7 @@
 package jsonql
 
 import (
+	"encoding/json"
 	"fmt"
 	"testing"
 
@@ -74,29 +75,29 @@ func TestQuery(t *testing.T) {
 
 type parseTestCase struct {
 	JQL      string
-	Data     interface{}
+	Data     string
 	Expected interface{}
 }
 
 func TestParseLiterals(t *testing.T) {
 	testCases := []parseTestCase{
-		{`null`, nil, nil},
-		{`true`, nil, true},
-		{`false`, nil, false},
-		{`1.25`, nil, 1.25},
-		{`1.25e2`, nil, 125.0},
-		{`125e-2`, nil, 1.25},
-		{`.5`, nil, .5},
-		{`1`, nil, int64(1)},
-		{`010`, nil, int64(8)},
-		{`0xa`, nil, int64(10)},
-		{`"foo"`, nil, "foo"},
-		{`"string with \"escape\" characters"`, nil, "string with \"escape\" characters"},
-		{`'string with \'escape\' characters'`, nil, "string with 'escape' characters"},
-		{`'peace\u00a0\x26\u00a0war'`, nil, "peace & war"},
-		{`'\b\f\n\r\t\v'`, nil, "\b\f\n\r\t\v"},
-		{`"\\"`, nil, "\\"},
-		{`'\\'`, nil, "\\"},
+		{`null`, "", nil},
+		{`true`, "", true},
+		{`false`, "", false},
+		{`1.25`, "", 1.25},
+		{`1.25e2`, "", 125.0},
+		{`125e-2`, "", 1.25},
+		{`.5`, "", .5},
+		{`1`, "", int64(1)},
+		{`010`, "", int64(8)},
+		{`0xa`, "", int64(10)},
+		{`"foo"`, "", "foo"},
+		{`"string with \"escape\" characters"`, "", "string with \"escape\" characters"},
+		{`'string with \'escape\' characters'`, "", "string with 'escape' characters"},
+		{`'peace\u00a0\x26\u00a0war'`, "", "peace & war"},
+		{`'\b\f\n\r\t\v'`, "", "\b\f\n\r\t\v"},
+		{`"\\"`, "", "\\"},
+		{`'\\'`, "", "\\"},
 	}
 
 	for i, testCase := range testCases {
@@ -107,8 +108,38 @@ func TestParseLiterals(t *testing.T) {
 			continue
 		}
 
-		val, err := ast.Evaluate(testCase.Data)
-		assert.NoError(t, err, testCaseName+fmt.Sprintf(" [evaluate(%v)]", testCase.Data))
+		val, err := ast.Evaluate(nil)
+		assert.NoError(t, err, testCaseName+fmt.Sprintf(" [evaluate(nil)]"))
+
+		var passfail = "pass"
+		if !assert.Equal(t, testCase.Expected, val, testCaseName) {
+			passfail = "fail"
+		}
+		fmt.Printf("%s - %s evaluated to %v\n", passfail, testCase.JQL, val)
+	}
+}
+
+func TestParseIdentifiers(t *testing.T) {
+	testCases := []parseTestCase{
+		{`blah`, `{"blah": "blah"}`, "blah"},
+		{`blab`, `{"blah": "blah"}`, nil},
+		{`foo.bar`, `{"foo": {"bar": "baz"}}`, "baz"},
+		{`foo[1]`, `{"foo": [1, 2, 3]}`, 2.0},
+		{`foo[1]`, `{"foo": [1, 2, 3]}`, 2.0},
+	}
+
+	for i, testCase := range testCases {
+		testCaseName := fmt.Sprintf("Test case %d: `%s`", i, testCase.JQL)
+		ast, err := Parse(testCase.JQL)
+		if !(assert.NoError(t, err, testCaseName+" [parse]") &&
+			assert.NotNil(t, ast, testCaseName+" [parse]")) {
+			continue
+		}
+
+		var data interface{}
+		assert.NoError(t, json.Unmarshal([]byte(testCase.Data), &data))
+		val, err := ast.Evaluate(data)
+		assert.NoError(t, err, testCaseName+fmt.Sprintf(" [evaluate(%v)]", data))
 
 		var passfail = "pass"
 		if !assert.Equal(t, testCase.Expected, val, testCaseName) {
