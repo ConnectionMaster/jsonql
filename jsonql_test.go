@@ -191,10 +191,43 @@ func TestRegexpExpr(t *testing.T) {
 	}
 
 	for i, testCase := range testCases {
-		testCaseName := fmt.Sprintf("Parse BEDMAS case %d: `%s`", i, testCase.JQL)
+		testCaseName := fmt.Sprintf("Parse Regexp case %d: `%s`", i, testCase.JQL)
 		assertTestCase(t, testCase, testCaseName)
 	}
 }
+
+func TestCompareExpr(t *testing.T) {
+	testCases := []parseTestCase{
+		{`"Hello" = "Hello"`, ``, true},
+		{`"Hello" != "Hello"`, ``, false},
+		{`message.body = "Hello"`, `{"message":{"body":"Blah"}}`, false},
+		{`message.body != "Blah"`, `{"message":{"body":"Hello"}}`, true},
+		{`message.body = "Hello"`, `{"message":{"head":"Blah"}}`, nil},
+		{`message.body != "Blah"`, `{"message":{"head":"Hello"}}`, nil},
+		{`1 < 2`, ``, true},
+		{`1 > 2`, ``, false},
+		{`3 <= 2`, ``, false},
+		{`3 >= 2`, ``, true},
+		{`2.0 >= 2`, ``, true},
+		{`2 = 2`, ``, true},
+		{`null is not defined`, ``, true},
+		{`null isnot defined`, ``, true},
+		{`null is defined`, ``, false},
+		{`null is not null`, ``, false},
+		{`null isnot null`, ``, false},
+		{`null is null`, ``, true},
+		{`message.body is not defined`, `{"message":{"body":"Blah"}}`, false},
+		{`message.body is defined`, `{"message":{"body":"Hello"}}`, true},
+		{`message.body is not null`, `{"message":{"head":"Blah"}}`, false},
+		{`message.body is null`, `{"message":{"head":"Hello"}}`, true},
+	}
+
+	for i, testCase := range testCases {
+		testCaseName := fmt.Sprintf("Comparison case %d: `%s`", i, testCase.JQL)
+		assertTestCase(t, testCase, testCaseName)
+	}
+}
+
 func assertTestCase(t *testing.T, testCase parseTestCase, testCaseName string) {
 	ast, err := Parse(testCase.JQL)
 	if !(assert.NoError(t, err, testCaseName+" [parse]") &&

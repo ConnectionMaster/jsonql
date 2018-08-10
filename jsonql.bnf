@@ -70,7 +70,28 @@ func SingleUnquote(tok string) (string, error) {
 
 /* Literals */
 
-MainExpr
+
+
+CompareExpr
+        : Term
+        | CompareExpr "=" Term    << ast.Eq($0, $2) >>
+        | CompareExpr "==" Term    << ast.Eq($0, $2) >>
+        | CompareExpr "!=" Term    << ast.NE($0, $2) >>
+        | CompareExpr "<=" Term    << ast.LE($0, $2) >>
+        | CompareExpr ">=" Term    << ast.GE($0, $2) >>
+        | CompareExpr ">" Term    << ast.GT($0, $2) >>
+        | CompareExpr "<" Term    << ast.LT($0, $2) >>
+        | CompareExpr "is" ExistentialWord       << ast.Is($0, $2) >>
+        | CompareExpr "isnot" ExistentialWord    << ast.IsNot($0, $2) >>
+        | CompareExpr "is" "not" ExistentialWord << ast.IsNot($0, $3) >>
+        ;
+
+ExistentialWord
+        : "null"
+        | "defined"
+        ;
+
+Term
         : RegexpExpr
         | AddExpr
         ;

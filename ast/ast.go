@@ -5,6 +5,9 @@ import (
 	"math"
 	"regexp"
 	"strconv"
+	"strings"
+
+	"github.com/teslamotors/jsonql/token"
 )
 
 type Expr interface {
@@ -177,6 +180,8 @@ func (bon BinaryOpNode) Evaluate(val interface{}) (interface{}, error) {
 			return bon.Op.Int(left, right)
 		case float64:
 			return bon.Op.Float(float64(left), right)
+		case string:
+			return bon.Op.String(intToString(left), right)
 		default:
 			return nil, nil
 		}
@@ -186,6 +191,25 @@ func (bon BinaryOpNode) Evaluate(val interface{}) (interface{}, error) {
 			return bon.Op.Float(left, float64(right))
 		case float64:
 			return bon.Op.Float(left, right)
+		case string:
+			return bon.Op.String(floatToString(left), right)
+		default:
+			return nil, nil
+		}
+	case string:
+		switch right := right.(type) {
+		case string:
+			return bon.Op.String(left, right)
+		case int64:
+			if leftFloat, err := strconv.ParseFloat(left, 64); err == nil {
+				return bon.Op.Float(leftFloat, float64(right))
+			}
+			return bon.Op.String(left, intToString(right))
+		case float64:
+			if leftFloat, err := strconv.ParseFloat(left, 64); err == nil {
+				return bon.Op.Float(leftFloat, right)
+			}
+			return bon.Op.String(left, floatToString(right))
 		default:
 			return nil, nil
 		}
@@ -206,6 +230,14 @@ const (
 	OpExp
 	OpAnd
 	OpOr
+	OpLT
+	OpLE
+	OpEq
+	OpGE
+	OpGT
+	OpNE
+	OpIs
+	OpIsNot
 )
 
 func (op OpType) Int(left, right int64) (interface{}, error) {
@@ -237,6 +269,18 @@ func (op OpType) Int(left, right int64) (interface{}, error) {
 			return pow, nil
 		}
 		return int64(pow), nil
+	case OpEq:
+		return left == right, nil
+	case OpNE:
+		return left != right, nil
+	case OpLE:
+		return left <= right, nil
+	case OpGE:
+		return left >= right, nil
+	case OpLT:
+		return left < right, nil
+	case OpGT:
+		return left > right, nil
 	default:
 		return nil, nil
 	}
@@ -259,6 +303,43 @@ func (op OpType) Float(left, right float64) (interface{}, error) {
 		return math.Mod(left, right), nil
 	case OpExp:
 		return math.Pow(left, right), nil
+	case OpEq:
+		return left == right, nil
+	case OpNE:
+		return left != right, nil
+	case OpLE:
+		return left <= right, nil
+	case OpGE:
+		return left >= right, nil
+	case OpLT:
+		return left < right, nil
+	case OpGT:
+		return left > right, nil
+	default:
+		return nil, nil
+	}
+}
+
+func (op OpType) String(left, right string) (interface{}, error) {
+	switch op {
+	case OpAdd:
+		return left + right, nil
+	case OpSub:
+		return strings.TrimSuffix(left, right), nil
+	case OpDiv:
+		return strings.Trim(left, right), nil
+	case OpEq:
+		return left == right, nil
+	case OpNE:
+		return left != right, nil
+	case OpLE:
+		return left <= right, nil
+	case OpGE:
+		return left >= right, nil
+	case OpLT:
+		return left < right, nil
+	case OpGT:
+		return left > right, nil
 	default:
 		return nil, nil
 	}
@@ -288,6 +369,25 @@ func Exp(base, exponent interface{}) (Expr, error) {
 	return BinaryOpNode{OpExp, [2]Expr{base.(Expr), exponent.(Expr)}}, nil
 }
 
+func LT(operands ...interface{}) (Expr, error) {
+	return BinaryOpNode{OpLT, [2]Expr{operands[0].(Expr), operands[1].(Expr)}}, nil
+}
+func LE(operands ...interface{}) (Expr, error) {
+	return BinaryOpNode{OpLE, [2]Expr{operands[0].(Expr), operands[1].(Expr)}}, nil
+}
+func Eq(operands ...interface{}) (Expr, error) {
+	return BinaryOpNode{OpEq, [2]Expr{operands[0].(Expr), operands[1].(Expr)}}, nil
+}
+func GE(operands ...interface{}) (Expr, error) {
+	return BinaryOpNode{OpGE, [2]Expr{operands[0].(Expr), operands[1].(Expr)}}, nil
+}
+func GT(operands ...interface{}) (Expr, error) {
+	return BinaryOpNode{OpGT, [2]Expr{operands[0].(Expr), operands[1].(Expr)}}, nil
+}
+func NE(operands ...interface{}) (Expr, error) {
+	return BinaryOpNode{OpNE, [2]Expr{operands[0].(Expr), operands[1].(Expr)}}, nil
+}
+
 type RegexpOp struct {
 	Match   Expr
 	Pattern regexp.Regexp
@@ -302,7 +402,7 @@ func RegexpNegMatch(match, pattern interface{}) (Expr, error) {
 	return NewRegexpOp(match, pattern.(string), true)
 }
 
-func NewRegexpOp(match interface{}, pattern string, inverse bool) (RegexpOp, error) {
+func NewRegexpOp(match interface{}, pattern string, inverse bool) (Expr, error) {
 	var regexpOp = RegexpOp{
 		Inverse: inverse,
 	}
@@ -330,14 +430,63 @@ func (ro RegexpOp) Evaluate(val interface{}) (interface{}, error) {
 	case string:
 		return xor(ro.Pattern.MatchString(value), ro.Inverse), nil
 	case int64:
-		return xor(ro.Pattern.MatchString(strconv.FormatInt(value, 10)), ro.Inverse), nil
+		return xor(ro.Pattern.MatchString(intToString(value)), ro.Inverse), nil
 	case float64:
-		return xor(ro.Pattern.MatchString(strconv.FormatFloat(value, 'f', -1, 64)), ro.Inverse), nil
+		return xor(ro.Pattern.MatchString(floatToString(value)), ro.Inverse), nil
 	default:
 		return nil, nil
 	}
 }
 
+func intToString(v int64) string {
+	return strconv.FormatInt(v, 10)
+}
+func floatToString(v float64) string {
+	return strconv.FormatFloat(v, 'f', -1, 64)
+}
+
 func xor(a, b bool) bool {
 	return ((a && !b) || (!a && b))
+}
+
+type ExistentialType int
+
+const (
+	ToBe ExistentialType = iota
+	NotToBe
+)
+
+type ExistentialNode struct {
+	Question ExistentialType
+	Expr     Expr
+	Inverse  bool
+}
+
+func ValToExistential(val *token.Token) ExistentialType {
+	// FIXME - grammar seems to be producing empty set of constants for
+	// token.Type, otherwise the enum could be compared.
+	if string(val.Lit) == "defined" {
+		return ToBe
+	}
+	return NotToBe
+}
+
+func Is(value, what interface{}) (Expr, error) {
+	return ExistentialNode{ValToExistential(what.(*token.Token)), value.(Expr), false}, nil
+}
+func IsNot(value, whatnot interface{}) (Expr, error) {
+	return ExistentialNode{ValToExistential(whatnot.(*token.Token)), value.(Expr), true}, nil
+}
+
+func (en ExistentialNode) Evaluate(val interface{}) (interface{}, error) {
+	leftTerm, err := en.Expr.Evaluate(val)
+	if err != nil {
+		return nil, err
+	}
+	switch leftTerm.(type) {
+	case nil:
+		return xor(en.Question == NotToBe, en.Inverse), nil
+	default:
+		return xor(en.Question == ToBe, en.Inverse), nil
+	}
 }
