@@ -2,8 +2,9 @@ package ast
 
 import (
 	"fmt"
-
 	"math"
+	"regexp"
+	"strconv"
 )
 
 type Expr interface {
@@ -285,4 +286,58 @@ func Sub(minuend, subtrahend interface{}) (Expr, error) {
 
 func Exp(base, exponent interface{}) (Expr, error) {
 	return BinaryOpNode{OpExp, [2]Expr{base.(Expr), exponent.(Expr)}}, nil
+}
+
+type RegexpOp struct {
+	Match   Expr
+	Pattern regexp.Regexp
+	Inverse bool
+}
+
+func RegexpMatch(match, pattern interface{}) (Expr, error) {
+	return NewRegexpOp(match, pattern.(string), false)
+}
+
+func RegexpNegMatch(match, pattern interface{}) (Expr, error) {
+	return NewRegexpOp(match, pattern.(string), true)
+}
+
+func NewRegexpOp(match interface{}, pattern string, inverse bool) (RegexpOp, error) {
+	var regexpOp = RegexpOp{
+		Inverse: inverse,
+	}
+	if matchStr, ok := match.(string); ok {
+		regexpOp.Match = LiteralNode{matchStr}
+	} else {
+		regexpOp.Match = match.(Expr)
+	}
+	patternRegexp, err := regexp.Compile(pattern)
+	if err != nil {
+		return regexpOp, err
+	}
+	regexpOp.Pattern = *patternRegexp
+	return regexpOp, nil
+}
+
+func (ro RegexpOp) Evaluate(val interface{}) (interface{}, error) {
+	value, err := ro.Match.Evaluate(val)
+	if err != nil {
+		return nil, err
+	}
+	switch value := value.(type) {
+	case []byte:
+		return xor(ro.Pattern.Match(value), ro.Inverse), nil
+	case string:
+		return xor(ro.Pattern.MatchString(value), ro.Inverse), nil
+	case int64:
+		return xor(ro.Pattern.MatchString(strconv.FormatInt(value, 10)), ro.Inverse), nil
+	case float64:
+		return xor(ro.Pattern.MatchString(strconv.FormatFloat(value, 'f', -1, 64)), ro.Inverse), nil
+	default:
+		return nil, nil
+	}
+}
+
+func xor(a, b bool) bool {
+	return ((a && !b) || (!a && b))
 }

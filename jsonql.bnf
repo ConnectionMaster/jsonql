@@ -70,6 +70,21 @@ func SingleUnquote(tok string) (string, error) {
 
 /* Literals */
 
+MainExpr
+        : RegexpExpr
+        | AddExpr
+        ;
+
+RegexpArgument
+        : Identifier
+        | StringLiteral
+        ;
+
+RegexpExpr
+        : RegexpArgument "~=" StringLiteral    << ast.RegexpMatch($0, $2) >>
+        | RegexpArgument "!~=" StringLiteral   << ast.RegexpNegMatch($0, $2) >>
+        ;
+
 AddExpr
         : MulExpr
         | AddExpr "+" MulExpr   << ast.Add($0, $2) >>

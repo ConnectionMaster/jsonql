@@ -176,6 +176,25 @@ func TestBEDMASExpr(t *testing.T) {
 	}
 }
 
+func TestRegexpExpr(t *testing.T) {
+	testCases := []parseTestCase{
+		{`"Hello" ~= "He"`, ``, true},
+		{`"Hello" ~= "^el"`, ``, false},
+		{`"Hello" ~= ".*el"`, ``, true},
+		{`"Hello" !~= "He"`, ``, false},
+		{`"Hello" !~= "^el"`, ``, true},
+		{`"Hello" !~= ".*el"`, ``, false},
+		{`foo.bar ~= "\\d+(\\.\\d*)?$"`, `{"foo": {"bar": "1.23"}}`, true},
+		{`foo.bar ~= "\\d+(\\.\\d*)?$"`, `{"foo": {"bar": 22}}`, true},
+		{`foo.bar ~= "\\d+(\\.\\d*)?$"`, `{"foo": {"bar": 22.1}}`, true},
+		{`foo.bar ~= "\\d+(\\.\\d*)?$"`, `{"foo": {"bar": "blah"}}`, false},
+	}
+
+	for i, testCase := range testCases {
+		testCaseName := fmt.Sprintf("Parse BEDMAS case %d: `%s`", i, testCase.JQL)
+		assertTestCase(t, testCase, testCaseName)
+	}
+}
 func assertTestCase(t *testing.T, testCase parseTestCase, testCaseName string) {
 	ast, err := Parse(testCase.JQL)
 	if !(assert.NoError(t, err, testCaseName+" [parse]") &&
