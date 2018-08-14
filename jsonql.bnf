@@ -1,0 +1,183 @@
+/* JSONQL.bnf
+
+   This is a grammar to match the existing jsonql language.  It's
+   close to a JavaScript subset, but it also has some novel operators.
+
+*/
+
+/* Lexical Part */
+
+/* Symbols */
+_letter: 'A'-'Z' | 'a'-'z' ;
+_decimalDigit: '0'-'9';
+_symbolchar: _letter | _decimalDigit | '_' ;
+symbol: (_letter | '_') {_symbolchar} ;
+
+/* non-breaking whitespace - Zs */
+!whitespace: ' '|'\t'|'\f'|'\v'|'\u00a0'|'\u2000'-'\u200a'|'\u202f'|'\u205f'|'\u3000'|'\ufeff'|'\n';
+
+/* Numbers */
+_decimals: _decimalDigit { _decimalDigit } ;
+_exponent : ( 'e' | 'E' ) [ '+' | '-' ] _decimals ;
+floatLit  : _decimals '.' [ _decimals ] [ _exponent ]
+          | _decimals _exponent
+          | '.' _decimals [ _exponent ]
+          ;
+intLit      : _decimalLit | _octalLit | _hexLit ;
+_decimalLit : '1' - '9' { _decimalDigit } ;
+_octalDigit : '0' - '7' ;
+_octalLit   : '0' { _octalDigit } ;
+_hexLit     : '0' ( 'x' | 'X' ) _hexDigit { _hexDigit } ;
+
+/* String Contents */
+_hexDigit: ( _decimalDigit | 'a'-'f' | 'A'-'F' );
+_hexEscape: '\\' 'x' _hexDigit _hexDigit  ;
+_uniEscape: '\\' 'u' _hexDigit _hexDigit _hexDigit _hexDigit ;
+_singleEscapeChar: 'b'| 'f' | 'n' | 'r' | 't' | 'v' | '\\';
+_escapeChar : '\\' _singleEscapeChar ;
+doubleStringLit: '"' { . | '\\' '"' | _escapeChar | _hexEscape | _uniEscape } '"' ;
+singleStringLit: '\'' { . | '\\' '\'' | _escapeChar | _hexEscape | _uniEscape } '\'' ;
+
+/* Syntax Part */
+
+<<
+
+import (
+	"fmt"
+	"strconv"
+        "strings"
+
+        "github.com/teslamotors/jsonql/ast"
+        "github.com/teslamotors/jsonql/token"
+)
+
+func String(a Attrib) string {
+     return string(a.(*token.Token).Lit) 
+}
+
+func SingleUnquote(tok string) (string, error) {
+     val := tok[1:len(tok)-1] 
+     // do something slow and hacky so we can re-use strconv.Unquote
+     val = strings.Replace(val, "\\'", "'", -1)
+     val = strings.Replace(val, "\"", "\\\"", -1)
+     val = fmt.Sprintf("\"%s\"", val)
+     return strconv.Unquote(val)
+}
+
+>>
+
+/* Literals */
+
+Expression: OrExpr;
+
+OrExpr
+        : AndExpr
+        | OrExpr "||" AndExpr   << ast.Or($0, $2) >>
+        ;
+
+AndExpr
+        : CompareExpr
+        | AndExpr "&&" CompareExpr   << ast.And($0, $2) >>
+        ;
+
+CompareExpr
+        : ValueExpr
+        | CompareExpr "=" ValueExpr    << ast.Eq($0, $2) >>
+        | CompareExpr "==" ValueExpr    << ast.Eq($0, $2) >>
+        | CompareExpr "!=" ValueExpr    << ast.NE($0, $2) >>
+        | CompareExpr "<=" ValueExpr    << ast.LE($0, $2) >>
+        | CompareExpr ">=" ValueExpr    << ast.GE($0, $2) >>
+        | CompareExpr ">" ValueExpr    << ast.GT($0, $2) >>
+        | CompareExpr "<" ValueExpr    << ast.LT($0, $2) >>
+        | CompareExpr "is" ExistentialWord       << ast.Is($0, $2) >>
+        | CompareExpr "isnot" ExistentialWord    << ast.IsNot($0, $2) >>
+        | CompareExpr "is" "not" ExistentialWord << ast.IsNot($0, $3) >>
+        ;
+
+ExistentialWord
+        : "null"
+        | "defined"
+        ;
+
+ValueExpr
+        : RegexpExpr
+        | AddExpr
+        ;
+
+RegexpArgument
+        : Identifier
+        | StringLiteral
+        ;
+
+RegexpExpr
+        : RegexpArgument "~=" StringLiteral    << ast.RegexpMatch($0, $2) >>
+        | RegexpArgument "!~=" StringLiteral   << ast.RegexpNegMatch($0, $2) >>
+        ;
+
+AddExpr
+        : MulExpr
+        | AddExpr "+" MulExpr   << ast.Add($0, $2) >>
+        | AddExpr "-" MulExpr   << ast.Sub($0, $2) >>
+        ;
+
+MulExpr
+        : ExpExpr
+        | MulExpr "*" ExpExpr   << ast.Mul($0, $2) >>
+        | MulExpr "/" ExpExpr   << ast.Div($0, $2) >>
+        | MulExpr "%" ExpExpr   << ast.Mod($0, $2) >>
+        ;
+
+// high precedence - exponentiation expressions
+ExpExpr
+        : UnaryExpr
+        | ExpExpr "^" UnaryExpr  << ast.Exp($0, $2) >>
+        ;
+
+UnaryExpr
+        : ParenExpr
+        | "-" ParenExpr   << ast.Negative($1) >>
+        | "!" UnaryExpr   << ast.Not($1) >>
+        ;
+
+ParenExpr
+        : Term
+        | "(" Expression ")"   << $1, nil >>
+        ;
+
+Term
+        : Literal
+        | Identifier
+        ;
+
+NullLiteral: "null"   << nil, nil >> ;
+
+BooleanLiteral
+        : "true"      << true, nil >>
+        | "false"     << false, nil >>
+        ;
+
+NumericLiteral
+        : intLit      << strconv.ParseInt(String($0), 0, 64) >>
+        | floatLit    << strconv.ParseFloat(String($0), 64) >>
+        ;
+
+StringLiteral
+        : doubleStringLit   << strconv.Unquote(String($0)) >>
+        | singleStringLit   << SingleUnquote(String($0)) >>
+        ;
+
+Literal
+        : NullLiteral       << ast.Literal($0) >>
+        | BooleanLiteral    << ast.Literal($0) >>
+        | NumericLiteral    << ast.Literal($0) >>
+        | StringLiteral     << ast.Literal($0) >>
+        ;
+
+ObjectKey:  symbol  << String($0), nil >> ;
+
+Identifier
+        : ObjectKey                  << ast.ObjectKey($0) >>
+        | Identifier "." ObjectKey   << ast.SelectKey($0.(ast.Expr), $2) >>
+        | Identifier "[" ValueExpr "]"    << ast.Index($0.(ast.Expr), $2.(ast.Expr)) >>
+        | Identifier ".[" ValueExpr "]"    << ast.Index($0.(ast.Expr), $2.(ast.Expr)) >>
+        ;
